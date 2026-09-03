@@ -1,6 +1,6 @@
 {
   "FolderOrderSettings":[],
   "ResourceOrderSettings":[
-    {"name":"test","order":1,"path":"objects/test/test.yy",},
+    {"name":"TEST","order":1,"path":"objects/TEST/TEST.yy",},
   ],
 }

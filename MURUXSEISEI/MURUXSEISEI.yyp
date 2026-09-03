@@ -19,7 +19,7 @@
   },
   "name":"MURUXSEISEI",
   "resources":[
-    {"id":{"name":"test","path":"objects/test/test.yy",},},
+    {"id":{"name":"TEST","path":"objects/TEST/TEST.yy",},},
     {"id":{"name":"Room1","path":"rooms/Room1/Room1.yy",},},
   ],
   "resourceType":"GMProject",
