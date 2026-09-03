@@ -1,5 +1,12 @@
 {
-  "FolderOrderSettings":[],
+  "FolderOrderSettings":[
+    {"name":"Fonts","order":6,"path":"folders/Fonts.yy",},
+    {"name":"Scripts","order":7,"path":"folders/Scripts.yy",},
+    {"name":"Objects","order":2,"path":"folders/Objects.yy",},
+    {"name":"Rooms","order":4,"path":"folders/Rooms.yy",},
+    {"name":"Sounds","order":5,"path":"folders/Sounds.yy",},
+    {"name":"Sprites","order":3,"path":"folders/Sprites.yy",},
+  ],
   "ResourceOrderSettings":[
     {"name":"TEST","order":1,"path":"objects/TEST/TEST.yy",},
   ],
