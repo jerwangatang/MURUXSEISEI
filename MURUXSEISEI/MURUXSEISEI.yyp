@@ -26,7 +26,11 @@
   },
   "name":"MURUXSEISEI",
   "resources":[
+    {"id":{"name":"obj_logo","path":"objects/obj_logo/obj_logo.yy",},},
+    {"id":{"name":"obj_titlescreen_bg","path":"objects/obj_titlescreen_bg/obj_titlescreen_bg.yy",},},
     {"id":{"name":"titlescreen","path":"rooms/titlescreen/titlescreen.yy",},},
+    {"id":{"name":"spr_logo","path":"sprites/spr_logo/spr_logo.yy",},},
+    {"id":{"name":"spr_titlescreen_bg","path":"sprites/spr_titlescreen_bg/spr_titlescreen_bg.yy",},},
   ],
   "resourceType":"GMProject",
   "resourceVersion":"2.0",

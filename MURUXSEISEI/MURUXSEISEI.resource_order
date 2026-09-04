@@ -7,5 +7,8 @@
     {"name":"Sounds","order":5,"path":"folders/Sounds.yy",},
     {"name":"Sprites","order":3,"path":"folders/Sprites.yy",},
   ],
-  "ResourceOrderSettings":[],
+  "ResourceOrderSettings":[
+    {"name":"obj_titlescreen_bg","order":1,"path":"objects/obj_titlescreen_bg/obj_titlescreen_bg.yy",},
+    {"name":"spr_titlescreen_bg","order":1,"path":"sprites/spr_titlescreen_bg/spr_titlescreen_bg.yy",},
+  ],
 }
