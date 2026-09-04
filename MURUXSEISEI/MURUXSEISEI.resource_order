@@ -1,13 +1,22 @@
 {
   "FolderOrderSettings":[
-    {"name":"Fonts","order":6,"path":"folders/Fonts.yy",},
-    {"name":"Scripts","order":7,"path":"folders/Scripts.yy",},
+    {"name":"Fonts","order":5,"path":"folders/Fonts.yy",},
+    {"name":"Tiles","order":7,"path":"folders/Tiles.yy",},
     {"name":"Objects","order":2,"path":"folders/Objects.yy",},
-    {"name":"Rooms","order":4,"path":"folders/Rooms.yy",},
-    {"name":"Sounds","order":5,"path":"folders/Sounds.yy",},
+    {"name":"Rooms","order":8,"path":"folders/Rooms.yy",},
+    {"name":"Scripts","order":6,"path":"folders/Scripts.yy",},
+    {"name":"Sounds","order":4,"path":"folders/Sounds.yy",},
     {"name":"Sprites","order":3,"path":"folders/Sprites.yy",},
   ],
   "ResourceOrderSettings":[
+    {"name":"obj_woodground","order":2,"path":"objects/obj_woodground/obj_woodground.yy",},
+    {"name":"obj","order":1,"path":"objects/obj/obj.yy",},
     {"name":"TEST","order":1,"path":"objects/TEST/TEST.yy",},
+    {"name":"room_school","order":4,"path":"rooms/room_school/room_school.yy",},
+    {"name":"room_town1","order":1,"path":"rooms/room_town1/room_town1.yy",},
+    {"name":"room_town2","order":2,"path":"rooms/room_town2/room_town2.yy",},
+    {"name":"room_town3","order":3,"path":"rooms/room_town3/room_town3.yy",},
+    {"name":"spr_woodground","order":1,"path":"sprites/spr_woodground/spr_woodground.yy",},
+    {"name":"tile_wood","order":1,"path":"tilesets/tile_wood/tile_wood.yy",},
   ],
 }
