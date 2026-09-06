@@ -8,7 +8,7 @@
     "children":[],
     "name":"Default",
   },
-  "defaultScriptType":0,
+  "defaultScriptType":1,
   "Folders":[
     {"$GMFolder":"","%Name":"Fonts","folderPath":"folders/Fonts.yy","name":"Fonts","resourceType":"GMFolder","resourceVersion":"2.0",},
     {"$GMFolder":"","%Name":"Objects","folderPath":"folders/Objects.yy","name":"Objects","resourceType":"GMFolder","resourceVersion":"2.0",},
@@ -27,8 +27,11 @@
   "name":"MURUXSEISEI",
   "resources":[
     {"id":{"name":"obj_logo","path":"objects/obj_logo/obj_logo.yy",},},
+    {"id":{"name":"obj_main_menu","path":"objects/obj_main_menu/obj_main_menu.yy",},},
     {"id":{"name":"obj_titlescreen_bg","path":"objects/obj_titlescreen_bg/obj_titlescreen_bg.yy",},},
     {"id":{"name":"titlescreen","path":"rooms/titlescreen/titlescreen.yy",},},
+    {"id":{"name":"snd_menu_move","path":"sounds/snd_menu_move/snd_menu_move.yy",},},
+    {"id":{"name":"snd_menu_select","path":"sounds/snd_menu_select/snd_menu_select.yy",},},
     {"id":{"name":"spr_logo","path":"sprites/spr_logo/spr_logo.yy",},},
     {"id":{"name":"spr_titlescreen_bg","path":"sprites/spr_titlescreen_bg/spr_titlescreen_bg.yy",},},
   ],
