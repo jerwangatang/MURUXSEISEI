@@ -12,6 +12,10 @@ draw_set_halign(fa_center);
 draw_set_valign(fa_middle);
 draw_set_colour(c_black);
 
+var _gui_center_x = display_get_gui_width() / 2;
+var _gui_center_y = display_get_gui_height() / 2;
+
+menu_x = _gui_center_x;
 
 // --------------------------------------------------
 // SUBMENU LAYOUT
