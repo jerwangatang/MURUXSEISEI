@@ -1,13 +1,13 @@
 {
   "$GMObject":"",
-  "%Name":"TEST",
+  "%Name":"obj_logo",
   "eventList":[],
   "managed":true,
-  "name":"TEST",
+  "name":"obj_logo",
   "overriddenProperties":[],
   "parent":{
-    "name":"MURUXSEISEI",
-    "path":"MURUXSEISEI.yyp",
+    "name":"Objects",
+    "path":"folders/Objects.yy",
   },
   "parentObjectId":null,
   "persistent":false,
@@ -27,7 +27,10 @@
   "resourceType":"GMObject",
   "resourceVersion":"2.0",
   "solid":false,
-  "spriteId":null,
+  "spriteId":{
+    "name":"spr_logo",
+    "path":"sprites/spr_logo/spr_logo.yy",
+  },
   "spriteMaskId":null,
   "visible":true,
 }
