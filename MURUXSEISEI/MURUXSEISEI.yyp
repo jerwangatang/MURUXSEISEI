@@ -8,15 +8,12 @@
     "children":[],
     "name":"Default",
   },
-  "defaultScriptType":0,
+  "defaultScriptType":1,
   "Folders":[
     {"$GMFolder":"","%Name":"Fonts","folderPath":"folders/Fonts.yy","name":"Fonts","resourceType":"GMFolder","resourceVersion":"2.0",},
-<<<<<<< HEAD
-=======
-    {"$GMFolder":"","%Name":"Scripts","folderPath":"folders/Scripts.yy","name":"Scripts","resourceType":"GMFolder","resourceVersion":"2.0",},
->>>>>>> parent of e729af2 (Floor + Couch)
     {"$GMFolder":"","%Name":"Objects","folderPath":"folders/Objects.yy","name":"Objects","resourceType":"GMFolder","resourceVersion":"2.0",},
     {"$GMFolder":"","%Name":"Rooms","folderPath":"folders/Rooms.yy","name":"Rooms","resourceType":"GMFolder","resourceVersion":"2.0",},
+    {"$GMFolder":"","%Name":"Scripts","folderPath":"folders/Scripts.yy","name":"Scripts","resourceType":"GMFolder","resourceVersion":"2.0",},
     {"$GMFolder":"","%Name":"Sounds","folderPath":"folders/Sounds.yy","name":"Sounds","resourceType":"GMFolder","resourceVersion":"2.0",},
     {"$GMFolder":"","%Name":"Sprites","folderPath":"folders/Sprites.yy","name":"Sprites","resourceType":"GMFolder","resourceVersion":"2.0",},
   ],
@@ -29,21 +26,19 @@
   },
   "name":"MURUXSEISEI",
   "resources":[
-<<<<<<< HEAD
+    {"id":{"name":"obj_logo","path":"objects/obj_logo/obj_logo.yy",},},
+    {"id":{"name":"obj_main_menu","path":"objects/obj_main_menu/obj_main_menu.yy",},},
+    {"id":{"name":"obj_titlescreen_bg","path":"objects/obj_titlescreen_bg/obj_titlescreen_bg.yy",},},
     {"id":{"name":"titlescreen","path":"rooms/titlescreen/titlescreen.yy",},},
-=======
-    {"id":{"name":"TEST","path":"objects/TEST/TEST.yy",},},
-    {"id":{"name":"Room1","path":"rooms/Room1/Room1.yy",},},
->>>>>>> parent of e729af2 (Floor + Couch)
+    {"id":{"name":"snd_menu_move","path":"sounds/snd_menu_move/snd_menu_move.yy",},},
+    {"id":{"name":"snd_menu_select","path":"sounds/snd_menu_select/snd_menu_select.yy",},},
+    {"id":{"name":"spr_logo","path":"sprites/spr_logo/spr_logo.yy",},},
+    {"id":{"name":"spr_titlescreen_bg","path":"sprites/spr_titlescreen_bg/spr_titlescreen_bg.yy",},},
   ],
   "resourceType":"GMProject",
   "resourceVersion":"2.0",
   "RoomOrderNodes":[
-<<<<<<< HEAD
     {"roomId":{"name":"titlescreen","path":"rooms/titlescreen/titlescreen.yy",},},
-=======
-    {"roomId":{"name":"Room1","path":"rooms/Room1/Room1.yy",},},
->>>>>>> parent of e729af2 (Floor + Couch)
   ],
   "templateType":"game",
   "TextureGroups":[
