@@ -11,7 +11,6 @@
     {"name":"obj_fade_transition","order":3,"path":"objects/obj_fade_transition/obj_fade_transition.yy",},
     {"name":"obj_main_menu","order":2,"path":"objects/obj_main_menu/obj_main_menu.yy",},
     {"name":"obj_titlescreen_bg","order":1,"path":"objects/obj_titlescreen_bg/obj_titlescreen_bg.yy",},
-    {"name":"rm_intro","order":1,"path":"rooms/rm_intro/rm_intro.yy",},
     {"name":"snd_menu_select","order":1,"path":"sounds/snd_menu_select/snd_menu_select.yy",},
     {"name":"spr_titlescreen_bg","order":1,"path":"sprites/spr_titlescreen_bg/spr_titlescreen_bg.yy",},
   ],
