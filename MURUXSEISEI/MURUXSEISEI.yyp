@@ -26,6 +26,7 @@
   },
   "name":"MURUXSEISEI",
   "resources":[
+    {"id":{"name":"o","path":"objects/o/o.yy",},},
     {"id":{"name":"obj_couch","path":"objects/obj_couch/obj_couch.yy",},},
     {"id":{"name":"obj_door","path":"objects/obj_door/obj_door.yy",},},
     {"id":{"name":"obj_kitchencounter","path":"objects/obj_kitchencounter/obj_kitchencounter.yy",},},
