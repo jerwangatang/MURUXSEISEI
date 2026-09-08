@@ -2,6 +2,12 @@
 // MAIN MENU - STEP EVENT
 // --------------------------------------------------
 
+// Disable menu controls during a transition
+if (instance_exists(obj_fade_transition))
+{
+    exit;
+}
+
 var old_selection = menu_selected;
 
 
@@ -65,9 +71,8 @@ if (menu_page == "main")
             // NEW GAME
             case 0:
             {
-                // Leave unfinished for now
-                show_debug_message("New Game");
-                break;
+                room_fade_to(rm_intro);
+				break;
             }
 
 
