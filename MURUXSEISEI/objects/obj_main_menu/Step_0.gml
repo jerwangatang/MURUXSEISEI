@@ -71,7 +71,7 @@ if (menu_page == "main")
             // NEW GAME
             case 0:
             {
-                room_fade_to(rm_intro);
+                room_fade_to(rm_muruhouse);
 				break;
             }
 
