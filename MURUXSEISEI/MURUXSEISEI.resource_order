@@ -22,6 +22,7 @@
     {"name":"obj_wincontroller","order":14,"path":"objects/obj_wincontroller/obj_wincontroller.yy",},
     {"name":"obj_woodfloor","order":1,"path":"objects/obj_woodfloor/obj_woodfloor.yy",},
     {"name":"obj_woodwall","order":6,"path":"objects/obj_woodwall/obj_woodwall.yy",},
+    {"name":"test","order":15,"path":"objects/test/test.yy",},
     {"name":"room_catchthefallingthoughts","order":3,"path":"rooms/room_catchthefallingthoughts/room_catchthefallingthoughts.yy",},
     {"name":"room_dreamscapet1","order":6,"path":"rooms/room_dreamscapet1/room_dreamscapet1.yy",},
     {"name":"room_loseminigame","order":5,"path":"rooms/room_loseminigame/room_loseminigame.yy",},

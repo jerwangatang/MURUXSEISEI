@@ -43,6 +43,7 @@
     {"id":{"name":"obj_wincontroller","path":"objects/obj_wincontroller/obj_wincontroller.yy",},},
     {"id":{"name":"obj_woodfloor","path":"objects/obj_woodfloor/obj_woodfloor.yy",},},
     {"id":{"name":"obj_woodwall","path":"objects/obj_woodwall/obj_woodwall.yy",},},
+    {"id":{"name":"test","path":"objects/test/test.yy",},},
     {"id":{"name":"room_catchthefallingthoughts","path":"rooms/room_catchthefallingthoughts/room_catchthefallingthoughts.yy",},},
     {"id":{"name":"room_dreamscapet1","path":"rooms/room_dreamscapet1/room_dreamscapet1.yy",},},
     {"id":{"name":"room_loseminigame","path":"rooms/room_loseminigame/room_loseminigame.yy",},},
