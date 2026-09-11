@@ -16,3 +16,13 @@ if (spawn_timer >= spawn_interval) {
         instance_create_layer(_rand_x, 0, "Instances", obj_laughing);
     }
 }
+
+
+if (score >= 10) {
+    room_goto(room_winminigame);
+}
+
+// Lose condition
+if (score < 0) {
+    room_goto(room_loseminigame);
+}
