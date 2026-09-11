@@ -177,24 +177,65 @@ else if (menu_page == "settings")
     }
 
 
-    // --------------------------------------------------
-    // SFX VOLUME
-    // --------------------------------------------------
+// --------------------------------------------------
+// SFX VOLUME
+// --------------------------------------------------
 
-    if (menu_selected == 1)
+if (menu_selected == 1)
+{
+    // Lower volume
+    if (keyboard_check_pressed(vk_left)
+    || keyboard_check_pressed(ord("A")))
     {
-        if (keyboard_check_pressed(vk_left)
-        || keyboard_check_pressed(ord("A")))
-        {
-            sfx_volume = max(0, sfx_volume - 10);
-        }
+        sfx_volume = max(0, sfx_volume - 10);
 
-        if (keyboard_check_pressed(vk_right)
-        || keyboard_check_pressed(ord("D")))
-        {
-            sfx_volume = min(100, sfx_volume + 10);
-        }
+        audio_sound_gain(
+            snd_menu_move,
+            sfx_volume / 100,
+            0
+        );
+
+        audio_sound_gain(
+            snd_menu_select,
+            sfx_volume / 100,
+            0
+        );
+
+        // Preview the new volume
+        audio_play_sound(
+            snd_menu_move,
+            1,
+            false
+        );
     }
+
+
+    // Raise volume
+    if (keyboard_check_pressed(vk_right)
+    || keyboard_check_pressed(ord("D")))
+    {
+        sfx_volume = min(100, sfx_volume + 10);
+
+        audio_sound_gain(
+            snd_menu_move,
+            sfx_volume / 100,
+            0
+        );
+
+        audio_sound_gain(
+            snd_menu_select,
+            sfx_volume / 100,
+            0
+        );
+
+        // Preview the new volume
+        audio_play_sound(
+            snd_menu_move,
+            1,
+            false
+        );
+    }
+}
 
 
     // --------------------------------------------------

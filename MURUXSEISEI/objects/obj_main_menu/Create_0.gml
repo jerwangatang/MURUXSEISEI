@@ -41,6 +41,8 @@ settings_items = [
 
 music_volume = 100;
 sfx_volume = 100;
+audio_sound_gain(snd_menu_move, sfx_volume / 100, 0);
+audio_sound_gain(snd_menu_select, sfx_volume / 100, 0);
 
 
 // --------------------------------------------------
