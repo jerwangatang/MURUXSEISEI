@@ -221,13 +221,13 @@ else if (menu_page == "help")
     draw_text(
         menu_x,
         submenu_start_y + submenu_spacing,
-        "E - interact with objects / NPCs"
+        "E - open inventory"
     );
 
     draw_text(
         menu_x,
         submenu_start_y + submenu_spacing * 2,
-        "Enter / Space - select / confirm"
+        "Enter / Space - select / confirm / interact"
     );
 
     draw_text(

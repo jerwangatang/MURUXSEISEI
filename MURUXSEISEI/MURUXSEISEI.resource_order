@@ -20,6 +20,7 @@
     {"name":"obj_main_menu","order":2,"path":"objects/obj_main_menu/obj_main_menu.yy",},
     {"name":"obj_muru2d","order":7,"path":"objects/obj_muru2d/obj_muru2d.yy",},
     {"name":"obj_muruhouse","order":15,"path":"objects/obj_muruhouse/obj_muruhouse.yy",},
+    {"name":"obj_pause_menu","order":16,"path":"objects/obj_pause_menu/obj_pause_menu.yy",},
     {"name":"obj_player","order":3,"path":"objects/obj_player/obj_player.yy",},
     {"name":"obj_sad","order":11,"path":"objects/obj_sad/obj_sad.yy",},
     {"name":"obj_titlescreen_bg","order":1,"path":"objects/obj_titlescreen_bg/obj_titlescreen_bg.yy",},
