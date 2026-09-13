@@ -6,7 +6,7 @@ function room_fade_to(_room)
         var _fade = instance_create_depth(
             0,
             0,
-            -100000,
+            -10000,
             obj_fade_transition
         );
 

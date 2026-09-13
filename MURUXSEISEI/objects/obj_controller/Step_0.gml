@@ -19,10 +19,10 @@ if (spawn_timer >= spawn_interval) {
 
 
 if (score >= 10) {
-    room_goto(room_winminigame);
+    room_fade_to(room_winminigame);
 }
 
 // Lose condition
 if (score < 0) {
-    room_goto(room_loseminigame);
+    room_fade_to(room_loseminigame);
 }
