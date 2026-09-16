@@ -3,7 +3,7 @@
 // ==================================================
 
 // Stop all player movement while paused
-if (global.game_paused)
+if (global.game_paused || global.dialogue_active)
 {
     exit;
 }

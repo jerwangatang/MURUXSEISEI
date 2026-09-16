@@ -1,8 +1,19 @@
-# Ignore .yy files for language statistics
-*.yy linguist-generated=true
- 
-# force LF for metadata files for merge simplicity
+# Use LF line endings for text files on all platforms
+* text=auto eol=lf
+
+# GameMaker text/project files
 *.gml text eol=lf
-*.yy text eol=lf
+*.yy text eol=lf linguist-generated=true
 *.yyp text eol=lf
 *.json text eol=lf
+
+# Binary files - never modify line endings
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.wav binary
+*.ogg binary
+*.mp3 binary
+*.ttf binary
+*.otf binary

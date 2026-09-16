@@ -1,4 +1,20 @@
 // ==================================================
+// GLOBAL GAME STATES
+// ==================================================
+
+global.game_paused = false;
+
+if (!variable_global_exists("dialogue_active"))
+{
+    global.dialogue_active = false;
+}
+
+if (!variable_global_exists("interact_blocked"))
+{
+    global.interact_blocked = false;
+}
+
+// ==================================================
 // PAUSE MENU - CREATE
 // ==================================================
 
@@ -55,6 +71,10 @@ if (!variable_global_exists("sfx_volume"))
     global.sfx_volume = 100;
 }
 
+if (!variable_global_exists("dialogue_active"))
+{
+    global.dialogue_active = false;
+}
 
 // --------------------------------------------------
 // LAYOUT
