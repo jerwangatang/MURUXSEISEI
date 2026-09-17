@@ -2,7 +2,7 @@
 // PLAYER - STEP EVENT
 // ==================================================
 
-// Stop all player movement while paused
+// Stop movement while paused or talking
 if (global.game_paused || global.dialogue_active)
 {
     exit;
@@ -10,7 +10,7 @@ if (global.game_paused || global.dialogue_active)
 
 
 // --------------------------------------------------
-// MOVEMENT INPUT
+// INPUT
 // --------------------------------------------------
 
 var _move_x =
@@ -21,8 +21,6 @@ var _move_y =
     keyboard_check(ord("S"))
     - keyboard_check(ord("W"));
 
-
-// Also support arrow keys
 _move_x +=
     keyboard_check(vk_right)
     - keyboard_check(vk_left);
@@ -33,33 +31,56 @@ _move_y +=
 
 
 // --------------------------------------------------
-// MOVEMENT SPEED
+// SPEED
 // --------------------------------------------------
 
-var _move_speed = 2;
+var _speed = 2;
 
 
 // --------------------------------------------------
-// PREVENT FASTER DIAGONAL MOVEMENT
+// NORMALISE DIAGONAL MOVEMENT
 // --------------------------------------------------
 
 if (_move_x != 0 || _move_y != 0)
 {
-    var _length = point_distance(
+    var _len = point_distance(
         0,
         0,
         _move_x,
         _move_y
     );
 
-    _move_x /= _length;
-    _move_y /= _length;
+    _move_x /= _len;
+    _move_y /= _len;
+}
+
+_move_x *= _speed;
+_move_y *= _speed;
+
+
+// --------------------------------------------------
+// HORIZONTAL COLLISION
+// --------------------------------------------------
+
+if (!place_meeting(
+    x + _move_x,
+    y,
+    obj_solid
+))
+{
+    x += _move_x;
 }
 
 
 // --------------------------------------------------
-// MOVE PLAYER
+// VERTICAL COLLISION
 // --------------------------------------------------
 
-x += _move_x * _move_speed;
-y += _move_y * _move_speed;
+if (!place_meeting(
+    x,
+    y + _move_y,
+    obj_solid
+))
+{
+    y += _move_y;
+}
