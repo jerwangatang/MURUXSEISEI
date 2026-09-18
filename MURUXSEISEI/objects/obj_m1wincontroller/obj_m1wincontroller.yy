@@ -9,8 +9,8 @@
   "name":"obj_m1wincontroller",
   "overriddenProperties":[],
   "parent":{
-    "name":"Objects",
-    "path":"folders/Objects.yy",
+    "name":"minigame1",
+    "path":"folders/Objects/Town 1/minigame1.yy",
   },
   "parentObjectId":null,
   "persistent":false,

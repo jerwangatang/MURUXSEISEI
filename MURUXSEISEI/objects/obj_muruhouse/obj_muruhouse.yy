@@ -6,8 +6,8 @@
   "name":"obj_muruhouse",
   "overriddenProperties":[],
   "parent":{
-    "name":"Objects",
-    "path":"folders/Objects.yy",
+    "name":"Town 1",
+    "path":"folders/Objects/Town 1.yy",
   },
   "parentObjectId":null,
   "persistent":false,
