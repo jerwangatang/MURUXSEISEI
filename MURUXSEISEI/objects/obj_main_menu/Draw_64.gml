@@ -120,7 +120,7 @@ else if (menu_page == "settings")
         {
             text =
                 "music volume   < "
-                + string(music_volume)
+                + string(global.music_volume)
                 + "% >";
         }
 

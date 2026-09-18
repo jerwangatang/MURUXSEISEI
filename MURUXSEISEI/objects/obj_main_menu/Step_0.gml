@@ -157,24 +157,41 @@ else if (menu_page == "settings")
     }
 
 
-    // --------------------------------------------------
-    // MUSIC VOLUME
-    // --------------------------------------------------
+// --------------------------------------------------
+// MUSIC VOLUME
+// --------------------------------------------------
 
-    if (menu_selected == 0)
+if (menu_selected == 0)
+{
+    // Lower
+    if (keyboard_check_pressed(vk_left)
+    || keyboard_check_pressed(ord("A")))
     {
-        if (keyboard_check_pressed(vk_left)
-        || keyboard_check_pressed(ord("A")))
-        {
-            music_volume = max(0, music_volume - 10);
-        }
+        global.music_volume =
+            max(0, global.music_volume - 10);
 
-        if (keyboard_check_pressed(vk_right)
-        || keyboard_check_pressed(ord("D")))
-        {
-            music_volume = min(100, music_volume + 10);
-        }
+        audio_sound_gain(
+            snd_title_music,
+            global.music_volume / 100,
+            0
+        );
     }
+
+
+    // Raise
+    if (keyboard_check_pressed(vk_right)
+    || keyboard_check_pressed(ord("D")))
+    {
+        global.music_volume =
+            min(100, global.music_volume + 10);
+
+        audio_sound_gain(
+            snd_title_music,
+            global.music_volume / 100,
+            0
+        );
+    }
+}
 
 
 // --------------------------------------------------
