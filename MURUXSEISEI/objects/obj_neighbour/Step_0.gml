@@ -2,9 +2,12 @@
 // NEIGHBOUR - STEP EVENT
 // ==================================================
 
+// Reset interaction indicator
+can_interact = false;
+
 
 // --------------------------------------------------
-// PAUSE
+// PAUSE CHECK
 // --------------------------------------------------
 
 if (global.game_paused)
@@ -14,7 +17,7 @@ if (global.game_paused)
 
 
 // --------------------------------------------------
-// WAIT FOR ENTER TO BE RELEASED
+// ENTER RELEASE CHECK
 // --------------------------------------------------
 
 if (global.interact_blocked)
@@ -29,7 +32,7 @@ if (global.interact_blocked)
 
 
 // --------------------------------------------------
-// ALREADY IN DIALOGUE
+// DIALOGUE CHECK
 // --------------------------------------------------
 
 if (global.dialogue_active)
@@ -39,24 +42,40 @@ if (global.dialogue_active)
 
 
 // --------------------------------------------------
-// NPC INTERACTION
+// PLAYER CHECK
 // --------------------------------------------------
 
-if (instance_exists(obj_player))
+if (!instance_exists(obj_player))
 {
-    var _player = instance_find(obj_player, 0);
+    exit;
+}
 
-    var _near =
-        _player.bbox_right  >= bbox_left  - 1 &&
-        _player.bbox_left   <= bbox_right + 1 &&
-        _player.bbox_bottom >= bbox_top   - 1 &&
-        _player.bbox_top    <= bbox_bottom + 1;
+var _player = instance_find(obj_player, 0);
 
-    if (_near)
+
+// --------------------------------------------------
+// SURROUNDING INTERACTION AREA
+// --------------------------------------------------
+
+var _near =
+    _player.bbox_right >= bbox_left - interaction_margin &&
+    _player.bbox_left <= bbox_right + interaction_margin &&
+    _player.bbox_bottom >= bbox_top - interaction_margin &&
+    _player.bbox_top <= bbox_bottom + interaction_margin;
+
+
+// --------------------------------------------------
+// INTERACTION
+// --------------------------------------------------
+
+if (_near)
+{
+    // Show interaction star
+    can_interact = true;
+
+    // Enter to interact
+    if (keyboard_check_pressed(vk_enter))
     {
-        if (keyboard_check_pressed(vk_enter))
-        {
-            dialogue_start(dialogue_lines);
-        }
+        dialogue_start(dialogue_lines);
     }
 }

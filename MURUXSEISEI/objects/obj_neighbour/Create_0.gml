@@ -1,3 +1,11 @@
+// ==================================================
+// INTERACTION SETTINGS
+// ==================================================
+
+interaction_margin = 20;
+
+can_interact = false;
+
 interact_distance = 50;
 
 
