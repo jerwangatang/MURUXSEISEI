@@ -26,11 +26,11 @@
   "properties":[],
   "resourceType":"GMObject",
   "resourceVersion":"2.0",
-  "solid":false,
+  "solid":true,
   "spriteId":{
     "name":"spr_muruhouse",
     "path":"sprites/spr_muruhouse/spr_muruhouse.yy",
   },
   "spriteMaskId":null,
-  "visible":true,
+  "visible":false,
 }

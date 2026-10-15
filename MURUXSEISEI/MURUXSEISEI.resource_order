@@ -65,6 +65,7 @@
     {"name":"spr_player","order":3,"path":"sprites/spr_player/spr_player.yy",},
     {"name":"spr_sad","order":10,"path":"sprites/spr_sad/spr_sad.yy",},
     {"name":"spr_titlescreen_bg","order":1,"path":"sprites/spr_titlescreen_bg/spr_titlescreen_bg.yy",},
+    {"name":"spr_town1","order":20,"path":"sprites/spr_town1/spr_town1.yy",},
     {"name":"spr_tv","order":6,"path":"sprites/spr_tv/spr_tv.yy",},
     {"name":"spr_woodfloor","order":2,"path":"sprites/spr_woodfloor/spr_woodfloor.yy",},
     {"name":"spr_woodwall","order":7,"path":"sprites/spr_woodwall/spr_woodwall.yy",},

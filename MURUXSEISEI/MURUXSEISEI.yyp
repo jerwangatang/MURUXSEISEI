@@ -94,6 +94,7 @@
     {"id":{"name":"spr_player","path":"sprites/spr_player/spr_player.yy",},},
     {"id":{"name":"spr_sad","path":"sprites/spr_sad/spr_sad.yy",},},
     {"id":{"name":"spr_titlescreen_bg","path":"sprites/spr_titlescreen_bg/spr_titlescreen_bg.yy",},},
+    {"id":{"name":"spr_town1","path":"sprites/spr_town1/spr_town1.yy",},},
     {"id":{"name":"spr_tv","path":"sprites/spr_tv/spr_tv.yy",},},
     {"id":{"name":"spr_woodfloor","path":"sprites/spr_woodfloor/spr_woodfloor.yy",},},
     {"id":{"name":"spr_woodwall","path":"sprites/spr_woodwall/spr_woodwall.yy",},},
