@@ -37,7 +37,7 @@
     {"name":"room_catchthefallingthoughts","order":3,"path":"rooms/room_catchthefallingthoughts/room_catchthefallingthoughts.yy",},
     {"name":"room_dreamscapet1","order":6,"path":"rooms/room_dreamscapet1/room_dreamscapet1.yy",},
     {"name":"room_loseminigame","order":5,"path":"rooms/room_loseminigame/room_loseminigame.yy",},
-    {"name":"room_muruhouse","order":1,"path":"rooms/room_muruhouse/room_muruhouse.yy",},
+    {"name":"room_muruhouse_1","order":7,"path":"rooms/room_muruhouse_1/room_muruhouse_1.yy",},
     {"name":"room_town1","order":2,"path":"rooms/room_town1/room_town1.yy",},
     {"name":"room_winminigame","order":4,"path":"rooms/room_winminigame/room_winminigame.yy",},
     {"name":"draw_interaction_star","order":2,"path":"scripts/draw_interaction_star/draw_interaction_star.yy",},
