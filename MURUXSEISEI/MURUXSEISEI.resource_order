@@ -17,7 +17,6 @@
   "ResourceOrderSettings":[
     {"name":"obj_angry","order":9,"path":"objects/obj_angry/obj_angry.yy",},
     {"name":"obj_balloon","order":1,"path":"objects/obj_balloon/obj_balloon.yy",},
-    {"name":"obj_controller","order":8,"path":"objects/obj_controller/obj_controller.yy",},
     {"name":"obj_couch","order":3,"path":"objects/obj_couch/obj_couch.yy",},
     {"name":"obj_dialogue","order":17,"path":"objects/obj_dialogue/obj_dialogue.yy",},
     {"name":"obj_door","order":5,"path":"objects/obj_door/obj_door.yy",},
@@ -45,7 +44,6 @@
     {"name":"obj_title_music","order":20,"path":"objects/obj_title_music/obj_title_music.yy",},
     {"name":"obj_titlescreen_bg","order":3,"path":"objects/obj_titlescreen_bg/obj_titlescreen_bg.yy",},
     {"name":"obj_wall_collision","order":22,"path":"objects/obj_wall_collision/obj_wall_collision.yy",},
-    {"name":"obj_wincontroller","order":14,"path":"objects/obj_wincontroller/obj_wincontroller.yy",},
     {"name":"obj_woodfloor","order":5,"path":"objects/obj_woodfloor/obj_woodfloor.yy",},
     {"name":"obj_woodwall","order":6,"path":"objects/obj_woodwall/obj_woodwall.yy",},
     {"name":"room_arcade1","order":7,"path":"rooms/room_arcade1/room_arcade1.yy",},
