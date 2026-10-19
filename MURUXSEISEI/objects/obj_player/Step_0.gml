@@ -84,3 +84,33 @@ if (!place_meeting(
 {
     y += _move_y;
 }
+
+// Horizontal movement
+if (keyboard_check(ord("D"))) {
+    if (!place_meeting(x + move_spd, y, obj_solid)) {
+        x += move_spd;
+    }
+    facing = 1;
+    image_xscale = 1;
+}
+
+if (keyboard_check(ord("A"))) {
+    if (!place_meeting(x - move_spd, y, obj_solid)) {
+        x -= move_spd;
+    }
+    facing = -1;
+    image_xscale = -1;
+}
+
+// Vertical movement (if you have W/S or up/down)
+if (keyboard_check(ord("W"))) {
+    if (!place_meeting(x, y - move_spd, obj_solid)) {
+        y -= move_spd;
+    }
+}
+
+if (keyboard_check(ord("S"))) {
+    if (!place_meeting(x, y + move_spd, obj_solid)) {
+        y += move_spd;
+    }
+}
