@@ -6,8 +6,8 @@
   "name":"obj_muruhouse",
   "overriddenProperties":[],
   "parent":{
-    "name":"Objects",
-    "path":"folders/Objects.yy",
+    "name":"Town 1",
+    "path":"folders/Objects/Town 1.yy",
   },
   "parentObjectId":null,
   "persistent":false,
@@ -26,8 +26,11 @@
   "properties":[],
   "resourceType":"GMObject",
   "resourceVersion":"2.0",
-  "solid":false,
-  "spriteId":null,
+  "solid":true,
+  "spriteId":{
+    "name":"spr_muruhouse",
+    "path":"sprites/spr_muruhouse/spr_muruhouse.yy",
+  },
   "spriteMaskId":null,
-  "visible":true,
+  "visible":false,
 }

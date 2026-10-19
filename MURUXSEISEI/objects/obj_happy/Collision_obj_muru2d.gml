@@ -1,2 +1,2 @@
-score += score_value;
+score += 1;
 instance_destroy();

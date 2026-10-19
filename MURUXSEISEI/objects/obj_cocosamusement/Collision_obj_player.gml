@@ -1,0 +1,1 @@
+room_fade_to(room_arcade1);

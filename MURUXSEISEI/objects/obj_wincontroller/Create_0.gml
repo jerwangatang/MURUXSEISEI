@@ -1,1 +1,0 @@
-return_timer = room_speed * 3; // 3 seconds worth of frames

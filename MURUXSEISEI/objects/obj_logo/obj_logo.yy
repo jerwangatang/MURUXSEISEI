@@ -6,8 +6,8 @@
   "name":"obj_logo",
   "overriddenProperties":[],
   "parent":{
-    "name":"Objects",
-    "path":"folders/Objects.yy",
+    "name":"Titlescreen",
+    "path":"folders/Objects/Titlescreen.yy",
   },
   "parentObjectId":null,
   "persistent":false,

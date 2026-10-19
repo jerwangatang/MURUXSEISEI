@@ -11,8 +11,8 @@
   "name":"obj_door",
   "overriddenProperties":[],
   "parent":{
-    "name":"Objects",
-    "path":"folders/Objects.yy",
+    "name":"Background Tiles",
+    "path":"folders/Objects/Background Tiles.yy",
   },
   "parentObjectId":null,
   "persistent":false,
