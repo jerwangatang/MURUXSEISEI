@@ -11,7 +11,6 @@ array_push(days, {
         {name: "Do half of the homework", done: false},
         {name: "Explore all of the houses in the town", done: false},
         {name: "Feed the birds", done: false},
-        {name: "Explore the forest", done: false}
     ]
 });
 
@@ -21,9 +20,8 @@ array_push(days, {
         {name: "Talk to your neighbour", done: false},
         {name: "Play one minigame in Coco's Amusement", done: false},
         {name: "Finish the tutoring homework", done: false},
-        {name: "Go fishing near old man's hut", done: false},
-        {name: "Talk to old man", done: false},
-        {name: "Make dinner for your family", done: false}
+        {name: "Go fishing", done: false},
+        {name: "Make dinner for your family", done: false},
     ]
 });
 
@@ -35,9 +33,8 @@ array_push(days, {
         {name: "Go to school", done: false},
         {name: "Talk to someone", done: false},
         {name: "Play games in Clockzone", done: false},
-        {name: "Explore the new town", done: false},
         {name: "Go fishing in the pond", done: false},
-        {name: "Finish homework", done: false}
+        {name: "Finish homework", done: false},
     ]
 });
 
@@ -49,7 +46,7 @@ array_push(days, {
         {name: "Try make a friend", done: false},
         {name: "Attend the basketball game", done: false},
         {name: "Go to Clockzone or Coco's Amusement", done: false},
-        {name: "Try to get Lebron's signature", done: false}
+        {name: "Try to get Lebron's signature", done: false},
     ]
 });
 
@@ -63,7 +60,7 @@ array_push(days, {
         {name: "Grab some food", done: false},
         {name: "Visit the barber", done: false},
         {name: "Play pool in Townheroes", done: false},
-        {name: "Make dinner for family", done: false}
+        {name: "Make dinner for family", done: false},
     ]
 });
 
@@ -75,7 +72,7 @@ array_push(days, {
         {name: "Try to make a friend", done: false},
         {name: "Go to play at Town Heroes again", done: false},
         {name: "Explore Folk Valley's forest", done: false},
-        {name: "Make dinner for family", done: false}
+        {name: "Make dinner for family", done: false},
     ]
 });
 
@@ -84,11 +81,9 @@ array_push(days, {
     quests: [
         {name: "Go to the forest again", done: false},
         {name: "Fish at the pond", done: false},
-        {name: "Look inside the old man's hut", done: false},
-        {name: "Help the old man", done: false},
         {name: "Go home", done: false},
         {name: "Watch TV", done: false},
-        {name: "Prepare for tomorrow", done: false}
+        {name: "Prepare for tomorrow", done: false},
     ]
 });
 

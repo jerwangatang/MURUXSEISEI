@@ -1,9 +1,9 @@
 {
   "$GMScript":"v1",
-  "%Name":"scr_comeplete_quest",
+  "%Name":"scr_complete_quest",
   "isCompatibility":false,
   "isDnD":false,
-  "name":"scr_comeplete_quest",
+  "name":"scr_complete_quest",
   "parent":{
     "name":"Scripts",
     "path":"folders/Scripts.yy",

@@ -1,5 +1,3 @@
-
-
 if (!visible_hotbar) exit;
 
 // Convert player world position to GUI position

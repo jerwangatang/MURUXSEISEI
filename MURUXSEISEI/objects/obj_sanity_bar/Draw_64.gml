@@ -1,3 +1,9 @@
+// Don't show HUD on title screen
+if (room == room_titlescreen)
+{
+    exit;
+}
+
 // ==================================================
 // SANITY BAR - DRAW GUI
 // ==================================================
