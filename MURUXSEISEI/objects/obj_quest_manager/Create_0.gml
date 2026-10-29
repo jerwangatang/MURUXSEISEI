@@ -1,95 +1,356 @@
+// ==================================================
+// QUEST MANAGER - CREATE
+// ==================================================
+
 current_day_index = 0;
 
 days = [];
 
-// TOWN 1
+
+// ==================================================
+// MISERDAY - TOWN 1
+// ==================================================
+
 array_push(days, {
     day_name: "Miserday",
+
     quests: [
-        {name: "Play one minigame in Coco's Amusement", done: false},
-        {name: "Finish tutoring with your tutor", done: false},
-        {name: "Do half of the homework", done: false},
-        {name: "Explore all of the houses in the town", done: false},
-        {name: "Feed the birds", done: false},
+        {
+            id: "cocos_minigame",
+            name: "Play at Coco's Amusement",
+            done: false
+        },
+
+        {
+            id: "tutoring",
+            name: "Finish tutoring",
+            done: false
+        },
+
+        {
+            id: "homework_half",
+            name: "Do half of the homework",
+            done: false
+        },
+
+        {
+            id: "explore_houses",
+            name: "Explore the town buildings",
+            done: false
+        },
+
+        {
+            id: "feed_birds",
+            name: "Feed the birds",
+            done: false
+        }
     ]
 });
+
+
+// ==================================================
+// TERRIBLEDAY - TOWN 1
+// ==================================================
 
 array_push(days, {
     day_name: "Terribleday",
+
     quests: [
-        {name: "Talk to your neighbour", done: false},
-        {name: "Play one minigame in Coco's Amusement", done: false},
-        {name: "Finish the tutoring homework", done: false},
-        {name: "Go fishing", done: false},
-        {name: "Make dinner for your family", done: false},
+        {
+            id: "talk_neighbour",
+            name: "Talk to neighbour",
+            done: false
+        },
+
+        {
+            id: "cocos_minigame_day2",
+            name: "Play at Coco's Amusement",
+            done: false
+        },
+
+        {
+            id: "finish_tutor_homework",
+            name: "Finish the tutoring homework",
+            done: false
+        },
+
+        {
+            id: "make_dinner_day2",
+            name: "Make dinner for your family",
+            done: false
+        }
     ]
 });
 
-// TOWN 2
+
+// ==================================================
+// WEEPDAY - TOWN 2
+// ==================================================
+
 array_push(days, {
     day_name: "Weepday",
+
     quests: [
-        {name: "Say sorry about news to tutor", done: false},
-        {name: "Go to school", done: false},
-        {name: "Talk to someone", done: false},
-        {name: "Play games in Clockzone", done: false},
-        {name: "Go fishing in the pond", done: false},
-        {name: "Finish homework", done: false},
+        {
+            id: "apologise_tutor",
+            name: "Say sorry about news to tutor",
+            done: false
+        },
+
+        {
+            id: "school_day3",
+            name: "Go to school",
+            done: false
+        },
+
+        {
+            id: "talk_someone_day3",
+            name: "Talk to someone",
+            done: false
+        },
+
+        {
+            id: "clockzone_games",
+            name: "Play games in Clockzone",
+            done: false
+        },
+
+        {
+            id: "explore_town2",
+            name: "Explore the new town",
+            done: false
+        },
+
+        {
+            id: "fishing_pond_day3",
+            name: "Go fishing in the pond",
+            done: false
+        },
+
+        {
+            id: "finish_homework_day3",
+            name: "Finish homework",
+            done: false
+        }
     ]
 });
+
+
+// ==================================================
+// THROBDAY - TOWN 2
+// ==================================================
 
 array_push(days, {
     day_name: "Throbday",
+
     quests: [
-        {name: "Talk to two neighbours", done: false},
-        {name: "Go to school", done: false},
-        {name: "Try make a friend", done: false},
-        {name: "Attend the basketball game", done: false},
-        {name: "Go to Clockzone or Coco's Amusement", done: false},
-        {name: "Try to get Lebron's signature", done: false},
+        {
+            id: "talk_two_neighbours",
+            name: "Talk to two neighbours",
+            done: false
+        },
+
+        {
+            id: "school_day4",
+            name: "Go to school",
+            done: false
+        },
+
+        {
+            id: "make_friend_day4",
+            name: "Try make a friend",
+            done: false
+        },
+
+        {
+            id: "basketball_game",
+            name: "Attend the basketball game",
+            done: false
+        },
+
+        {
+            id: "arcade_day4",
+            name: "Go to Clockzone/Coco's Amusement",
+            done: false
+        },
+
+        {
+            id: "lebron_signature",
+            name: "Try to get Lebron's signature",
+            done: false
+        }
     ]
 });
 
-// TOWN 3 - FOLK VALLEY
+
+// ==================================================
+// FOLKDAY - TOWN 3
+// ==================================================
+
 array_push(days, {
     day_name: "Folkday",
+
     quests: [
-        {name: "Explore Folk Valley", done: false},
-        {name: "Feed pigeons at the run down park", done: false},
-        {name: "Go to school", done: false},
-        {name: "Grab some food", done: false},
-        {name: "Visit the barber", done: false},
-        {name: "Play pool in Townheroes", done: false},
-        {name: "Make dinner for family", done: false},
+        {
+            id: "explore_folk_valley",
+            name: "Explore Folk Valley",
+            done: false
+        },
+
+        {
+            id: "feed_pigeons",
+            name: "Feed pigeons at the run down park",
+            done: false
+        },
+
+        {
+            id: "school_day5",
+            name: "Go to school",
+            done: false
+        },
+
+        {
+            id: "grab_food_day5",
+            name: "Grab some food",
+            done: false
+        },
+
+        {
+            id: "visit_barber",
+            name: "Visit the barber",
+            done: false
+        },
+
+        {
+            id: "townheroes_pool",
+            name: "Play pool in Townheroes",
+            done: false
+        },
+
+        {
+            id: "make_dinner_day5",
+            name: "Make dinner for family",
+            done: false
+        }
     ]
 });
+
+
+// ==================================================
+// SATIREDAY - TOWN 3
+// ==================================================
 
 array_push(days, {
     day_name: "Satireday",
+
     quests: [
-        {name: "Pay respects at cemetery", done: false},
-        {name: "Go to the pond to go fishing", done: false},
-        {name: "Try to make a friend", done: false},
-        {name: "Go to play at Town Heroes again", done: false},
-        {name: "Explore Folk Valley's forest", done: false},
-        {name: "Make dinner for family", done: false},
+        {
+            id: "cemetery_respects",
+            name: "Pay respects at cemetery",
+            done: false
+        },
+
+        {
+            id: "pond_fishing_day6",
+            name: "Go to the pond to go fishing",
+            done: false
+        },
+
+        {
+            id: "make_friend_day6",
+            name: "Try to make a friend",
+            done: false
+        },
+
+        {
+            id: "townheroes_day6",
+            name: "Go to play at Town Heroes again",
+            done: false
+        },
+
+        {
+            id: "make_dinner_day6",
+            name: "Make dinner for family",
+            done: false
+        }
     ]
 });
+
+
+// ==================================================
+// SONDAY - TOWN 3
+// ==================================================
 
 array_push(days, {
     day_name: "Sonday",
+
     quests: [
-        {name: "Go to the forest again", done: false},
-        {name: "Fish at the pond", done: false},
-        {name: "Go home", done: false},
-        {name: "Watch TV", done: false},
-        {name: "Prepare for tomorrow", done: false},
+        {
+            id: "fish_day7",
+            name: "Fish at the pond",
+            done: false
+        },
+
+        {
+            id: "go_home_day7",
+            name: "Go home",
+            done: false
+        },
+
+        {
+            id: "watch_tv_day7",
+            name: "Watch TV",
+            done: false
+        },
+
+        {
+            id: "prepare_tomorrow",
+            name: "Prepare for tomorrow",
+            done: false
+        }
     ]
 });
 
+
+// ==================================================
+// MOTIVEDAY
+// ==================================================
+
 array_push(days, {
     day_name: "Motiveday",
+
     quests: [
-        {name: "Ask out your crush", done: false}
+        {
+            id: "ask_crush",
+            name: "Ask out your crush",
+            done: false
+        }
     ]
 });
+
+
+// ==================================================
+// MISERDAY - HOMEWORK PROGRESS
+// ==================================================
+
+homework_progress = 0;
+homework_total = 4;
+
+
+// ==================================================
+// MISERDAY - HOUSE EXPLORATION
+// ==================================================
+
+// Muru begins in her own house, so that one starts visited.
+
+house_ids = [
+    "muru",
+    "neighbour",
+    "tutor"
+];
+
+house_visited = [
+    true,
+    false,
+    false
+];

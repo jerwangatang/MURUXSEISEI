@@ -1,5 +1,9 @@
+// ==================================================
+// QUEST MANAGER - STEP
+// ==================================================
+
 // DEBUG ONLY:
-// Press 0 to complete every quest for the current day
+// Press 0 to complete every quest for the current day.
 
 if (keyboard_check_pressed(ord("0")))
 {
@@ -11,6 +15,7 @@ if (keyboard_check_pressed(ord("0")))
     }
 
     show_debug_message(
-        "DEBUG: All quests completed for " + _day.day_name
+        "DEBUG: All quests completed for "
+        + _day.day_name
     );
 }

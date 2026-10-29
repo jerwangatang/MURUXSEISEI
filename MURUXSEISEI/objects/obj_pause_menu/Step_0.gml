@@ -1,4 +1,21 @@
 // ==================================================
+// MAKE SURE GAMEPLAY MANAGERS EXIST
+// ==================================================
+
+if (room != room_titlescreen)
+{
+    if (!instance_exists(obj_pause_menu))
+    {
+        instance_create_depth(
+            0,
+            0,
+            -10000,
+            obj_pause_menu
+        );
+    }
+}
+
+// ==================================================
 // PAUSE MENU - STEP
 // ==================================================
 

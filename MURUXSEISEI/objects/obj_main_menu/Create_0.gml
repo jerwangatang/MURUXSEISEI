@@ -14,8 +14,7 @@ menu_selected = 0;
 // --------------------------------------------------
 
 main_items = [
-    "new game",
-    "continue",
+    "play",
     "settings",
     "help",
     "credits",
@@ -72,3 +71,28 @@ has_save = false;
 quit_selected = 1;
 // 0 = yes
 // 1 = no
+
+// ==================================================
+// SAVE SLOT MENU
+// ==================================================
+
+save_selected = 0;
+
+save_info = [
+    scr_get_save_info(1),
+    scr_get_save_info(2),
+    scr_get_save_info(3)
+];
+
+
+refresh_save_slots = function()
+{
+    save_info[0] =
+        scr_get_save_info(1);
+
+    save_info[1] =
+        scr_get_save_info(2);
+
+    save_info[2] =
+        scr_get_save_info(3);
+};

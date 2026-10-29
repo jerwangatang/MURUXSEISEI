@@ -1,4 +1,283 @@
 // ==================================================
+// SAVE FILE SCREEN
+// ==================================================
+
+if (menu_page == "saves")
+{
+    var _gui_w =
+        display_get_gui_width();
+
+    var _gui_h =
+        display_get_gui_height();
+
+
+    // --------------------------------------------------
+    // DIM TITLE BACKGROUND
+    // --------------------------------------------------
+
+    draw_set_color(c_black);
+    draw_set_alpha(0.75);
+
+    draw_rectangle(
+        0,
+        0,
+        _gui_w,
+        _gui_h,
+        false
+    );
+
+    draw_set_alpha(1);
+
+
+    // --------------------------------------------------
+    // LAYOUT
+    // --------------------------------------------------
+
+    var _box_w =
+        min(760, _gui_w - 80);
+
+    var _box_h = 120;
+
+    var _gap = 16;
+
+    var _x =
+        (_gui_w - _box_w) / 2;
+
+    var _start_y = 120;
+
+
+    // --------------------------------------------------
+    // TITLE
+    // --------------------------------------------------
+
+    draw_set_halign(fa_center);
+    draw_set_valign(fa_middle);
+
+    draw_set_color(c_white);
+
+    draw_text(
+        _gui_w / 2,
+        70,
+        "SELECT FILE"
+    );
+
+
+    // ==================================================
+    // DRAW THREE SAVE FILES
+    // ==================================================
+
+    for (var i = 0; i < 3; i++)
+    {
+        var _y =
+            _start_y
+            + i * (_box_h + _gap);
+
+
+        var _selected =
+            (i == save_selected);
+
+
+        // ----------------------------------------------
+        // BOX BACKGROUND
+        // ----------------------------------------------
+
+        draw_set_color(c_black);
+
+        draw_rectangle(
+            _x,
+            _y,
+            _x + _box_w,
+            _y + _box_h,
+            false
+        );
+
+
+        // ----------------------------------------------
+        // BORDER
+        // ----------------------------------------------
+
+        if (_selected)
+        {
+            draw_set_color(c_white);
+        }
+        else
+        {
+            draw_set_color(
+                make_color_rgb(
+                    120,
+                    120,
+                    120
+                )
+            );
+        }
+
+
+        draw_rectangle(
+            _x,
+            _y,
+            _x + _box_w,
+            _y + _box_h,
+            true
+        );
+
+
+        // Second border when selected
+        if (_selected)
+        {
+            draw_rectangle(
+                _x + 3,
+                _y + 3,
+                _x + _box_w - 3,
+                _y + _box_h - 3,
+                true
+            );
+        }
+
+
+        // ----------------------------------------------
+        // FILE NUMBER
+        // ----------------------------------------------
+
+        draw_set_halign(fa_left);
+        draw_set_color(c_white);
+
+        draw_text(
+            _x + 20,
+            _y + 15,
+            "FILE "
+            + string(i + 1)
+        );
+
+
+        var _info =
+            save_info[i];
+
+
+        // ==================================================
+        // EXISTING SAVE
+        // ==================================================
+
+        if (_info.exists)
+        {
+            // Day
+            draw_set_halign(fa_right);
+
+            draw_text(
+                _x + _box_w - 20,
+                _y + 15,
+                string_upper(
+                    _info.day_name
+                )
+            );
+
+
+            // Playtime
+            draw_set_halign(fa_left);
+
+            draw_text(
+                _x + 20,
+                _y + 48,
+                "PLAYTIME: "
+                + scr_format_playtime(
+                    _info.playtime_seconds
+                )
+            );
+
+
+            // Location
+            draw_text(
+                _x + 20,
+                _y + 72,
+                "LOCATION: "
+                + _info.location_name
+            );
+
+
+            // Sanity
+            draw_set_halign(fa_right);
+
+            draw_text(
+                _x + _box_w - 20,
+                _y + 72,
+                "SANITY: "
+                + string(
+                    round(_info.sanity)
+                )
+            );
+        }
+
+        // ==================================================
+        // EMPTY SAVE
+        // ==================================================
+
+        else
+        {
+            draw_set_halign(fa_center);
+
+            draw_set_color(
+                make_color_rgb(
+                    150,
+                    150,
+                    150
+                )
+            );
+
+            draw_text(
+                _x + (_box_w / 2),
+                _y + 65,
+                "EMPTY"
+            );
+        }
+
+
+        // ----------------------------------------------
+        // SELECTION ARROW
+        // ----------------------------------------------
+
+        if (_selected)
+        {
+            draw_set_halign(fa_right);
+            draw_set_color(c_white);
+
+            draw_text(
+                _x - 12,
+                _y + (_box_h / 2),
+                ">"
+            );
+        }
+    }
+
+
+    // --------------------------------------------------
+    // HELP TEXT
+    // --------------------------------------------------
+
+    draw_set_halign(fa_center);
+    draw_set_color(c_white);
+
+    draw_text(
+        _gui_w / 2,
+        _start_y
+        + 3 * (_box_h + _gap)
+        + 10,
+        "ENTER: SELECT     ESC: BACK"
+    );
+
+
+    // --------------------------------------------------
+    // RESET
+    // --------------------------------------------------
+
+    draw_set_halign(fa_left);
+    draw_set_valign(fa_top);
+    draw_set_color(c_white);
+    draw_set_alpha(1);
+
+
+    exit;
+}
+
+// ==================================================
 // MAIN MENU - DRAW GUI
 // ==================================================
 

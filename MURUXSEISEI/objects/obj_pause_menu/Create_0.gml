@@ -1,4 +1,60 @@
 // ==================================================
+// PAUSE MENU - CREATE
+// ==================================================
+
+// Prevent duplicates
+if (instance_number(obj_pause_menu) > 1)
+{
+    instance_destroy();
+    exit;
+}
+
+persistent = true;
+
+
+// --------------------------------------------------
+// GLOBAL STATE
+// --------------------------------------------------
+
+if (!variable_global_exists("game_paused"))
+{
+    global.game_paused = false;
+}
+
+if (!variable_global_exists("dialogue_active"))
+{
+    global.dialogue_active = false;
+}
+
+if (!variable_global_exists("interact_blocked"))
+{
+    global.interact_blocked = false;
+}
+
+
+// --------------------------------------------------
+// PAUSE MENU STATE
+// --------------------------------------------------
+
+pause_page = "main";
+pause_selected = 0;
+
+pause_items = [
+    "resume",
+    "settings",
+    "controls",
+    "return to title",
+    "quit game"
+];
+
+pause_settings_items = [
+    "music volume",
+    "sfx volume",
+    "fullscreen",
+    "back"
+];
+
+// ==================================================
 // GLOBAL GAME STATES
 // ==================================================
 

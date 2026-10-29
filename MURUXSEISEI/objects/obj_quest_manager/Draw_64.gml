@@ -2,15 +2,22 @@
 // QUEST MANAGER - DRAW GUI
 // ==================================================
 
-// Don't show quests on title screen
-if (room == room_titlescreen)
-{
-    exit;
-}
 
-// Hide quest HUD in these rooms
+// --------------------------------------------------
+// ROOMS WHERE QUEST HUD SHOULD BE HIDDEN
+// --------------------------------------------------
+
 if (
+    room == room_titlescreen ||
     room == room_dreamscapet1 ||
+
+    // M1 pre-sleep event
+    room == room_catchthefallingthoughts ||
+
+    // Arcade / minigame
+    room == room_dontpoptheballoon ||
+
+    // Win / lose screens
     room == room_winminigame ||
     room == room_winminigame2 ||
     room == room_loseminigame
@@ -21,7 +28,7 @@ if (
 
 
 // --------------------------------------------------
-// CURRENT DAY
+// GET CURRENT DAY
 // --------------------------------------------------
 
 var _day = scr_current_day();
@@ -35,9 +42,11 @@ var _x = 20;
 var _line_height = 22;
 
 var _box_height =
-    30 + (array_length(_day.quests) * _line_height);
+    30
+    + (array_length(_day.quests) * _line_height);
 
-var _y = display_get_gui_height() - 20;
+var _y =
+    display_get_gui_height() - 20;
 
 var _box_y =
     _y - _box_height;
@@ -62,7 +71,7 @@ draw_set_alpha(1);
 
 
 // --------------------------------------------------
-// TITLE
+// DAY NAME / TITLE
 // --------------------------------------------------
 
 draw_set_color(c_yellow);
@@ -75,15 +84,23 @@ draw_text(
 
 
 // --------------------------------------------------
-// QUESTS
+// QUEST LIST
 // --------------------------------------------------
 
-for (var i = 0; i < array_length(_day.quests); i++)
+for (
+    var i = 0;
+    i < array_length(_day.quests);
+    i++
+)
 {
-    var _q = _day.quests[i];
+    var _q =
+        _day.quests[i];
 
     var _line_y =
-        _box_y + 30 + (i * _line_height);
+        _box_y
+        + 30
+        + (i * _line_height);
+
 
     if (_q.done)
     {

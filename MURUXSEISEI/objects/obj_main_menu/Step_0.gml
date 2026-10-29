@@ -1,12 +1,136 @@
-// --------------------------------------------------
+// ==================================================
 // MAIN MENU - STEP EVENT
-// --------------------------------------------------
+// ==================================================
 
-// Disable menu controls during a transition
+
+// ==================================================
+// DISABLE CONTROLS DURING ROOM TRANSITION
+// ==================================================
+
 if (instance_exists(obj_fade_transition))
 {
     exit;
 }
+
+
+// ==================================================
+// SAVE SLOT PAGE
+// ==================================================
+
+if (menu_page == "saves")
+{
+    // --------------------------------------------------
+    // UP
+    // --------------------------------------------------
+
+    if (
+        keyboard_check_pressed(vk_up) ||
+        keyboard_check_pressed(ord("W"))
+    )
+    {
+        var _old_save_selection = save_selected;
+
+        save_selected = max(
+            0,
+            save_selected - 1
+        );
+
+        if (save_selected != _old_save_selection)
+        {
+            audio_play_sound(
+                snd_menu_move,
+                1,
+                false
+            );
+        }
+    }
+
+
+    // --------------------------------------------------
+    // DOWN
+    // --------------------------------------------------
+
+    if (
+        keyboard_check_pressed(vk_down) ||
+        keyboard_check_pressed(ord("S"))
+    )
+    {
+        var _old_save_selection = save_selected;
+
+        save_selected = min(
+            2,
+            save_selected + 1
+        );
+
+        if (save_selected != _old_save_selection)
+        {
+            audio_play_sound(
+                snd_menu_move,
+                1,
+                false
+            );
+        }
+    }
+
+
+    // --------------------------------------------------
+    // SELECT FILE
+    // --------------------------------------------------
+
+    if (
+        keyboard_check_pressed(vk_enter) ||
+        keyboard_check_pressed(vk_space)
+    )
+    {
+        var _slot = save_selected + 1;
+
+
+        audio_play_sound(
+            snd_menu_select,
+            1,
+            false
+        );
+
+
+        // Existing save
+        if (save_info[save_selected].exists)
+        {
+            scr_load_game(_slot);
+        }
+
+        // Empty slot = start new game
+        else
+        {
+            scr_start_new_game(_slot);
+        }
+    }
+
+
+    // --------------------------------------------------
+    // BACK
+    // --------------------------------------------------
+
+    if (keyboard_check_pressed(vk_escape))
+    {
+        menu_page = "main";
+        menu_selected = 0;
+
+        audio_play_sound(
+            snd_menu_select,
+            1,
+            false
+        );
+    }
+
+
+    // Stop the rest of the main menu code from running
+    exit;
+}
+
+
+// ==================================================
+// STORE OLD MENU SELECTION
+// ==================================================
 
 var old_selection = menu_selected;
 
@@ -17,109 +141,121 @@ var old_selection = menu_selected;
 
 if (menu_page == "main")
 {
-    // ------------------------------
+    // --------------------------------------------------
     // DOWN
-    // ------------------------------
+    // --------------------------------------------------
 
-    if (keyboard_check_pressed(vk_down)
-    || keyboard_check_pressed(ord("S")))
+    if (
+        keyboard_check_pressed(vk_down) ||
+        keyboard_check_pressed(ord("S"))
+    )
     {
         if (menu_selected < array_length(main_items) - 1)
         {
             menu_selected++;
-
-            // Skip Continue if disabled
-            if (menu_selected == 1 && !has_save)
-            {
-                menu_selected++;
-            }
         }
     }
 
 
-    // ------------------------------
+    // --------------------------------------------------
     // UP
-    // ------------------------------
+    // --------------------------------------------------
 
-    if (keyboard_check_pressed(vk_up)
-    || keyboard_check_pressed(ord("W")))
+    if (
+        keyboard_check_pressed(vk_up) ||
+        keyboard_check_pressed(ord("W"))
+    )
     {
         if (menu_selected > 0)
         {
             menu_selected--;
-
-            // Skip Continue if disabled
-            if (menu_selected == 1 && !has_save)
-            {
-                menu_selected--;
-            }
         }
     }
 
 
-    // ------------------------------
+    // --------------------------------------------------
     // SELECT
-    // ------------------------------
+    // --------------------------------------------------
 
-    if (keyboard_check_pressed(vk_enter)
-    || keyboard_check_pressed(vk_space))
+    if (
+        keyboard_check_pressed(vk_enter) ||
+        keyboard_check_pressed(vk_space)
+    )
     {
-        audio_play_sound(snd_menu_select, 1, false);
+        audio_play_sound(
+            snd_menu_select,
+            1,
+            false
+        );
+
 
         switch (menu_selected)
         {
-            // NEW GAME
+            // ==================================================
+            // PLAY
+            // ==================================================
+
             case 0:
             {
-                room_fade_to(room_muruhouse);
-				break;
-            }
+                menu_page = "saves";
+                save_selected = 0;
 
-
-            // CONTINUE
-            case 1:
-            {
-                if (has_save)
-                {
-                    show_debug_message("Continue");
-                }
+                // Refresh the three files every time
+                // the player opens the save screen
+                refresh_save_slots();
 
                 break;
             }
 
 
+            // ==================================================
             // SETTINGS
-            case 2:
+            // ==================================================
+
+            case 1:
             {
                 menu_page = "settings";
                 menu_selected = 0;
+
                 break;
             }
 
 
+            // ==================================================
             // HELP
-            case 3:
+            // ==================================================
+
+            case 2:
             {
                 menu_page = "help";
                 menu_selected = 0;
+
                 break;
             }
 
 
+            // ==================================================
             // CREDITS
-            case 4:
+            // ==================================================
+
+            case 3:
             {
                 menu_page = "credits";
                 menu_selected = 0;
+
                 break;
             }
 
 
+            // ==================================================
             // QUIT
-            case 5:
+            // ==================================================
+
+            case 4:
             {
                 menu_page = "quit";
                 quit_selected = 1;
+
                 break;
             }
         }
@@ -133,10 +269,14 @@ if (menu_page == "main")
 
 else if (menu_page == "settings")
 {
+    // --------------------------------------------------
     // DOWN
+    // --------------------------------------------------
 
-    if (keyboard_check_pressed(vk_down)
-    || keyboard_check_pressed(ord("S")))
+    if (
+        keyboard_check_pressed(vk_down) ||
+        keyboard_check_pressed(ord("S"))
+    )
     {
         if (menu_selected < array_length(settings_items) - 1)
         {
@@ -145,10 +285,14 @@ else if (menu_page == "settings")
     }
 
 
+    // --------------------------------------------------
     // UP
+    // --------------------------------------------------
 
-    if (keyboard_check_pressed(vk_up)
-    || keyboard_check_pressed(ord("W")))
+    if (
+        keyboard_check_pressed(vk_up) ||
+        keyboard_check_pressed(ord("W"))
+    )
     {
         if (menu_selected > 0)
         {
@@ -157,119 +301,160 @@ else if (menu_page == "settings")
     }
 
 
-// --------------------------------------------------
-// MUSIC VOLUME
-// --------------------------------------------------
+    // ==================================================
+    // MUSIC VOLUME
+    // ==================================================
 
-if (menu_selected == 0)
-{
-    // Lower
-    if (keyboard_check_pressed(vk_left)
-    || keyboard_check_pressed(ord("A")))
+    if (menu_selected == 0)
     {
-        global.music_volume =
-            max(0, global.music_volume - 10);
+        // --------------------------------------------------
+        // LOWER
+        // --------------------------------------------------
 
-        audio_sound_gain(
-            snd_title_music,
-            global.music_volume / 100,
-            0
-        );
+        if (
+            keyboard_check_pressed(vk_left) ||
+            keyboard_check_pressed(ord("A"))
+        )
+        {
+            global.music_volume = max(
+                0,
+                global.music_volume - 10
+            );
+
+
+            audio_sound_gain(
+                snd_title_music,
+                global.music_volume / 100,
+                0
+            );
+        }
+
+
+        // --------------------------------------------------
+        // RAISE
+        // --------------------------------------------------
+
+        if (
+            keyboard_check_pressed(vk_right) ||
+            keyboard_check_pressed(ord("D"))
+        )
+        {
+            global.music_volume = min(
+                100,
+                global.music_volume + 10
+            );
+
+
+            audio_sound_gain(
+                snd_title_music,
+                global.music_volume / 100,
+                0
+            );
+        }
     }
 
 
-    // Raise
-    if (keyboard_check_pressed(vk_right)
-    || keyboard_check_pressed(ord("D")))
+    // ==================================================
+    // SFX VOLUME
+    // ==================================================
+
+    if (menu_selected == 1)
     {
-        global.music_volume =
-            min(100, global.music_volume + 10);
+        // --------------------------------------------------
+        // LOWER
+        // --------------------------------------------------
 
-        audio_sound_gain(
-            snd_title_music,
-            global.music_volume / 100,
-            0
-        );
+        if (
+            keyboard_check_pressed(vk_left) ||
+            keyboard_check_pressed(ord("A"))
+        )
+        {
+            sfx_volume = max(
+                0,
+                sfx_volume - 10
+            );
+
+
+            audio_sound_gain(
+                snd_menu_move,
+                sfx_volume / 100,
+                0
+            );
+
+
+            audio_sound_gain(
+                snd_menu_select,
+                sfx_volume / 100,
+                0
+            );
+
+
+            // Preview new volume
+            audio_play_sound(
+                snd_menu_move,
+                1,
+                false
+            );
+        }
+
+
+        // --------------------------------------------------
+        // RAISE
+        // --------------------------------------------------
+
+        if (
+            keyboard_check_pressed(vk_right) ||
+            keyboard_check_pressed(ord("D"))
+        )
+        {
+            sfx_volume = min(
+                100,
+                sfx_volume + 10
+            );
+
+
+            audio_sound_gain(
+                snd_menu_move,
+                sfx_volume / 100,
+                0
+            );
+
+
+            audio_sound_gain(
+                snd_menu_select,
+                sfx_volume / 100,
+                0
+            );
+
+
+            // Preview new volume
+            audio_play_sound(
+                snd_menu_move,
+                1,
+                false
+            );
+        }
     }
-}
 
 
-// --------------------------------------------------
-// SFX VOLUME
-// --------------------------------------------------
-
-if (menu_selected == 1)
-{
-    // Lower volume
-    if (keyboard_check_pressed(vk_left)
-    || keyboard_check_pressed(ord("A")))
-    {
-        sfx_volume = max(0, sfx_volume - 10);
-
-        audio_sound_gain(
-            snd_menu_move,
-            sfx_volume / 100,
-            0
-        );
-
-        audio_sound_gain(
-            snd_menu_select,
-            sfx_volume / 100,
-            0
-        );
-
-        // Preview the new volume
-        audio_play_sound(
-            snd_menu_move,
-            1,
-            false
-        );
-    }
-
-
-    // Raise volume
-    if (keyboard_check_pressed(vk_right)
-    || keyboard_check_pressed(ord("D")))
-    {
-        sfx_volume = min(100, sfx_volume + 10);
-
-        audio_sound_gain(
-            snd_menu_move,
-            sfx_volume / 100,
-            0
-        );
-
-        audio_sound_gain(
-            snd_menu_select,
-            sfx_volume / 100,
-            0
-        );
-
-        // Preview the new volume
-        audio_play_sound(
-            snd_menu_move,
-            1,
-            false
-        );
-    }
-}
-
-
-    // --------------------------------------------------
+    // ==================================================
     // FULLSCREEN
-    // --------------------------------------------------
+    // ==================================================
 
     if (menu_selected == 2)
     {
-        if (keyboard_check_pressed(vk_enter)
-        || keyboard_check_pressed(vk_space)
-        || keyboard_check_pressed(vk_left)
-        || keyboard_check_pressed(vk_right))
+        if (
+            keyboard_check_pressed(vk_enter) ||
+            keyboard_check_pressed(vk_space) ||
+            keyboard_check_pressed(vk_left) ||
+            keyboard_check_pressed(vk_right)
+        )
         {
             window_set_fullscreen(
                 !window_get_fullscreen()
             );
 
+
             audio_play_sound(
                 snd_menu_select,
                 1,
@@ -279,14 +464,16 @@ if (menu_selected == 1)
     }
 
 
-    // --------------------------------------------------
+    // ==================================================
     // BACK
-    // --------------------------------------------------
+    // ==================================================
 
     if (menu_selected == 3)
     {
-        if (keyboard_check_pressed(vk_enter)
-        || keyboard_check_pressed(vk_space))
+        if (
+            keyboard_check_pressed(vk_enter) ||
+            keyboard_check_pressed(vk_space)
+        )
         {
             audio_play_sound(
                 snd_menu_select,
@@ -294,18 +481,24 @@ if (menu_selected == 1)
                 false
             );
 
+
             menu_page = "main";
-            menu_selected = 2;
+
+            // Settings is item 1 on the new main menu
+            menu_selected = 1;
         }
     }
 
 
-    // ESC also goes back
+    // --------------------------------------------------
+    // ESC = BACK
+    // --------------------------------------------------
 
     if (keyboard_check_pressed(vk_escape))
     {
         menu_page = "main";
-        menu_selected = 2;
+        menu_selected = 1;
+
 
         audio_play_sound(
             snd_menu_select,
@@ -322,9 +515,11 @@ if (menu_selected == 1)
 
 else if (menu_page == "help")
 {
-    if (keyboard_check_pressed(vk_escape)
-    || keyboard_check_pressed(vk_enter)
-    || keyboard_check_pressed(vk_space))
+    if (
+        keyboard_check_pressed(vk_escape) ||
+        keyboard_check_pressed(vk_enter) ||
+        keyboard_check_pressed(vk_space)
+    )
     {
         audio_play_sound(
             snd_menu_select,
@@ -332,8 +527,11 @@ else if (menu_page == "help")
             false
         );
 
+
         menu_page = "main";
-        menu_selected = 3;
+
+        // Help is item 2
+        menu_selected = 2;
     }
 }
 
@@ -344,9 +542,11 @@ else if (menu_page == "help")
 
 else if (menu_page == "credits")
 {
-    if (keyboard_check_pressed(vk_escape)
-    || keyboard_check_pressed(vk_enter)
-    || keyboard_check_pressed(vk_space))
+    if (
+        keyboard_check_pressed(vk_escape) ||
+        keyboard_check_pressed(vk_enter) ||
+        keyboard_check_pressed(vk_space)
+    )
     {
         audio_play_sound(
             snd_menu_select,
@@ -354,8 +554,11 @@ else if (menu_page == "credits")
             false
         );
 
+
         menu_page = "main";
-        menu_selected = 4;
+
+        // Credits is item 3
+        menu_selected = 3;
     }
 }
 
@@ -366,14 +569,20 @@ else if (menu_page == "credits")
 
 else if (menu_page == "quit")
 {
+    // --------------------------------------------------
     // LEFT / RIGHT
+    // --------------------------------------------------
 
-    if (keyboard_check_pressed(vk_left)
-    || keyboard_check_pressed(ord("A"))
-    || keyboard_check_pressed(vk_right)
-    || keyboard_check_pressed(ord("D")))
+    if (
+        keyboard_check_pressed(vk_left) ||
+        keyboard_check_pressed(ord("A")) ||
+        keyboard_check_pressed(vk_right) ||
+        keyboard_check_pressed(ord("D"))
+    )
     {
-        quit_selected = 1 - quit_selected;
+        quit_selected =
+            1 - quit_selected;
+
 
         audio_play_sound(
             snd_menu_move,
@@ -383,10 +592,14 @@ else if (menu_page == "quit")
     }
 
 
+    // --------------------------------------------------
     // SELECT
+    // --------------------------------------------------
 
-    if (keyboard_check_pressed(vk_enter)
-    || keyboard_check_pressed(vk_space))
+    if (
+        keyboard_check_pressed(vk_enter) ||
+        keyboard_check_pressed(vk_space)
+    )
     {
         audio_play_sound(
             snd_menu_select,
@@ -394,30 +607,45 @@ else if (menu_page == "quit")
             false
         );
 
+
+        // YES
         if (quit_selected == 0)
         {
             game_end();
         }
+
+        // NO
         else
         {
             menu_page = "main";
-            menu_selected = 5;
+
+            // Quit is item 4
+            menu_selected = 4;
         }
     }
 
 
-    // ESC = cancel
+    // --------------------------------------------------
+    // ESC = CANCEL
+    // --------------------------------------------------
 
     if (keyboard_check_pressed(vk_escape))
     {
         menu_page = "main";
-        menu_selected = 5;
+        menu_selected = 4;
+
+
+        audio_play_sound(
+            snd_menu_select,
+            1,
+            false
+        );
     }
 }
 
 
 // ==================================================
-// MOVEMENT SOUND
+// MENU MOVEMENT SOUND
 // ==================================================
 
 if (menu_selected != old_selection)
