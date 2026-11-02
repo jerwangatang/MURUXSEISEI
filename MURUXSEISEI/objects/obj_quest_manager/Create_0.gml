@@ -1,4 +1,5 @@
 current_day_index = 0;
+global.coins = 50; // starting amount, change as you like
 
 days = [];
 

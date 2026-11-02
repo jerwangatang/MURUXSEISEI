@@ -114,3 +114,18 @@ if (keyboard_check(ord("S"))) {
         y += move_spd;
     }
 }
+
+if (keyboard_check_pressed(ord("P"))) {
+    var _slot = obj_hotbar.hotbar[obj_hotbar.selected_slot];
+    
+    if (_slot.item_name != "") {
+        scr_use_item(_slot.item_name);
+    }
+}
+
+if (speed_boost_timer > 0) {
+    speed_boost_timer--;
+    if (speed_boost_timer <= 0) {
+        move_spd = base_move_spd; // boost ends, back to normal
+    }
+}
