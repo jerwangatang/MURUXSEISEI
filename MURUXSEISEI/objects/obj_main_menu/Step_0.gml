@@ -1,10 +1,10 @@
 // ==================================================
-// MAIN MENU - STEP EVENT
+// OBJ_MAIN_MENU - STEP EVENT
 // ==================================================
 
 
 // ==================================================
-// DISABLE CONTROLS DURING ROOM TRANSITION
+// DISABLE INPUT DURING FADE TRANSITION
 // ==================================================
 
 if (instance_exists(obj_fade_transition))
@@ -19,6 +19,144 @@ if (instance_exists(obj_fade_transition))
 
 if (menu_page == "saves")
 {
+    // ==================================================
+    // INPUT LOCK
+    //
+    // Prevents the Enter/Space press used on "Play"
+    // from immediately selecting File 1.
+    // ==================================================
+
+    if (save_input_locked)
+    {
+        if (
+            !keyboard_check(vk_enter) &&
+            !keyboard_check(vk_space)
+        )
+        {
+            save_input_locked = false;
+        }
+
+        exit;
+    }
+
+
+    // ==================================================
+    // DELETE CONFIRMATION
+    // ==================================================
+
+    if (delete_confirm)
+    {
+        // --------------------------------------------------
+        // LEFT = YES
+        // --------------------------------------------------
+
+        if (
+            keyboard_check_pressed(vk_left) ||
+            keyboard_check_pressed(ord("A"))
+        )
+        {
+            if (delete_selected != 0)
+            {
+                delete_selected = 0;
+
+                audio_play_sound(
+                    snd_menu_move,
+                    1,
+                    false
+                );
+            }
+        }
+
+
+        // --------------------------------------------------
+        // RIGHT = NO
+        // --------------------------------------------------
+
+        if (
+            keyboard_check_pressed(vk_right) ||
+            keyboard_check_pressed(ord("D"))
+        )
+        {
+            if (delete_selected != 1)
+            {
+                delete_selected = 1;
+
+                audio_play_sound(
+                    snd_menu_move,
+                    1,
+                    false
+                );
+            }
+        }
+
+
+        // --------------------------------------------------
+        // CONFIRM YES / NO
+        // --------------------------------------------------
+
+        if (
+            keyboard_check_pressed(vk_enter) ||
+            keyboard_check_pressed(vk_space)
+        )
+        {
+            audio_play_sound(
+                snd_menu_select,
+                1,
+                false
+            );
+
+
+            // YES - DELETE SAVE
+            if (delete_selected == 0)
+            {
+                scr_delete_save(
+                    delete_slot
+                );
+
+                refresh_save_slots();
+            }
+
+
+            // Close popup
+            delete_confirm = false;
+            delete_slot = 0;
+            delete_selected = 1;
+
+            exit;
+        }
+
+
+        // --------------------------------------------------
+        // ESCAPE = CANCEL DELETE
+        // --------------------------------------------------
+
+        if (keyboard_check_pressed(vk_escape))
+        {
+            delete_confirm = false;
+            delete_slot = 0;
+            delete_selected = 1;
+
+            audio_play_sound(
+                snd_menu_select,
+                1,
+                false
+            );
+
+            exit;
+        }
+
+
+        // Do not process save-slot controls
+        // while confirmation is open.
+        exit;
+    }
+
+
+    // ==================================================
+    // SAVE SLOT MOVEMENT
+    // ==================================================
+
+
     // --------------------------------------------------
     // UP
     // --------------------------------------------------
@@ -28,14 +166,17 @@ if (menu_page == "saves")
         keyboard_check_pressed(ord("W"))
     )
     {
-        var _old_save_selection = save_selected;
+        var _old_save =
+            save_selected;
 
-        save_selected = max(
-            0,
-            save_selected - 1
-        );
+        save_selected =
+            max(
+                0,
+                save_selected - 1
+            );
 
-        if (save_selected != _old_save_selection)
+
+        if (save_selected != _old_save)
         {
             audio_play_sound(
                 snd_menu_move,
@@ -55,14 +196,17 @@ if (menu_page == "saves")
         keyboard_check_pressed(ord("S"))
     )
     {
-        var _old_save_selection = save_selected;
+        var _old_save =
+            save_selected;
 
-        save_selected = min(
-            2,
-            save_selected + 1
-        );
+        save_selected =
+            min(
+                2,
+                save_selected + 1
+            );
 
-        if (save_selected != _old_save_selection)
+
+        if (save_selected != _old_save)
         {
             audio_play_sound(
                 snd_menu_move,
@@ -73,16 +217,48 @@ if (menu_page == "saves")
     }
 
 
-    // --------------------------------------------------
-    // SELECT FILE
-    // --------------------------------------------------
+    // ==================================================
+    // DELETE SAVE FILE
+    // ==================================================
+
+    if (
+        keyboard_check_pressed(vk_delete) ||
+        keyboard_check_pressed(vk_backspace)
+    )
+    {
+        // Only allow deletion if the slot contains a save
+        if (save_info[save_selected].exists)
+        {
+            delete_confirm = true;
+
+            delete_slot =
+                save_selected + 1;
+
+            // Default = NO
+            delete_selected = 1;
+
+            audio_play_sound(
+                snd_menu_select,
+                1,
+                false
+            );
+        }
+
+        exit;
+    }
+
+
+    // ==================================================
+    // SELECT SAVE FILE
+    // ==================================================
 
     if (
         keyboard_check_pressed(vk_enter) ||
         keyboard_check_pressed(vk_space)
     )
     {
-        var _slot = save_selected + 1;
+        var _slot =
+            save_selected + 1;
 
 
         audio_play_sound(
@@ -92,23 +268,39 @@ if (menu_page == "saves")
         );
 
 
-        // Existing save
+        // --------------------------------------------------
+        // EXISTING SAVE
+        // --------------------------------------------------
+
         if (save_info[save_selected].exists)
         {
-            scr_load_game(_slot);
+            scr_load_game(
+                _slot
+            );
         }
 
-        // Empty slot = start new game
+
+        // --------------------------------------------------
+        // EMPTY SAVE = START NEW GAME
+        // --------------------------------------------------
+
         else
         {
-            scr_start_new_game(_slot);
+            scr_start_new_game(
+                _slot
+            );
         }
+
+
+        // VERY IMPORTANT:
+        // Do not allow any more menu code to execute.
+        exit;
     }
 
 
-    // --------------------------------------------------
-    // BACK
-    // --------------------------------------------------
+    // ==================================================
+    // BACK TO TITLE MENU
+    // ==================================================
 
     if (keyboard_check_pressed(vk_escape))
     {
@@ -120,23 +312,28 @@ if (menu_page == "saves")
             1,
             false
         );
+
+        exit;
     }
 
 
-    // Stop the rest of the main menu code from running
+    // VERY IMPORTANT:
+    // Prevent normal title-menu controls from
+    // running while on the save screen.
     exit;
 }
 
 
 // ==================================================
-// STORE OLD MENU SELECTION
+// STORE OLD SELECTION
 // ==================================================
 
-var old_selection = menu_selected;
+var old_selection =
+    menu_selected;
 
 
 // ==================================================
-// MAIN PAGE
+// MAIN TITLE MENU
 // ==================================================
 
 if (menu_page == "main")
@@ -150,7 +347,10 @@ if (menu_page == "main")
         keyboard_check_pressed(ord("S"))
     )
     {
-        if (menu_selected < array_length(main_items) - 1)
+        if (
+            menu_selected
+            < array_length(main_items) - 1
+        )
         {
             menu_selected++;
         }
@@ -173,9 +373,9 @@ if (menu_page == "main")
     }
 
 
-    // --------------------------------------------------
-    // SELECT
-    // --------------------------------------------------
+    // ==================================================
+    // SELECT MENU OPTION
+    // ==================================================
 
     if (
         keyboard_check_pressed(vk_enter) ||
@@ -198,13 +398,20 @@ if (menu_page == "main")
             case 0:
             {
                 menu_page = "saves";
+
                 save_selected = 0;
 
-                // Refresh the three files every time
-                // the player opens the save screen
                 refresh_save_slots();
 
-                break;
+
+                // Prevent the current Enter/Space press
+                // from selecting File 1.
+                save_input_locked = true;
+
+
+                // IMPORTANT:
+                // Stop the Step Event immediately.
+                exit;
             }
 
 
@@ -215,9 +422,10 @@ if (menu_page == "main")
             case 1:
             {
                 menu_page = "settings";
+
                 menu_selected = 0;
 
-                break;
+                exit;
             }
 
 
@@ -227,10 +435,11 @@ if (menu_page == "main")
 
             case 2:
             {
-                menu_page = "help";
+                menu_page = "controls";
+
                 menu_selected = 0;
 
-                break;
+                exit;
             }
 
 
@@ -241,9 +450,10 @@ if (menu_page == "main")
             case 3:
             {
                 menu_page = "credits";
+
                 menu_selected = 0;
 
-                break;
+                exit;
             }
 
 
@@ -254,9 +464,11 @@ if (menu_page == "main")
             case 4:
             {
                 menu_page = "quit";
+
+                // Default = NO
                 quit_selected = 1;
 
-                break;
+                exit;
             }
         }
     }
@@ -278,7 +490,10 @@ else if (menu_page == "settings")
         keyboard_check_pressed(ord("S"))
     )
     {
-        if (menu_selected < array_length(settings_items) - 1)
+        if (
+            menu_selected
+            < array_length(settings_items) - 1
+        )
         {
             menu_selected++;
         }
@@ -307,19 +522,17 @@ else if (menu_page == "settings")
 
     if (menu_selected == 0)
     {
-        // --------------------------------------------------
-        // LOWER
-        // --------------------------------------------------
-
+        // Lower
         if (
             keyboard_check_pressed(vk_left) ||
             keyboard_check_pressed(ord("A"))
         )
         {
-            global.music_volume = max(
-                0,
-                global.music_volume - 10
-            );
+            global.music_volume =
+                max(
+                    0,
+                    global.music_volume - 10
+                );
 
 
             audio_sound_gain(
@@ -330,19 +543,17 @@ else if (menu_page == "settings")
         }
 
 
-        // --------------------------------------------------
-        // RAISE
-        // --------------------------------------------------
-
+        // Raise
         if (
             keyboard_check_pressed(vk_right) ||
             keyboard_check_pressed(ord("D"))
         )
         {
-            global.music_volume = min(
-                100,
-                global.music_volume + 10
-            );
+            global.music_volume =
+                min(
+                    100,
+                    global.music_volume + 10
+                );
 
 
             audio_sound_gain(
@@ -360,19 +571,17 @@ else if (menu_page == "settings")
 
     if (menu_selected == 1)
     {
-        // --------------------------------------------------
-        // LOWER
-        // --------------------------------------------------
-
+        // Lower
         if (
             keyboard_check_pressed(vk_left) ||
             keyboard_check_pressed(ord("A"))
         )
         {
-            sfx_volume = max(
-                0,
-                sfx_volume - 10
-            );
+            sfx_volume =
+                max(
+                    0,
+                    sfx_volume - 10
+                );
 
 
             audio_sound_gain(
@@ -389,7 +598,6 @@ else if (menu_page == "settings")
             );
 
 
-            // Preview new volume
             audio_play_sound(
                 snd_menu_move,
                 1,
@@ -398,19 +606,17 @@ else if (menu_page == "settings")
         }
 
 
-        // --------------------------------------------------
-        // RAISE
-        // --------------------------------------------------
-
+        // Raise
         if (
             keyboard_check_pressed(vk_right) ||
             keyboard_check_pressed(ord("D"))
         )
         {
-            sfx_volume = min(
-                100,
-                sfx_volume + 10
-            );
+            sfx_volume =
+                min(
+                    100,
+                    sfx_volume + 10
+                );
 
 
             audio_sound_gain(
@@ -427,7 +633,6 @@ else if (menu_page == "settings")
             );
 
 
-            // Preview new volume
             audio_play_sound(
                 snd_menu_move,
                 1,
@@ -465,7 +670,7 @@ else if (menu_page == "settings")
 
 
     // ==================================================
-    // BACK
+    // BACK OPTION
     // ==================================================
 
     if (menu_selected == 3)
@@ -484,19 +689,22 @@ else if (menu_page == "settings")
 
             menu_page = "main";
 
-            // Settings is item 1 on the new main menu
+            // Return selection to Settings
             menu_selected = 1;
+
+            exit;
         }
     }
 
 
     // --------------------------------------------------
-    // ESC = BACK
+    // ESCAPE = BACK
     // --------------------------------------------------
 
     if (keyboard_check_pressed(vk_escape))
     {
         menu_page = "main";
+
         menu_selected = 1;
 
 
@@ -505,15 +713,17 @@ else if (menu_page == "settings")
             1,
             false
         );
+
+        exit;
     }
 }
 
 
 // ==================================================
-// HELP PAGE
+// Control PAGE
 // ==================================================
 
-else if (menu_page == "help")
+else if (menu_page == "controls")
 {
     if (
         keyboard_check_pressed(vk_escape) ||
@@ -530,8 +740,10 @@ else if (menu_page == "help")
 
         menu_page = "main";
 
-        // Help is item 2
+        // Return selection to Help
         menu_selected = 2;
+
+        exit;
     }
 }
 
@@ -557,8 +769,10 @@ else if (menu_page == "credits")
 
         menu_page = "main";
 
-        // Credits is item 3
+        // Return selection to Credits
         menu_selected = 3;
+
+        exit;
     }
 }
 
@@ -570,30 +784,51 @@ else if (menu_page == "credits")
 else if (menu_page == "quit")
 {
     // --------------------------------------------------
-    // LEFT / RIGHT
+    // LEFT = YES
     // --------------------------------------------------
 
     if (
         keyboard_check_pressed(vk_left) ||
-        keyboard_check_pressed(ord("A")) ||
-        keyboard_check_pressed(vk_right) ||
-        keyboard_check_pressed(ord("D"))
+        keyboard_check_pressed(ord("A"))
     )
     {
-        quit_selected =
-            1 - quit_selected;
+        if (quit_selected != 0)
+        {
+            quit_selected = 0;
 
-
-        audio_play_sound(
-            snd_menu_move,
-            1,
-            false
-        );
+            audio_play_sound(
+                snd_menu_move,
+                1,
+                false
+            );
+        }
     }
 
 
     // --------------------------------------------------
-    // SELECT
+    // RIGHT = NO
+    // --------------------------------------------------
+
+    if (
+        keyboard_check_pressed(vk_right) ||
+        keyboard_check_pressed(ord("D"))
+    )
+    {
+        if (quit_selected != 1)
+        {
+            quit_selected = 1;
+
+            audio_play_sound(
+                snd_menu_move,
+                1,
+                false
+            );
+        }
+    }
+
+
+    // --------------------------------------------------
+    // CONFIRM
     // --------------------------------------------------
 
     if (
@@ -614,24 +849,27 @@ else if (menu_page == "quit")
             game_end();
         }
 
+
         // NO
         else
         {
             menu_page = "main";
 
-            // Quit is item 4
             menu_selected = 4;
         }
+
+        exit;
     }
 
 
     // --------------------------------------------------
-    // ESC = CANCEL
+    // ESCAPE = CANCEL
     // --------------------------------------------------
 
     if (keyboard_check_pressed(vk_escape))
     {
         menu_page = "main";
+
         menu_selected = 4;
 
 
@@ -640,6 +878,8 @@ else if (menu_page == "quit")
             1,
             false
         );
+
+        exit;
     }
 }
 

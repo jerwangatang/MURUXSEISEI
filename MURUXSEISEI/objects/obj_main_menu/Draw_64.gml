@@ -1,16 +1,20 @@
 // ==================================================
+// MAIN MENU - DRAW GUI
+// ==================================================
+
+var _gui_w = display_get_gui_width();
+var _gui_h = display_get_gui_height();
+
+var _gui_center_x = _gui_w / 2;
+var _gui_center_y = _gui_h / 2;
+
+
+// ==================================================
 // SAVE FILE SCREEN
 // ==================================================
 
 if (menu_page == "saves")
 {
-    var _gui_w =
-        display_get_gui_width();
-
-    var _gui_h =
-        display_get_gui_height();
-
-
     // --------------------------------------------------
     // DIM TITLE BACKGROUND
     // --------------------------------------------------
@@ -30,14 +34,11 @@ if (menu_page == "saves")
 
 
     // --------------------------------------------------
-    // LAYOUT
+    // SAVE FILE LAYOUT
     // --------------------------------------------------
 
-    var _box_w =
-        min(760, _gui_w - 80);
-
+    var _box_w = min(760, _gui_w - 80);
     var _box_h = 120;
-
     var _gap = 16;
 
     var _x =
@@ -50,20 +51,20 @@ if (menu_page == "saves")
     // TITLE
     // --------------------------------------------------
 
+    draw_set_font(-1);
     draw_set_halign(fa_center);
     draw_set_valign(fa_middle);
-
     draw_set_color(c_white);
 
     draw_text(
-        _gui_w / 2,
+        _gui_center_x,
         70,
-        "SELECT FILE"
+        "select file"
     );
 
 
     // ==================================================
-    // DRAW THREE SAVE FILES
+    // DRAW SAVE FILES
     // ==================================================
 
     for (var i = 0; i < 3; i++)
@@ -71,7 +72,6 @@ if (menu_page == "saves")
         var _y =
             _start_y
             + i * (_box_h + _gap);
-
 
         var _selected =
             (i == save_selected);
@@ -121,7 +121,7 @@ if (menu_page == "saves")
         );
 
 
-        // Second border when selected
+        // Extra selected border
         if (_selected)
         {
             draw_rectangle(
@@ -144,8 +144,7 @@ if (menu_page == "saves")
         draw_text(
             _x + 20,
             _y + 15,
-            "FILE "
-            + string(i + 1)
+            "file " + string(i + 1)
         );
 
 
@@ -154,7 +153,7 @@ if (menu_page == "saves")
 
 
         // ==================================================
-        // EXISTING SAVE
+        // EXISTING SAVE FILE
         // ==================================================
 
         if (_info.exists)
@@ -165,7 +164,7 @@ if (menu_page == "saves")
             draw_text(
                 _x + _box_w - 20,
                 _y + 15,
-                string_upper(
+                string_lower(
                     _info.day_name
                 )
             );
@@ -177,7 +176,7 @@ if (menu_page == "saves")
             draw_text(
                 _x + 20,
                 _y + 48,
-                "PLAYTIME: "
+                "playtime: "
                 + scr_format_playtime(
                     _info.playtime_seconds
                 )
@@ -187,9 +186,11 @@ if (menu_page == "saves")
             // Location
             draw_text(
                 _x + 20,
-                _y + 72,
-                "LOCATION: "
-                + _info.location_name
+                _y + 76,
+                "location: "
+                + string_lower(
+                    _info.location_name
+                )
             );
 
 
@@ -198,16 +199,17 @@ if (menu_page == "saves")
 
             draw_text(
                 _x + _box_w - 20,
-                _y + 72,
-                "SANITY: "
+                _y + 76,
+                "sanity: "
                 + string(
                     round(_info.sanity)
                 )
             );
         }
 
+
         // ==================================================
-        // EMPTY SAVE
+        // EMPTY SAVE FILE
         // ==================================================
 
         else
@@ -225,13 +227,13 @@ if (menu_page == "saves")
             draw_text(
                 _x + (_box_w / 2),
                 _y + 65,
-                "EMPTY"
+                "empty"
             );
         }
 
 
         // ----------------------------------------------
-        // SELECTION ARROW
+        // SELECTOR
         // ----------------------------------------------
 
         if (_selected)
@@ -240,7 +242,7 @@ if (menu_page == "saves")
             draw_set_color(c_white);
 
             draw_text(
-                _x - 12,
+                _x - 15,
                 _y + (_box_h / 2),
                 ">"
             );
@@ -249,19 +251,145 @@ if (menu_page == "saves")
 
 
     // --------------------------------------------------
-    // HELP TEXT
+    // CONTROLS
     // --------------------------------------------------
 
     draw_set_halign(fa_center);
     draw_set_color(c_white);
 
     draw_text(
-        _gui_w / 2,
+        _gui_center_x,
         _start_y
         + 3 * (_box_h + _gap)
         + 10,
-        "ENTER: SELECT     ESC: BACK"
+        "Enter / Space - select     Delete - delete     Escape - back"
     );
+
+
+    // ==================================================
+    // DELETE CONFIRMATION POPUP
+    // ==================================================
+
+    if (delete_confirm)
+    {
+        // ----------------------------------------------
+        // DARK OVERLAY
+        // ----------------------------------------------
+
+        draw_set_alpha(0.65);
+        draw_set_color(c_black);
+
+        draw_rectangle(
+            0,
+            0,
+            _gui_w,
+            _gui_h,
+            false
+        );
+
+        draw_set_alpha(1);
+
+
+        // ----------------------------------------------
+        // POPUP SIZE
+        // ----------------------------------------------
+
+        var _confirm_w = 430;
+        var _confirm_h = 170;
+
+        var _confirm_x =
+            (_gui_w - _confirm_w) / 2;
+
+        var _confirm_y =
+            (_gui_h - _confirm_h) / 2;
+
+
+        // ----------------------------------------------
+        // POPUP BACKGROUND
+        // ----------------------------------------------
+
+        draw_set_color(c_black);
+
+        draw_rectangle(
+            _confirm_x,
+            _confirm_y,
+            _confirm_x + _confirm_w,
+            _confirm_y + _confirm_h,
+            false
+        );
+
+
+        // ----------------------------------------------
+        // POPUP BORDER
+        // ----------------------------------------------
+
+        draw_set_color(c_white);
+
+        draw_rectangle(
+            _confirm_x,
+            _confirm_y,
+            _confirm_x + _confirm_w,
+            _confirm_y + _confirm_h,
+            true
+        );
+
+
+        // ----------------------------------------------
+        // MESSAGE
+        // ----------------------------------------------
+
+        draw_set_halign(fa_center);
+        draw_set_valign(fa_middle);
+        draw_set_color(c_white);
+
+        draw_text(
+            _gui_center_x,
+            _confirm_y + 45,
+            "delete file "
+            + string(delete_slot)
+            + "?"
+        );
+
+        draw_text(
+            _gui_center_x,
+            _confirm_y + 75,
+            "this cannot be undone."
+        );
+
+
+        // ----------------------------------------------
+        // YES / NO
+        // ----------------------------------------------
+
+        if (delete_selected == 0)
+        {
+            draw_text(
+                _gui_center_x - 70,
+                _confirm_y + 125,
+                "> yes <"
+            );
+
+            draw_text(
+                _gui_center_x + 70,
+                _confirm_y + 125,
+                "no"
+            );
+        }
+        else
+        {
+            draw_text(
+                _gui_center_x - 70,
+                _confirm_y + 125,
+                "yes"
+            );
+
+            draw_text(
+                _gui_center_x + 70,
+                _confirm_y + 125,
+                "> no <"
+            );
+        }
+    }
 
 
     // --------------------------------------------------
@@ -273,41 +401,33 @@ if (menu_page == "saves")
     draw_set_color(c_white);
     draw_set_alpha(1);
 
-
     exit;
 }
 
-// ==================================================
-// MAIN MENU - DRAW GUI
-// ==================================================
 
-
-// --------------------------------------------------
-// DRAW SETTINGS
-// --------------------------------------------------
+// ==================================================
+// NORMAL TITLE MENU DRAW SETTINGS
+// ==================================================
 
 draw_set_font(-1);
 draw_set_halign(fa_center);
 draw_set_valign(fa_middle);
 draw_set_colour(c_black);
 
-var _gui_center_x = display_get_gui_width() / 2;
-var _gui_center_y = display_get_gui_height() / 2;
-
 menu_x = _gui_center_x;
+
 
 // --------------------------------------------------
 // SUBMENU LAYOUT
-// Edit these values to move things around easily
 // --------------------------------------------------
 
-var submenu_title_y   = 460;
-var submenu_start_y   = 500;
-var submenu_spacing   = 40;
-var submenu_back_y    = 690;
+var submenu_title_y = 460;
+var submenu_start_y = 500;
+var submenu_spacing = 40;
+var submenu_back_y = 720;
 
-var quit_question_y   = 500;
-var quit_options_y    = 570;
+var quit_question_y = 500;
+var quit_options_y = 570;
 
 
 // ==================================================
@@ -316,39 +436,29 @@ var quit_options_y    = 570;
 
 if (menu_page == "main")
 {
-    for (var i = 0; i < array_length(main_items); i++)
+    for (
+        var i = 0;
+        i < array_length(main_items);
+        i++
+    )
     {
-        var yy = menu_y + (i * menu_spacing);
-
-
-        // ------------------------------
-        // CONTINUE DISABLED
-        // ------------------------------
-
-        if (i == 1 && !has_save)
-        {
-            draw_set_colour(c_gray);
-
-            draw_text(
-                menu_x,
-                yy,
-                main_items[i]
-            );
-
-            draw_set_colour(c_black);
-        }
+        var yy =
+            menu_y
+            + (i * menu_spacing);
 
 
         // ------------------------------
         // SELECTED
         // ------------------------------
 
-        else if (i == menu_selected)
+        if (i == menu_selected)
         {
             draw_text(
                 menu_x,
                 yy,
-                ">  " + main_items[i] + "  <"
+                ">  "
+                + main_items[i]
+                + "  <"
             );
         }
 
@@ -375,7 +485,10 @@ if (menu_page == "main")
 
 else if (menu_page == "settings")
 {
-    // Title
+    // --------------------------------------------------
+    // TITLE
+    // --------------------------------------------------
+
     draw_text(
         menu_x,
         submenu_title_y,
@@ -383,10 +496,19 @@ else if (menu_page == "settings")
     );
 
 
-    // Settings options
-    for (var i = 0; i < array_length(settings_items); i++)
+    // --------------------------------------------------
+    // OPTIONS
+    // --------------------------------------------------
+
+    for (
+        var i = 0;
+        i < array_length(settings_items);
+        i++
+    )
     {
-        var yy = submenu_start_y + (i * menu_spacing);
+        var yy =
+            submenu_start_y
+            + (i * menu_spacing);
 
         var text = "";
 
@@ -399,7 +521,9 @@ else if (menu_page == "settings")
         {
             text =
                 "music volume   < "
-                + string(global.music_volume)
+                + string(
+                    global.music_volume
+                )
                 + "% >";
         }
 
@@ -412,7 +536,9 @@ else if (menu_page == "settings")
         {
             text =
                 "sfx volume   < "
-                + string(sfx_volume)
+                + string(
+                    sfx_volume
+                )
                 + "% >";
         }
 
@@ -453,7 +579,7 @@ else if (menu_page == "settings")
 
 
         // ------------------------------
-        // DRAW OPTION
+        // SELECTED
         // ------------------------------
 
         if (i == menu_selected)
@@ -461,9 +587,17 @@ else if (menu_page == "settings")
             draw_text(
                 menu_x,
                 yy,
-                ">  " + text + "  <"
+                ">  "
+                + text
+                + "  <"
             );
         }
+
+
+        // ------------------------------
+        // NORMAL
+        // ------------------------------
+
         else
         {
             draw_text(
@@ -477,46 +611,65 @@ else if (menu_page == "settings")
 
 
 // ==================================================
-// HELP
+// controls
 // ==================================================
 
-else if (menu_page == "help")
+else if (menu_page == "controls")
 {
-    // Title
+    // --------------------------------------------------
+    // TITLE
+    // --------------------------------------------------
+
     draw_text(
         menu_x,
         submenu_title_y,
-        "help"
+        "controls"
     );
 
 
-    // Controls
+    // --------------------------------------------------
+    // CONTROLS
+    // --------------------------------------------------
+
     draw_text(
         menu_x,
         submenu_start_y,
-        "WASD / arrow keys - move"
+        "WASD - move"
     );
 
     draw_text(
         menu_x,
-        submenu_start_y + submenu_spacing,
+        submenu_start_y
+        + submenu_spacing,
         "E - open inventory"
     );
 
     draw_text(
         menu_x,
-        submenu_start_y + submenu_spacing * 2,
+        submenu_start_y
+        + submenu_spacing * 2,
+        "P - consume items"
+    );
+
+    draw_text(
+        menu_x,
+        submenu_start_y
+        + submenu_spacing * 3,
         "Enter / Space - select / confirm / interact"
     );
 
     draw_text(
         menu_x,
-        submenu_start_y + submenu_spacing * 3,
+        submenu_start_y
+        + submenu_spacing * 4,
         "Escape - back / pause"
     );
 
 
-    // Back
+    // --------------------------------------------------
+    // BACK
+    // --------------------------------------------------
+
     draw_text(
         menu_x,
         submenu_back_y,
@@ -531,7 +684,10 @@ else if (menu_page == "help")
 
 else if (menu_page == "credits")
 {
-    // Title
+    // --------------------------------------------------
+    // TITLE
+    // --------------------------------------------------
+
     draw_text(
         menu_x,
         submenu_title_y,
@@ -539,7 +695,10 @@ else if (menu_page == "credits")
     );
 
 
-    // Game title
+    // --------------------------------------------------
+    // GAME TITLE
+    // --------------------------------------------------
+
     draw_text(
         menu_x,
         submenu_start_y,
@@ -547,15 +706,22 @@ else if (menu_page == "credits")
     );
 
 
-    // Creators
+    // --------------------------------------------------
+    // CREATORS
+    // --------------------------------------------------
+
     draw_text(
         menu_x,
-        submenu_start_y + submenu_spacing,
+        submenu_start_y
+        + submenu_spacing,
         "created by Sean & Jerry"
     );
 
 
-    // Back
+    // --------------------------------------------------
+    // BACK
+    // --------------------------------------------------
+
     draw_text(
         menu_x,
         submenu_back_y,
@@ -565,12 +731,15 @@ else if (menu_page == "credits")
 
 
 // ==================================================
-// QUIT
+// QUIT CONFIRMATION
 // ==================================================
 
 else if (menu_page == "quit")
 {
-    // Question
+    // --------------------------------------------------
+    // QUESTION
+    // --------------------------------------------------
+
     draw_text(
         menu_x,
         quit_question_y,
@@ -578,9 +747,9 @@ else if (menu_page == "quit")
     );
 
 
-    // ------------------------------
+    // --------------------------------------------------
     // YES SELECTED
-    // ------------------------------
+    // --------------------------------------------------
 
     if (quit_selected == 0)
     {
@@ -598,9 +767,9 @@ else if (menu_page == "quit")
     }
 
 
-    // ------------------------------
+    // --------------------------------------------------
     // NO SELECTED
-    // ------------------------------
+    // --------------------------------------------------
 
     else
     {
@@ -624,5 +793,6 @@ else if (menu_page == "quit")
 // ==================================================
 
 draw_set_colour(c_white);
+draw_set_alpha(1);
 draw_set_halign(fa_left);
 draw_set_valign(fa_top);

@@ -21,14 +21,6 @@ var _move_y =
     keyboard_check(ord("S"))
     - keyboard_check(ord("W"));
 
-_move_x +=
-    keyboard_check(vk_right)
-    - keyboard_check(vk_left);
-
-_move_y +=
-    keyboard_check(vk_down)
-    - keyboard_check(vk_up);
-
 
 // --------------------------------------------------
 // SPEED

@@ -30,6 +30,23 @@ if (room != room_titlescreen)
     playtime_seconds += delta_time / 1000000;
 }
 
+// ==================================================
+// MAKE SURE PAUSE MENU EXISTS DURING GAMEPLAY
+// ==================================================
+
+if (room != room_titlescreen)
+{
+    if (!instance_exists(obj_pause_menu))
+    {
+        instance_create_depth(
+            0,
+            0,
+            -10000,
+            obj_pause_menu
+        );
+    }
+}
+
 
 // ==================================================
 // NEW GAME SETUP

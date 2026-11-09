@@ -475,3 +475,30 @@ function scr_start_new_game(_slot)
         room_muruhouse
     );
 }
+
+// ==================================================
+// DELETE SAVE FILE
+// ==================================================
+
+function scr_delete_save(_slot)
+{
+    var _path = scr_save_path(_slot);
+
+    if (file_exists(_path))
+    {
+        file_delete(_path);
+
+        show_debug_message(
+            "Deleted save slot "
+            + string(_slot)
+        );
+    }
+
+
+    // If this happened to be the current slot,
+    // clear the active slot.
+    if (global.current_save_slot == _slot)
+    {
+        global.current_save_slot = 0;
+    }
+}
