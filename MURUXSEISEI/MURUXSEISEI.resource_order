@@ -1,4 +1,3 @@
-
 {
   "FolderOrderSettings":[
     {"name":"Fonts","order":5,"path":"folders/Fonts.yy",},
@@ -53,7 +52,6 @@
     {"name":"obj_solid","order":7,"path":"objects/obj_solid/obj_solid.yy",},
     {"name":"obj_style_shopkeeper","order":2,"path":"objects/obj_style_shopkeeper/obj_style_shopkeeper.yy",},
     {"name":"obj_stylist","order":6,"path":"objects/obj_stylist/obj_stylist.yy",},
-    {"name":"obj_table_muru","order":10,"path":"objects/obj_table_muru/obj_table_muru.yy",},
     {"name":"obj_title_music","order":20,"path":"objects/obj_title_music/obj_title_music.yy",},
     {"name":"obj_titlescreen_bg","order":2,"path":"objects/obj_titlescreen_bg/obj_titlescreen_bg.yy",},
     {"name":"obj_trainstation","order":7,"path":"objects/obj_trainstation/obj_trainstation.yy",},
