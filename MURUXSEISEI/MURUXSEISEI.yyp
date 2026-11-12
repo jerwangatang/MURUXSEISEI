@@ -122,6 +122,7 @@
     {"id":{"name":"spr_811","path":"sprites/spr_811/spr_811.yy",},},
     {"id":{"name":"spr_arcade","path":"sprites/spr_arcade/spr_arcade.yy",},},
     {"id":{"name":"spr_balloons","path":"sprites/spr_balloons/spr_balloons.yy",},},
+    {"id":{"name":"spr_bird","path":"sprites/spr_bird/spr_bird.yy",},},
     {"id":{"name":"spr_cc","path":"sprites/spr_cc/spr_cc.yy",},},
     {"id":{"name":"spr_chest","path":"sprites/spr_chest/spr_chest.yy",},},
     {"id":{"name":"spr_collision_box","path":"sprites/spr_collision_box/spr_collision_box.yy",},},

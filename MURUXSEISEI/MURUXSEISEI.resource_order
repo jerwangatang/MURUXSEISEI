@@ -94,6 +94,7 @@
     {"name":"spr_811","order":23,"path":"sprites/spr_811/spr_811.yy",},
     {"name":"spr_arcade","order":17,"path":"sprites/spr_arcade/spr_arcade.yy",},
     {"name":"spr_balloons","order":19,"path":"sprites/spr_balloons/spr_balloons.yy",},
+    {"name":"spr_bird","order":32,"path":"sprites/spr_bird/spr_bird.yy",},
     {"name":"spr_cc","order":16,"path":"sprites/spr_cc/spr_cc.yy",},
     {"name":"spr_chest","order":30,"path":"sprites/spr_chest/spr_chest.yy",},
     {"name":"spr_collision_box","order":15,"path":"sprites/spr_collision_box/spr_collision_box.yy",},
