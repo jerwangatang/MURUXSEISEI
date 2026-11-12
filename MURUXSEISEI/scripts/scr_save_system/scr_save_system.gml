@@ -40,6 +40,18 @@ function scr_location_name(_room)
 
     if (_room == room_catchthefallingthoughts)
         return "MURU'S ROOM";
+		
+	if (_room == room_tutorhome)
+		return "TUTOR'S HOUSE";
+
+	if (_room == room_neighbourhome)
+		return "NEIGHBOUR'S HOUSE";
+
+	if (_room == room_811)
+		return "8/11";
+
+	if (_room == room_stylist)
+		return "STYLIST";
 
 
     // Fallback

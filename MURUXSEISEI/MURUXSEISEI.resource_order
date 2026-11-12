@@ -1,4 +1,3 @@
-
 {
   "FolderOrderSettings":[
     {"name":"Fonts","order":5,"path":"folders/Fonts.yy",},
@@ -40,7 +39,7 @@
     {"name":"obj_m1controller","order":5,"path":"objects/obj_m1controller/obj_m1controller.yy",},
     {"name":"obj_m1wincontroller","order":4,"path":"objects/obj_m1wincontroller/obj_m1wincontroller.yy",},
     {"name":"obj_m2winminigame","order":2,"path":"objects/obj_m2winminigame/obj_m2winminigame.yy",},
-    {"name":"obj_muru2d","order":1,"path":"objects/obj_muru2d/obj_muru2d.yy",},
+    {"name":"obj_muru2d","order":5,"path":"objects/obj_muru2d/obj_muru2d.yy",},
     {"name":"obj_muruhouse","order":1,"path":"objects/obj_muruhouse/obj_muruhouse.yy",},
     {"name":"obj_neighbour","order":18,"path":"objects/obj_neighbour/obj_neighbour.yy",},
     {"name":"obj_neighbourhome1","order":8,"path":"objects/obj_neighbourhome1/obj_neighbourhome1.yy",},
@@ -62,6 +61,7 @@
     {"name":"obj_triggernbh","order":2,"path":"objects/obj_triggernbh/obj_triggernbh.yy",},
     {"name":"obj_triggerstylist","order":3,"path":"objects/obj_triggerstylist/obj_triggerstylist.yy",},
     {"name":"obj_triggertth_1","order":5,"path":"objects/obj_triggertth_1/obj_triggertth_1.yy",},
+    {"name":"obj_tutor","order":13,"path":"objects/obj_tutor/obj_tutor.yy",},
     {"name":"obj_tutorhome","order":5,"path":"objects/obj_tutorhome/obj_tutorhome.yy",},
     {"name":"obj_wall_collision","order":22,"path":"objects/obj_wall_collision/obj_wall_collision.yy",},
     {"name":"obj_wall","order":8,"path":"objects/obj_wall/obj_wall.yy",},

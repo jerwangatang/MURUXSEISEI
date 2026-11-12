@@ -1,6 +1,12 @@
-draw_self();
+// ==================================================
+// DOOR TRIGGER - DRAW
+// ==================================================
 
-if (place_meeting(x, y, obj_player)) {
-    draw_set_color(c_white);
-    draw_text(x, y - 20, "Open Door");
-}
+// Do NOT draw the trigger sprite.
+// Only draw the interaction star.
+
+draw_interaction_star(
+    0,
+    0.06,
+    12
+);

@@ -9,8 +9,8 @@
   "name":"obj_muru2d",
   "overriddenProperties":[],
   "parent":{
-    "name":"Player",
-    "path":"folders/Objects/Player.yy",
+    "name":"Titlescreen",
+    "path":"folders/Objects/Titlescreen.yy",
   },
   "parentObjectId":null,
   "persistent":false,

@@ -1,4 +1,3 @@
-
 {
   "$GMProject":"v1",
   "%Name":"MURUXSEISEI",
@@ -88,6 +87,7 @@
     {"id":{"name":"obj_triggernbh","path":"objects/obj_triggernbh/obj_triggernbh.yy",},},
     {"id":{"name":"obj_triggerstylist","path":"objects/obj_triggerstylist/obj_triggerstylist.yy",},},
     {"id":{"name":"obj_triggertth_1","path":"objects/obj_triggertth_1/obj_triggertth_1.yy",},},
+    {"id":{"name":"obj_tutor","path":"objects/obj_tutor/obj_tutor.yy",},},
     {"id":{"name":"obj_tutorhome","path":"objects/obj_tutorhome/obj_tutorhome.yy",},},
     {"id":{"name":"obj_wall_collision","path":"objects/obj_wall_collision/obj_wall_collision.yy",},},
     {"id":{"name":"obj_wall","path":"objects/obj_wall/obj_wall.yy",},},
