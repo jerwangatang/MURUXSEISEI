@@ -32,3 +32,8 @@ for (var i = 0; i < slot_count; i++) {
         }
     }
 }
+
+if (!instance_exists(obj_player)) exit;
+
+var _gui_x = (obj_player.x - camera_get_view_x(view_camera[0])) * (display_get_gui_width() / camera_get_view_width(view_camera[0]));
+// ... rest of your existing hotbar draw code
