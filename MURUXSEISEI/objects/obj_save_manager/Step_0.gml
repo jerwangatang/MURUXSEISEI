@@ -54,10 +54,29 @@ if (room != room_titlescreen)
 
 
 // ==================================================
-// TEMP FIX FOR EMPTY INTERIOR ROOMS
-//
-// Tutor + Neighbour rooms currently contain
-// no obj_player in the merged project.
+// MAKE SURE HOTBAR EXISTS
+// ==================================================
+
+if (room != room_titlescreen)
+{
+    if (!instance_exists(obj_hotbar))
+    {
+        instance_create_depth(
+            0,
+            0,
+            -9999,
+            obj_hotbar
+        );
+
+        show_debug_message(
+            "Hotbar created."
+        );
+    }
+}
+
+
+// ==================================================
+// PLAYER FALLBACK FOR INTERIOR ROOMS
 // ==================================================
 
 if (
@@ -90,26 +109,25 @@ if (new_game_pending)
 {
     if (room == room_muruhouse)
     {
-        // Wait until required objects exist
+        // Wait until everything required for a complete
+        // merged-system save exists.
         if (
             instance_exists(obj_player)
             &&
             instance_exists(obj_quest_manager)
+            &&
+            instance_exists(obj_hotbar)
         )
         {
-            // ------------------------------------------
-            // CREATE INITIAL SAVE FILE
-            // ------------------------------------------
-
             if (global.current_save_slot > 0)
             {
-                var _saved =
+                var _initial_saved =
                     scr_save_game(
                         global.current_save_slot
                     );
 
 
-                if (_saved)
+                if (_initial_saved)
                 {
                     show_debug_message(
                         "Initial save created for slot "
@@ -118,12 +136,22 @@ if (new_game_pending)
                         )
                     );
 
+
                     new_game_pending = false;
+
+                    autosave_pending = false;
+                    autosave_reason = "";
+                    autosave_elapsed = 0;
+
+                    // Prevent another unnecessary
+                    // room-change autosave immediately.
+                    last_room = room;
                 }
             }
             else
             {
                 new_game_pending = false;
+                last_room = room;
             }
         }
     }
@@ -139,9 +167,9 @@ if (load_pending)
     // Wait until target room has loaded
     if (room == pending_room)
     {
-        // ----------------------------------------------
-        // MAKE SURE QUEST MANAGER EXISTS
-        // ----------------------------------------------
+        // ==================================================
+        // ENSURE QUEST MANAGER
+        // ==================================================
 
         if (!instance_exists(obj_quest_manager))
         {
@@ -154,9 +182,24 @@ if (load_pending)
         }
 
 
-        // ----------------------------------------------
-        // CREATE PLAYER FOR EMPTY INTERIORS
-        // ----------------------------------------------
+        // ==================================================
+        // ENSURE HOTBAR
+        // ==================================================
+
+        if (!instance_exists(obj_hotbar))
+        {
+            instance_create_depth(
+                0,
+                0,
+                -9999,
+                obj_hotbar
+            );
+        }
+
+
+        // ==================================================
+        // PLAYER FALLBACK FOR INTERIORS
+        // ==================================================
 
         if (
             (
@@ -177,25 +220,33 @@ if (load_pending)
         }
 
 
-        // ----------------------------------------------
+        // ==================================================
         // WAIT UNTIL EVERYTHING EXISTS
-        // ----------------------------------------------
+        // ==================================================
 
         if (
             instance_exists(obj_player)
             &&
             instance_exists(obj_quest_manager)
+            &&
+            instance_exists(obj_hotbar)
         )
         {
-            var _player =
+            var _load_player =
                 instance_find(
                     obj_player,
                     0
                 );
 
-            var _manager =
+            var _load_manager =
                 instance_find(
                     obj_quest_manager,
+                    0
+                );
+
+            var _load_hotbar =
+                instance_find(
+                    obj_hotbar,
                     0
                 );
 
@@ -204,19 +255,44 @@ if (load_pending)
             // PLAYER POSITION
             // ==================================================
 
-            _player.x =
-                pending_data.player_x;
+            if (
+                variable_struct_exists(
+                    pending_data,
+                    "player_x"
+                )
+            )
+            {
+                _load_player.x =
+                    pending_data.player_x;
+            }
 
-            _player.y =
-                pending_data.player_y;
+
+            if (
+                variable_struct_exists(
+                    pending_data,
+                    "player_y"
+                )
+            )
+            {
+                _load_player.y =
+                    pending_data.player_y;
+            }
 
 
             // ==================================================
             // DAY
             // ==================================================
 
-            _manager.current_day_index =
-                pending_data.current_day_index;
+            if (
+                variable_struct_exists(
+                    pending_data,
+                    "current_day_index"
+                )
+            )
+            {
+                _load_manager.current_day_index =
+                    pending_data.current_day_index;
+            }
 
 
             // ==================================================
@@ -242,8 +318,9 @@ if (load_pending)
                 {
                     if (
                         d
-                        < array_length(
-                            _manager.days
+                        <
+                        array_length(
+                            _load_manager.days
                         )
                     )
                     {
@@ -251,22 +328,19 @@ if (load_pending)
                             _saved_days[d];
 
                         var _quests =
-                            _manager.days[d].quests;
+                            _load_manager.days[d].quests;
 
 
                         for (
                             var q = 0;
-                            q < array_length(
-                                _saved_quests
-                            );
+                            q < array_length(_saved_quests);
                             q++
                         )
                         {
                             if (
                                 q
-                                < array_length(
-                                    _quests
-                                )
+                                <
+                                array_length(_quests)
                             )
                             {
                                 _quests[q].done =
@@ -289,7 +363,7 @@ if (load_pending)
                 )
             )
             {
-                _manager.homework_progress =
+                _load_manager.homework_progress =
                     pending_data.homework_progress;
             }
 
@@ -305,7 +379,7 @@ if (load_pending)
                 )
             )
             {
-                _manager.house_visited =
+                _load_manager.house_visited =
                     pending_data.house_visited;
             }
 
@@ -339,16 +413,212 @@ if (load_pending)
 
 
             // ==================================================
+            // COINS
+            // ==================================================
+
+            if (
+                variable_struct_exists(
+                    pending_data,
+                    "coins"
+                )
+            )
+            {
+                global.coins =
+                    pending_data.coins;
+            }
+
+
+            // ==================================================
+            // SHOP PURCHASES
+            // ==================================================
+
+            if (
+                variable_struct_exists(
+                    pending_data,
+                    "shop_owned"
+                )
+            )
+            {
+                global.shop_owned =
+                    pending_data.shop_owned;
+            }
+
+
+            // ==================================================
+            // FRIDGE STATE
+            // ==================================================
+
+            if (
+                variable_struct_exists(
+                    pending_data,
+                    "fridge_opened"
+                )
+            )
+            {
+                global.fridge_opened =
+                    pending_data.fridge_opened;
+            }
+
+
+            // ==================================================
+            // FISHING ROD
+            // ==================================================
+
+            if (
+                variable_struct_exists(
+                    pending_data,
+                    "fishing_rod_collected"
+                )
+            )
+            {
+                global.fishing_rod_collected =
+                    pending_data.fishing_rod_collected;
+            }
+
+
+            // ==================================================
+            // CHESTS
+            // ==================================================
+
+            if (
+                variable_struct_exists(
+                    pending_data,
+                    "opened_chests"
+                )
+            )
+            {
+                global.opened_chests =
+                    pending_data.opened_chests;
+            }
+
+
+            // ==================================================
+            // RESTORE HOTBAR / INVENTORY
+            // ==================================================
+
+            // Clear current hotbar first
+            for (
+                var h = 0;
+                h < _load_hotbar.slot_count;
+                h++
+            )
+            {
+                _load_hotbar.hotbar[h].item_name =
+                    "";
+
+                _load_hotbar.hotbar[h].amount =
+                    0;
+            }
+
+
+            // Restore saved hotbar if this save contains it
+            if (
+                variable_struct_exists(
+                    pending_data,
+                    "hotbar"
+                )
+            )
+            {
+                var _saved_hotbar =
+                    pending_data.hotbar;
+
+
+                var _hotbar_count =
+                    min(
+                        array_length(_saved_hotbar),
+                        _load_hotbar.slot_count
+                    );
+
+
+                for (
+                    var h = 0;
+                    h < _hotbar_count;
+                    h++
+                )
+                {
+                    if (
+                        variable_struct_exists(
+                            _saved_hotbar[h],
+                            "item_name"
+                        )
+                    )
+                    {
+                        _load_hotbar.hotbar[h].item_name =
+                            _saved_hotbar[h].item_name;
+                    }
+
+
+                    if (
+                        variable_struct_exists(
+                            _saved_hotbar[h],
+                            "amount"
+                        )
+                    )
+                    {
+                        _load_hotbar.hotbar[h].amount =
+                            _saved_hotbar[h].amount;
+                    }
+                }
+            }
+
+
+            // ==================================================
+            // SELECTED HOTBAR SLOT
+            // ==================================================
+
+            if (
+                variable_struct_exists(
+                    pending_data,
+                    "hotbar_selected"
+                )
+            )
+            {
+                _load_hotbar.selected_slot =
+                    clamp(
+                        pending_data.hotbar_selected,
+                        0,
+                        _load_hotbar.slot_count - 1
+                    );
+            }
+            else
+            {
+                _load_hotbar.selected_slot =
+                    0;
+            }
+
+
+            // ==================================================
             // FINISH LOAD
             // ==================================================
 
-            load_pending = false;
+            load_pending =
+                false;
+
 
             pending_data =
                 undefined;
 
+
             pending_room =
                 -1;
+
+
+            // Don't immediately autosave just because
+            // loading changed rooms.
+            last_room =
+                room;
+
+
+            autosave_pending =
+                false;
+
+
+            autosave_reason =
+                "";
+
+
+            autosave_elapsed =
+                0;
 
 
             show_debug_message(
@@ -377,11 +647,17 @@ if (
             obj_quest_manager
         );
 
+    var _has_hotbar =
+        instance_exists(
+            obj_hotbar
+        );
+
 
     show_debug_message(
         "PLAYER EXISTS: "
         + string(_has_player)
     );
+
 
     show_debug_message(
         "QUEST MANAGER EXISTS: "
@@ -389,14 +665,18 @@ if (
     );
 
 
-    // ==================================================
-    // SAVE
-    // ==================================================
+    show_debug_message(
+        "HOTBAR EXISTS: "
+        + string(_has_hotbar)
+    );
+
 
     if (
         _has_player
         &&
         _has_quest
+        &&
+        _has_hotbar
         &&
         global.current_save_slot > 0
     )
@@ -413,6 +693,10 @@ if (
                     global.current_save_slot
                 )
             );
+
+
+            autosave_elapsed =
+                0;
         }
     }
     else
@@ -438,6 +722,14 @@ if (
         }
 
 
+        if (!_has_hotbar)
+        {
+            show_debug_message(
+                "MISSING: obj_hotbar"
+            );
+        }
+
+
         if (
             global.current_save_slot <= 0
         )
@@ -445,6 +737,128 @@ if (
             show_debug_message(
                 "MISSING: active save slot"
             );
+        }
+    }
+}
+
+
+// ==================================================
+// PERIODIC AUTOSAVE TIMER
+// ==================================================
+
+if (
+    room != room_titlescreen
+    &&
+    global.current_save_slot > 0
+    &&
+    !load_pending
+    &&
+    !new_game_pending
+)
+{
+    autosave_elapsed +=
+        delta_time / 1000000;
+
+
+    if (
+        autosave_elapsed
+        >= autosave_interval
+    )
+    {
+        autosave_pending =
+            true;
+
+        autosave_reason =
+            "60 second timer";
+    }
+}
+
+
+// ==================================================
+// AUTOSAVE ON ROOM CHANGE
+// ==================================================
+
+if (room != last_room)
+{
+    last_room =
+        room;
+
+
+    if (
+        room != room_titlescreen
+        &&
+        !load_pending
+        &&
+        !new_game_pending
+    )
+    {
+        autosave_pending =
+            true;
+
+        autosave_reason =
+            "room change";
+    }
+}
+
+
+// ==================================================
+// PROCESS AUTOSAVE
+// ==================================================
+
+if (autosave_pending)
+{
+    if (
+        room != room_titlescreen
+        &&
+        !load_pending
+        &&
+        !new_game_pending
+    )
+    {
+        // Do not save during fade transition
+        if (!instance_exists(obj_fade_transition))
+        {
+            // All three are required so we never accidentally
+            // overwrite a valid save with an empty inventory.
+            if (
+                instance_exists(obj_player)
+                &&
+                instance_exists(obj_quest_manager)
+                &&
+                instance_exists(obj_hotbar)
+                &&
+                global.current_save_slot > 0
+            )
+            {
+                if (
+                    scr_save_game(
+                        global.current_save_slot
+                    )
+                )
+                {
+                    show_debug_message(
+                        "AUTOSAVE SUCCESS"
+                        + " | slot = "
+                        + string(
+                            global.current_save_slot
+                        )
+                        + " | reason = "
+                        + autosave_reason
+                    );
+
+
+                    autosave_pending =
+                        false;
+
+
+                    autosave_reason =
+                        "";
+
+
+                    autosave_elapsed =
+                        0;
+                }
+            }
         }
     }
 }

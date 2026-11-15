@@ -61,3 +61,57 @@ pending_room = -1;
 // --------------------------------------------------
 
 new_game_pending = false;
+
+// ==================================================
+// AUTOSAVE
+// ==================================================
+
+// Autosave requested but not written yet
+autosave_pending = false;
+
+// Used only for debug messages
+autosave_reason = "";
+
+// Periodic autosave timer
+autosave_elapsed = 0;
+
+// Autosave every 60 seconds
+autosave_interval = 60;
+
+// ==================================================
+// ROOM AUTOSAVE TRACKING
+// ==================================================
+
+last_room = room;
+
+// ==================================================
+// MERGED SYSTEM SAVE STATE
+// ==================================================
+
+if (!variable_global_exists("coins"))
+{
+    global.coins = 50;
+}
+
+if (!variable_global_exists("shop_owned"))
+{
+    global.shop_owned = [
+        false,
+        false
+    ];
+}
+
+if (!variable_global_exists("fridge_opened"))
+{
+    global.fridge_opened = false;
+}
+
+if (!variable_global_exists("fishing_rod_collected"))
+{
+    global.fishing_rod_collected = false;
+}
+
+if (!variable_global_exists("opened_chests"))
+{
+    global.opened_chests = {};
+}
