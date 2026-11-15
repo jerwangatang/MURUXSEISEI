@@ -96,7 +96,8 @@ if (load_pending)
         // Wait until player + quest manager exist
         if (
             instance_exists(obj_player) &&
-            instance_exists(obj_quest_manager)
+            instance_exists(obj_quest_manager) &&
+            instance_exists(obj_hotbar)
         )
         {
             var _player =
@@ -189,6 +190,40 @@ if (load_pending)
             {
                 _manager.house_visited =
                     pending_data.house_visited;
+            }
+			
+            // ------------------------------------------
+            // HOTBAR
+            // ------------------------------------------
+
+            if (
+                variable_struct_exists(
+                    pending_data,
+                    "hotbar_items"
+                )
+            )
+            {
+                var _hotbar =
+                    instance_find(obj_hotbar, 0);
+
+                var _saved_items =
+                    pending_data.hotbar_items;
+
+                for (
+                    var i = 0;
+                    i < array_length(_saved_items);
+                    i++
+                )
+                {
+                    if (i < array_length(_hotbar.hotbar))
+                    {
+                        _hotbar.hotbar[i].item_name =
+                            _saved_items[i].item_name;
+
+                        _hotbar.hotbar[i].amount =
+                            _saved_items[i].amount;
+                    }
+                }
             }
 
 

@@ -230,10 +230,32 @@ function scr_save_game(_slot)
             _manager.current_day_index
         ];
 
+    // ==================================================
+    // SAVE HOTBAR
+    // ==================================================
 
-    // ==================================================
-    // BUILD SAVE DATA
-    // ==================================================
+    var _hotbar_items = [];
+
+    if (instance_exists(obj_hotbar))
+    {
+        var _hb = instance_find(obj_hotbar, 0);
+
+        for (
+            var i = 0;
+            i < array_length(_hb.hotbar);
+            i++
+        )
+        {
+            array_push(
+                _hotbar_items,
+                {
+                    item_name: _hb.hotbar[i].item_name,
+                    amount: _hb.hotbar[i].amount
+                }
+            );
+        }
+    }
+
 
     var _data =
     {
@@ -275,8 +297,13 @@ function scr_save_game(_slot)
             _manager.house_visited,
 
         playtime_seconds:
-            _save_manager.playtime_seconds
+            _save_manager.playtime_seconds,
+
+        hotbar_items:
+            _hotbar_items
     };
+
+
 
 
     // ==================================================
