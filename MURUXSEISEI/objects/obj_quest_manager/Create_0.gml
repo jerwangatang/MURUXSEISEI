@@ -1,15 +1,32 @@
 // ==================================================
 // QUEST MANAGER - CREATE
+// 5-DAY VERSION
 // ==================================================
 
 current_day_index = 0;
-global.coins = 50; // starting amount, change as you like
+
+
+// ==================================================
+// COINS
+// Don't overwrite loaded coins
+// ==================================================
+
+if (!variable_global_exists("coins"))
+{
+    global.coins = 50;
+}
+
+
+// ==================================================
+// DAYS
+// ==================================================
 
 days = [];
 
 
 // ==================================================
-// MISERDAY - TOWN 1
+// DAY 1 - MISERDAY - TOWN 1
+// Partner
 // ==================================================
 
 array_push(days, {
@@ -50,7 +67,8 @@ array_push(days, {
 
 
 // ==================================================
-// TERRIBLEDAY - TOWN 1
+// DAY 2 - TERRIBLEDAY - TOWN 1
+// Partner
 // ==================================================
 
 array_push(days, {
@@ -85,7 +103,8 @@ array_push(days, {
 
 
 // ==================================================
-// WEEPDAY - TOWN 2
+// DAY 3 - WEEPDAY - TOWN 2
+// Partner
 // ==================================================
 
 array_push(days, {
@@ -138,7 +157,11 @@ array_push(days, {
 
 
 // ==================================================
-// THROBDAY - TOWN 2
+// DAY 4 - THROBDAY - TOWN 2
+// YOUR DAY
+//
+// Emotional purpose:
+// anxiety reaches its highest point
 // ==================================================
 
 array_push(days, {
@@ -146,38 +169,38 @@ array_push(days, {
 
     quests: [
         {
-            id: "talk_two_neighbours",
-            name: "Talk to two neighbours",
-            done: false
-        },
-
-        {
             id: "school_day4",
             name: "Go to school",
             done: false
         },
 
         {
+            id: "talk_two_people_day4",
+            name: "Talk to two people",
+            done: false
+        },
+
+        {
             id: "make_friend_day4",
-            name: "Try make a friend",
+            name: "Try to make a friend",
             done: false
         },
 
         {
             id: "basketball_game",
-            name: "Attend the basketball game",
+            name: "Play basketball",
             done: false
         },
 
         {
-            id: "arcade_day4",
-            name: "Go to Clockzone/Coco's Amusement",
+            id: "clockzone_day4",
+            name: "Visit Clockzone",
             done: false
         },
 
         {
-            id: "lebron_signature",
-            name: "Try to get Lebron's signature",
+            id: "talk_crush_day4",
+            name: "Talk to your crush",
             done: false
         }
     ]
@@ -185,25 +208,18 @@ array_push(days, {
 
 
 // ==================================================
-// FOLKDAY - TOWN 3
+// DAY 5 - MOTIVEDAY - TOWN 2
+// YOUR FINAL DAY
+//
+// Emotional purpose:
+// Muru is still anxious,
+// but decides to act anyway.
 // ==================================================
 
 array_push(days, {
-    day_name: "Folkday",
+    day_name: "Motiveday",
 
     quests: [
-        {
-            id: "explore_folk_valley",
-            name: "Explore Folk Valley",
-            done: false
-        },
-
-        {
-            id: "feed_pigeons",
-            name: "Feed pigeons at the run down park",
-            done: false
-        },
-
         {
             id: "school_day5",
             name: "Go to school",
@@ -211,116 +227,29 @@ array_push(days, {
         },
 
         {
-            id: "grab_food_day5",
-            name: "Grab some food",
+            id: "talk_friend_day5",
+            name: "Talk to your friend",
             done: false
         },
 
         {
-            id: "visit_barber",
-            name: "Visit the barber",
+            id: "help_someone_day5",
+            name: "Help someone in town",
             done: false
         },
 
         {
-            id: "townheroes_pool",
-            name: "Play pool in Townheroes",
+            id: "relativemart_day5",
+            name: "Visit RelativeMart",
             done: false
         },
 
         {
-            id: "make_dinner_day5",
-            name: "Make dinner for family",
-            done: false
-        }
-    ]
-});
-
-
-// ==================================================
-// SATIREDAY - TOWN 3
-// ==================================================
-
-array_push(days, {
-    day_name: "Satireday",
-
-    quests: [
-        {
-            id: "cemetery_respects",
-            name: "Pay respects at cemetery",
+            id: "courage_minigame",
+            name: "Build up your courage",
             done: false
         },
 
-        {
-            id: "pond_fishing_day6",
-            name: "Go to the pond to go fishing",
-            done: false
-        },
-
-        {
-            id: "make_friend_day6",
-            name: "Try to make a friend",
-            done: false
-        },
-
-        {
-            id: "townheroes_day6",
-            name: "Go to play at Town Heroes again",
-            done: false
-        },
-
-        {
-            id: "make_dinner_day6",
-            name: "Make dinner for family",
-            done: false
-        }
-    ]
-});
-
-
-// ==================================================
-// SONDAY - TOWN 3
-// ==================================================
-
-array_push(days, {
-    day_name: "Sonday",
-
-    quests: [
-        {
-            id: "fish_day7",
-            name: "Fish at the pond",
-            done: false
-        },
-
-        {
-            id: "go_home_day7",
-            name: "Go home",
-            done: false
-        },
-
-        {
-            id: "watch_tv_day7",
-            name: "Watch TV",
-            done: false
-        },
-
-        {
-            id: "prepare_tomorrow",
-            name: "Prepare for tomorrow",
-            done: false
-        }
-    ]
-});
-
-
-// ==================================================
-// MOTIVEDAY
-// ==================================================
-
-array_push(days, {
-    day_name: "Motiveday",
-
-    quests: [
         {
             id: "ask_crush",
             name: "Ask out your crush",
@@ -331,7 +260,7 @@ array_push(days, {
 
 
 // ==================================================
-// MISERDAY - HOMEWORK PROGRESS
+// DAY 1 - HOMEWORK PROGRESS
 // ==================================================
 
 homework_progress = 0;
@@ -339,10 +268,8 @@ homework_total = 4;
 
 
 // ==================================================
-// MISERDAY - HOUSE EXPLORATION
+// DAY 1 - HOUSE EXPLORATION
 // ==================================================
-
-// Muru begins in her own house, so that one starts visited.
 
 house_ids = [
     "muru",
@@ -350,8 +277,24 @@ house_ids = [
     "tutor"
 ];
 
+
+// Muru starts in her own house
 house_visited = [
     true,
     false,
     false
 ];
+
+
+// ==================================================
+// DAY 4 - NPC TALK PROGRESS
+// ==================================================
+
+day4_people_talked = 0;
+
+
+// ==================================================
+// GENERAL NPC TRACKING
+// ==================================================
+
+talked_npcs = [];

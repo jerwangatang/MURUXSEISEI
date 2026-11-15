@@ -2,24 +2,38 @@
 // QUEST MANAGER - DRAW GUI
 // ==================================================
 
+// ==================================================
+// HIDE QUEST HUD DURING DIALOGUE
+// ==================================================
+
+if (
+    variable_global_exists("dialogue_active")
+    &&
+    global.dialogue_active
+)
+{
+    exit;
+}
 
 // --------------------------------------------------
 // ROOMS WHERE QUEST HUD SHOULD BE HIDDEN
 // --------------------------------------------------
 
 if (
-    room == room_titlescreen ||
-    room == room_dreamscapet1 ||
-
-    // M1 pre-sleep event
-    room == room_catchthefallingthoughts ||
-
-    // Arcade / minigame
-    room == room_dontpoptheballoon ||
-
-    // Win / lose screens
-    room == room_winminigame ||
-    room == room_winminigame2 ||
+    room == room_titlescreen
+    ||
+    room == room_dreamscapet1
+    ||
+    room == room_catchthefallingthoughts
+    ||
+    room == room_dontpoptheballoon
+    ||
+    room == room_basketball
+    ||
+    room == room_winminigame
+    ||
+    room == room_winminigame2
+    ||
     room == room_loseminigame
 )
 {

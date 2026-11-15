@@ -1,5 +1,23 @@
+// ==================================================
+// HIDE SANITY BAR DURING MINIGAMES
+// ==================================================
+
+if (
+    room == room_catchthefallingthoughts
+    ||
+    room == room_arcade1
+)
+{
+    exit;
+}
+
 // Don't show HUD on title screen
 if (room == room_titlescreen)
+{
+    exit;
+}
+
+if (room == room_basketball)
 {
     exit;
 }
