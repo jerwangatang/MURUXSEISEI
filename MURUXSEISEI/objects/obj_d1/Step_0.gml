@@ -6,7 +6,7 @@ if (obj_dreamscape_manager.current_dreamday_index == 0 && !collected && place_me
         scr_complete_dreamquest("Find the Memory Charm");
         obj_dreamscape_manager.current_dreamday_index++;
         
-        room_goto(room_muruhouse); // back to Real World
+        room_fade_to(room_muruhouse); // back to Real World
         
         instance_destroy();
     }
