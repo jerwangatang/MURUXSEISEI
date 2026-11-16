@@ -18,11 +18,13 @@ draw_set_valign(fa_top);
 
 draw_set_color(c_white);
 
+
 draw_text(
     30,
     30,
     "Score: "
-    + string(score)
+    +
+    string(score)
 );
 
 
@@ -31,19 +33,24 @@ draw_text(
 // ==================================================
 
 var _shots_remaining =
-    max_shots - shots_taken;
+    max_shots
+    -
+    shots_taken;
+
 
 draw_text(
     30,
     60,
     "Shots Remaining: "
-    + string(_shots_remaining)
+    +
+    string(_shots_remaining)
 );
 
 
 // ==================================================
 // TIMING BAR
-// Only show while aiming
+//
+// Only while aiming.
 // ==================================================
 
 if (state == 0)
@@ -51,41 +58,52 @@ if (state == 0)
     var _bar_width =
         500;
 
+
     var _bar_height =
         24;
+
 
     var _bar_x =
         (_gui_w / 2)
         -
         (_bar_width / 2);
 
+
     var _bar_y =
-        _gui_h - 70;
+        _gui_h
+        -
+        65;
 
 
-    // --------------------------------------------------
+    // ==================================================
     // BAR BACKGROUND
-    // --------------------------------------------------
+    // ==================================================
 
-    draw_set_color(c_dkgray);
+    draw_set_color(
+        c_dkgray
+    );
+
 
     draw_rectangle(
         _bar_x,
         _bar_y,
+
         _bar_x + _bar_width,
         _bar_y + _bar_height,
+
         false
     );
 
 
-    // --------------------------------------------------
-    // GREEN SUCCESS ZONE
-    // --------------------------------------------------
+    // ==================================================
+    // SUCCESS ZONE
+    // ==================================================
 
     var _centre =
         _bar_x
         +
         (_bar_width / 2);
+
 
     var _success_width =
         (_bar_width / 2)
@@ -93,36 +111,48 @@ if (state == 0)
         aim_success_range;
 
 
-    draw_set_color(c_green);
+    draw_set_color(
+        c_green
+    );
+
 
     draw_rectangle(
         _centre - _success_width,
         _bar_y,
+
         _centre + _success_width,
         _bar_y + _bar_height,
+
         false
     );
 
 
-    // --------------------------------------------------
-    // MOVING AIM MARKER
-    // --------------------------------------------------
+    // ==================================================
+    // MOVING MARKER
+    // ==================================================
 
     var _marker_x =
         _centre
         +
-        aim_value
-        *
-        (_bar_width / 2);
+        (
+            aim_value
+            *
+            (_bar_width / 2)
+        );
 
 
-    draw_set_color(c_white);
+    draw_set_color(
+        c_white
+    );
+
 
     draw_rectangle(
         _marker_x - 4,
         _bar_y - 8,
+
         _marker_x + 4,
         _bar_y + _bar_height + 8,
+
         false
     );
 }
@@ -132,8 +162,18 @@ if (state == 0)
 // RESET DRAW SETTINGS
 // ==================================================
 
-draw_set_halign(fa_left);
-draw_set_valign(fa_top);
+draw_set_halign(
+    fa_left
+);
 
-draw_set_color(c_white);
-draw_set_alpha(1);
+draw_set_valign(
+    fa_top
+);
+
+draw_set_color(
+    c_white
+);
+
+draw_set_alpha(
+    1
+);

@@ -19,14 +19,14 @@ if (input_locked)
 
 
 // ==================================================
-// STATE 0 - AIM
+// STATE 0 - AIMING
 // ==================================================
 
 if (state == 0)
 {
-    // --------------------------------------------------
+    // ==================================================
     // MOVE AIM MARKER
-    // --------------------------------------------------
+    // ==================================================
 
     aim_value +=
         aim_speed
@@ -34,20 +34,18 @@ if (state == 0)
         aim_direction;
 
 
-    // Right edge
+    // Bounce at right edge
     if (aim_value >= 1)
     {
         aim_value = 1;
-
         aim_direction = -1;
     }
 
 
-    // Left edge
+    // Bounce at left edge
     if (aim_value <= -1)
     {
         aim_value = -1;
-
         aim_direction = 1;
     }
 
@@ -62,7 +60,7 @@ if (state == 0)
 
 
         // --------------------------------------------------
-        // CHECK ACCURACY
+        // CHECK IF SHOT IS SUCCESSFUL
         // --------------------------------------------------
 
         var _success =
@@ -71,40 +69,17 @@ if (state == 0)
             aim_success_range;
 
 
-        // --------------------------------------------------
-        // SUCCESS
-        // --------------------------------------------------
+        // ==================================================
+        // SUCCESS TARGET
+        // ==================================================
 
         if (_success)
         {
             score++;
 
-            message = "SWISH!";
-
 
             ball_id.target_x =
                 hoop_target_x;
-
-            ball_id.target_y =
-                hoop_target_y;
-        }
-
-
-        // --------------------------------------------------
-        // MISS
-        // --------------------------------------------------
-
-        else
-        {
-            message = "MISS!";
-
-
-            // Aim value controls left/right miss
-            ball_id.target_x =
-                hoop_target_x
-                +
-                aim_value
-                * 220;
 
 
             ball_id.target_y =
@@ -113,7 +88,30 @@ if (state == 0)
 
 
         // ==================================================
-        // START BALL ANIMATION
+        // MISS TARGET
+        // ==================================================
+
+        else
+        {
+            ball_id.target_x =
+                hoop_target_x
+                +
+                (
+                    aim_value
+                    *
+                    180
+                );
+
+
+            ball_id.target_y =
+                hoop_target_y
+                +
+                10;
+        }
+
+
+        // ==================================================
+        // RESET BALL FOR SHOT
         // ==================================================
 
         ball_id.visible = true;
@@ -121,6 +119,8 @@ if (state == 0)
         ball_id.image_alpha = 1;
 
         ball_id.image_angle = 0;
+
+        ball_id.depth = -100;
 
 
         ball_id.start_x =
@@ -139,6 +139,9 @@ if (state == 0)
 
         ball_id.start_scale =
             0.12;
+
+        ball_id.apex_scale =
+            0.055;
 
         ball_id.end_scale =
             0.045;
@@ -174,7 +177,7 @@ if (state == 0)
 
 
 // ==================================================
-// STATE 1 - BALL IS FLYING
+// STATE 1 - SHOT OCCURRING
 // ==================================================
 
 else if (state == 1)
@@ -182,34 +185,28 @@ else if (state == 1)
     if (shot_finished)
     {
         // ==================================================
-        // ALL SHOTS FINISHED
+        // FINAL SHOT COMPLETE
         // ==================================================
 
         if (shots_taken >= max_shots)
         {
             state = 3;
 
+
             finish_timer =
-                room_speed * 2;
+                room_speed
+                *
+                2;
 
 
-            message =
-                "Final Score: "
-                +
-                string(score)
-                +
-                " / "
-                +
-                string(max_shots);
-
-
-            // --------------------------------------------------
-            // COMPLETE QUEST
-            // --------------------------------------------------
+            // ==================================================
+            // COMPLETE QUEST ONCE
+            // ==================================================
 
             if (!quest_completed)
             {
-                quest_completed = true;
+                quest_completed =
+                    true;
 
 
                 if (instance_exists(obj_quest_manager))
@@ -235,15 +232,18 @@ else if (state == 1)
         {
             state = 2;
 
+
             wait_timer =
-                room_speed * 0.75;
+                room_speed
+                *
+                0.7;
         }
     }
 }
 
 
 // ==================================================
-// STATE 2 - WAIT BEFORE NEXT SHOT
+// STATE 2 - PREPARE NEXT BALL
 // ==================================================
 
 else if (state == 2)
@@ -253,7 +253,9 @@ else if (state == 2)
 
     if (wait_timer <= 0)
     {
-        // Reset ball
+        // ==================================================
+        // RESET BALL
+        // ==================================================
 
         ball_id.x =
             ball_start_x;
@@ -281,6 +283,10 @@ else if (state == 2)
             0.12;
 
 
+        ball_id.depth =
+            -100;
+
+
         ball_id.state =
             0;
 
@@ -289,14 +295,35 @@ else if (state == 2)
             false;
 
 
-        // Reset aim
-        aim_value = 0;
+        // ==================================================
+        // RANDOMISE AIM FOR NEXT SHOT
+        // ==================================================
 
-        aim_direction = 1;
+        // Random starting position
+        aim_value =
+            random_range(
+                -0.85,
+                0.85
+            );
 
 
-        message =
-            "Press ENTER when the marker is in the centre";
+        // Random starting direction
+        if (irandom(1) == 0)
+        {
+            aim_direction = -1;
+        }
+        else
+        {
+            aim_direction = 1;
+        }
+
+
+        // Random speed
+        aim_speed =
+            random_range(
+                aim_speed_min,
+                aim_speed_max
+            );
 
 
         state =
@@ -306,7 +333,7 @@ else if (state == 2)
 
 
 // ==================================================
-// STATE 3 - FINISHED
+// STATE 3 - GAME FINISHED
 // ==================================================
 
 else if (state == 3)

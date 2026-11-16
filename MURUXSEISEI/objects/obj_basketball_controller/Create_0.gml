@@ -2,28 +2,23 @@
 // BASKETBALL CONTROLLER - CREATE
 // ==================================================
 
+
+// ==================================================
+// RANDOM
+// ==================================================
+
+randomize();
+
+
+// ==================================================
+// DRAW DEPTH
+// ==================================================
+
 depth = 1000;
 
-// ==================================================
-// POSITIONS
-// ==================================================
-
-hoop_x = room_width / 2;
-hoop_y = 35;
-
-
-// Actual target is the rim,
-// NOT the object's origin.
-hoop_target_x = room_width / 2;
-hoop_target_y = 215;
-
-
-ball_start_x = room_width / 2;
-ball_start_y = 600;
-
 
 // ==================================================
-// DRAWING POSITIONS
+// BACKGROUND / COURT
 // ==================================================
 
 background_height = 390;
@@ -32,7 +27,26 @@ court_y = 330;
 
 
 // ==================================================
-// GAME
+// HOOP POSITION
+// ==================================================
+
+hoop_x = room_width / 2;
+hoop_y = 20;
+
+hoop_target_x = room_width / 2;
+hoop_target_y = 225;
+
+
+// ==================================================
+// BALL START
+// ==================================================
+
+ball_start_x = room_width / 2;
+ball_start_y = 610;
+
+
+// ==================================================
+// GAME SETTINGS
 // ==================================================
 
 shots_taken = 0;
@@ -42,26 +56,45 @@ score = 0;
 
 
 // ==================================================
-// AIM
-//
-// -1 = far left
-//  0 = centre
-//  1 = far right
+// AIM SETTINGS
 // ==================================================
 
-aim_value = 0;
+// Random starting position
+aim_value = random_range(
+    -0.85,
+    0.85
+);
 
-aim_direction = 1;
 
-aim_speed = 0.025;
+// Random starting direction
+if (irandom(1) == 0)
+{
+    aim_direction = -1;
+}
+else
+{
+    aim_direction = 1;
+}
 
 
-// Success zone
+// Random speed range
+aim_speed_min = 0.015;
+aim_speed_max = 0.040;
+
+
+// First shot random speed
+aim_speed = random_range(
+    aim_speed_min,
+    aim_speed_max
+);
+
+
+// Green success zone
 aim_success_range = 0.18;
 
 
 // ==================================================
-// STATE
+// GAME STATE
 //
 // 0 = aiming
 // 1 = ball flying
@@ -75,26 +108,24 @@ state = 0;
 shot_finished = false;
 
 wait_timer = 0;
-
 finish_timer = 0;
 
 quest_completed = false;
 
 
 // ==================================================
-// MESSAGE
+// INPUT LOCK
+//
+// Prevents the Enter used to enter the room
+// from immediately shooting.
 // ==================================================
 
-message =
-    "Press ENTER when the marker is in the centre";
+input_locked = true;
 
 
 // ==================================================
 // CREATE HOOP
 // ==================================================
-
-hoop_x = room_width / 2;
-hoop_y = 20;
 
 hoop_id = instance_create_layer(
     hoop_x,
@@ -104,15 +135,11 @@ hoop_id = instance_create_layer(
 );
 
 
-// Force all visual settings
 with (hoop_id)
 {
     sprite_index = spr_basketball_hoop;
 
     visible = true;
-
-    x = other.hoop_x;
-    y = other.hoop_y;
 
     image_xscale = 0.55;
     image_yscale = 0.55;
@@ -122,24 +149,33 @@ with (hoop_id)
     depth = -50;
 }
 
+
 // ==================================================
 // CREATE BALL
 // ==================================================
 
-ball_id =
-    instance_create_layer(
-        ball_start_x,
-        ball_start_y,
-        "Instances",
-        obj_basketball_ball
-    );
+ball_id = instance_create_layer(
+    ball_start_x,
+    ball_start_y,
+    "Instances",
+    obj_basketball_ball
+);
 
 
 ball_id.controller_id = id;
 
 
 // ==================================================
-// PREVENT ENTER CARRY-OVER
+// INITIAL BALL SETTINGS
 // ==================================================
 
-input_locked = true;
+ball_id.x = ball_start_x;
+ball_id.y = ball_start_y;
+
+ball_id.visible = true;
+
+ball_id.image_alpha = 1;
+
+ball_id.image_angle = 0;
+
+ball_id.depth = -100;

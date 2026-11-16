@@ -3,7 +3,10 @@
 // ==================================================
 
 
-// Controller reference
+// ==================================================
+// CONTROLLER
+// ==================================================
+
 controller_id = noone;
 
 
@@ -12,8 +15,8 @@ controller_id = noone;
 //
 // 0 = waiting
 // 1 = flying
-// 2 = swish
-// 3 = miss
+// 2 = successful shot falling
+// 3 = miss falling away
 // ==================================================
 
 state = 0;
@@ -24,7 +27,8 @@ state = 0;
 // ==================================================
 
 shot_progress = 0;
-shot_speed = 0.035;
+
+shot_speed = 0.025;
 
 shot_success = false;
 
@@ -46,6 +50,8 @@ target_y = y;
 
 start_scale = 0.12;
 
+apex_scale = 0.055;
+
 end_scale = 0.045;
 
 image_xscale = start_scale;
@@ -62,10 +68,14 @@ miss_dx = 0;
 
 
 // ==================================================
-// DEFAULT
+// VISUAL
 // ==================================================
 
 image_angle = 0;
+
 image_alpha = 1;
 
-depth = 0;
+visible = true;
+
+// Always draw in front of hoop
+depth = -100;
