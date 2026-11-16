@@ -384,6 +384,51 @@ if (load_pending)
             }
 
 
+            // ------------------------------------------
+            // HOTBAR
+            // ------------------------------------------
+
+            if (
+                variable_struct_exists(
+                    pending_data,
+                    "hotbar_items"
+                )
+            )
+            {
+                var _hotbar =
+                    instance_find(
+                        obj_hotbar,
+                        0
+                    );
+
+                var _saved_items =
+                    pending_data.hotbar_items;
+
+
+                for (
+                    var i = 0;
+                    i < array_length(_saved_items);
+                    i++
+                )
+                {
+                    if (
+                        i
+                        <
+                        array_length(
+                            _hotbar.hotbar
+                        )
+                    )
+                    {
+                        _hotbar.hotbar[i].item_name =
+                            _saved_items[i].item_name;
+
+                        _hotbar.hotbar[i].amount =
+                            _saved_items[i].amount;
+                    }
+                }
+            }
+
+
             // ==================================================
             // SANITY
             // ==================================================
@@ -640,7 +685,9 @@ if (
 )
 {
     var _has_player =
-        instance_exists(obj_player);
+        instance_exists(
+            obj_player
+        );
 
     var _has_quest =
         instance_exists(
@@ -816,7 +863,11 @@ if (autosave_pending)
     )
     {
         // Do not save during fade transition
-        if (!instance_exists(obj_fade_transition))
+        if (
+            !instance_exists(
+                obj_fade_transition
+            )
+        )
         {
             // All three are required so we never accidentally
             // overwrite a valid save with an empty inventory.

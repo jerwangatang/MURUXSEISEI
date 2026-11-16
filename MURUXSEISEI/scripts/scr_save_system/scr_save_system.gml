@@ -253,6 +253,40 @@ function scr_save_game(_slot)
 
 
     // ==================================================
+    // SAVE HOTBAR
+    // ==================================================
+
+    var _hotbar_items = [];
+
+    if (instance_exists(obj_hotbar))
+    {
+        var _hb =
+            instance_find(
+                obj_hotbar,
+                0
+            );
+
+        for (
+            var i = 0;
+            i < array_length(_hb.hotbar);
+            i++
+        )
+        {
+            array_push(
+                _hotbar_items,
+                {
+                    item_name:
+                        _hb.hotbar[i].item_name,
+
+                    amount:
+                        _hb.hotbar[i].amount
+                }
+            );
+        }
+    }
+
+
+    // ==================================================
     // SAVE HOTBAR / INVENTORY
     // ==================================================
 
@@ -430,7 +464,10 @@ function scr_save_game(_slot)
             global.fishing_rod_collected,
 
         opened_chests:
-            global.opened_chests
+            global.opened_chests,
+
+        hotbar_items:
+            _hotbar_items
     };
 
 

@@ -121,3 +121,11 @@ if (speed_boost_timer > 0) {
         move_spd = base_move_spd; // boost ends, back to normal
     }
 }
+
+if (keyboard_check_pressed(ord("K"))) {
+    sanity_change(-20);
+}
+
+if (keyboard_check_pressed(ord("L"))) {
+    sanity_change(20);
+}

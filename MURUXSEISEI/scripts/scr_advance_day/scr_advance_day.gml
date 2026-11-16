@@ -37,6 +37,11 @@ function scr_advance_day()
         array_length(_manager.days) - 1
     )
     {
+        // Save current hotbar state before changing day
+        scr_hotbar_snapshot_Save();
+
+
+        // Advance day
         _manager.current_day_index++;
 
 
@@ -48,7 +53,10 @@ function scr_advance_day()
         );
 
 
-        // Autosave
+        // ==================================================
+        // AUTOSAVE
+        // ==================================================
+
         if (
             variable_global_exists("current_save_slot")
             &&
@@ -69,13 +77,18 @@ function scr_advance_day()
     // FINAL DAY COMPLETE
     // ==================================================
 
+    // Save hotbar one final time
+    scr_hotbar_snapshot_Save();
+
+
     show_debug_message(
         "FINAL DAY COMPLETE"
     );
 
 
-    // We will connect this to the final crush/ending
-    // sequence later.
+    // Final ending / crush sequence
+    // will be connected here later.
+
 
     return true;
 }

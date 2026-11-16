@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"scr_hotbar_snapshot_restore",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"scr_hotbar_snapshot_restore",
+  "parent":{
+    "name":"Scripts",
+    "path":"folders/Scripts.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

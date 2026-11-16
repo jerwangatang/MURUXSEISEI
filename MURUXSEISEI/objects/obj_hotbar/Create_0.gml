@@ -5,6 +5,14 @@ for (var i = 0; i < slot_count; i++) {
     hotbar[i] = { item_name: "", amount: 0 };
 }
 
+day_start_snapshot = [];
+for (var i = 0; i < array_length(hotbar); i++) {
+    array_push(day_start_snapshot, {
+        item_name: hotbar[i].item_name,
+        amount: hotbar[i].amount
+    });
+}
+
 selected_slot = 0;
 slot_size = 48;
 slot_padding = 4;
