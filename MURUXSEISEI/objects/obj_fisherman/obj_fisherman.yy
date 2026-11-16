@@ -12,7 +12,10 @@
     "name":"shops and stuff",
     "path":"folders/Objects/Town 1/shops and stuff.yy",
   },
-  "parentObjectId":null,
+  "parentObjectId":{
+    "name":"obj_npc",
+    "path":"objects/obj_npc/obj_npc.yy",
+  },
   "persistent":false,
   "physicsAngularDamping":0.1,
   "physicsDensity":0.5,
