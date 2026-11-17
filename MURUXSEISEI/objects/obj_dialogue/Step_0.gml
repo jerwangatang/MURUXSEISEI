@@ -2,71 +2,124 @@
 // DIALOGUE - STEP
 // ==================================================
 
-// Freeze dialogue while pause menu is open
+
+// ==================================================
+// PAUSE
+// ==================================================
+
 if (global.game_paused)
 {
     exit;
 }
 
 
-// Nothing to display
+// ==================================================
+// NOTHING TO DISPLAY
+// ==================================================
+
 if (array_length(lines) == 0)
 {
     exit;
 }
 
 
-// Current dialogue line
-var _line = lines[line_index];
+// ==================================================
+// CURRENT LINE
+// ==================================================
 
-var _full_text = _line.text;
-var _text_length = string_length(_full_text);
+var _line =
+    lines[line_index];
 
 
-// --------------------------------------------------
-// TYPEWRITER EFFECT
-// --------------------------------------------------
+var _full_text =
+    _line.text;
 
-if (char_index < _text_length)
-{
-    char_index = min(
-        char_index + text_speed,
-        _text_length
+
+var _text_length =
+    string_length(
+        _full_text
     );
 
 
-    // Press Enter / Space to instantly finish line
-    if (keyboard_check_pressed(vk_enter)
-    || keyboard_check_pressed(vk_space))
+// ==================================================
+// TYPEWRITER EFFECT
+// ==================================================
+
+if (char_index < _text_length)
+{
+    char_index =
+        min(
+            char_index + text_speed,
+            _text_length
+        );
+
+
+    // Enter / Space instantly finishes line
+    if (
+        keyboard_check_pressed(vk_enter)
+        ||
+        keyboard_check_pressed(vk_space)
+    )
     {
-        char_index = _text_length;
+        char_index =
+            _text_length;
     }
 }
 
 
-// --------------------------------------------------
+// ==================================================
 // ADVANCE DIALOGUE
-// --------------------------------------------------
+// ==================================================
 
 else
 {
-    if (keyboard_check_pressed(vk_enter)
-    || keyboard_check_pressed(vk_space))
+    if (
+        keyboard_check_pressed(vk_enter)
+        ||
+        keyboard_check_pressed(vk_space)
+    )
     {
         line_index++;
 
-        // Dialogue finished
-        if (line_index >= array_length(lines))
+
+        // ==================================================
+        // DIALOGUE FINISHED
+        // ==================================================
+
+        if (
+            line_index
+            >=
+            array_length(lines)
+        )
         {
-            global.dialogue_active = false;
-			// Stop the same Enter press from reopening dialogue
-			global.interact_blocked = true;
+            global.dialogue_active =
+                false;
+
+
+            // Stop same Enter press from
+            // reopening dialogue
+            global.interact_blocked =
+                true;
+
+
+            // Reset portrait hiding so the next
+            // normal character shows the X portrait
+            global.hide_npc_portrait =
+                false;
+
+
             instance_destroy();
         }
+
+
+        // ==================================================
+        // NEXT LINE
+        // ==================================================
+
         else
         {
-            // Start typing next line
-            char_index = 0;
+            char_index =
+                0;
         }
     }
 }

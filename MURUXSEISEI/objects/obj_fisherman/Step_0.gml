@@ -44,7 +44,10 @@ if (!instance_exists(obj_player))
 
 
 var _player =
-    instance_find(obj_player, 0);
+    instance_find(
+        obj_player,
+        0
+    );
 
 
 // ==================================================
@@ -77,6 +80,11 @@ if (
 
     if (!instance_exists(obj_hotbar))
     {
+        // Fisherman uses generic X portrait
+        global.dialogue_portrait =
+            spr_npc_portrait;
+
+
         dialogue_start([
             {
                 speaker: "Fisherman",
@@ -84,12 +92,16 @@ if (
             }
         ]);
 
+
         exit;
     }
 
 
     var _hotbar =
-        instance_find(obj_hotbar, 0);
+        instance_find(
+            obj_hotbar,
+            0
+        );
 
 
     // ==================================================
@@ -123,6 +135,11 @@ if (
 
     if (_fish_count <= 0)
     {
+        // Fisherman uses generic X portrait
+        global.dialogue_portrait =
+            spr_npc_portrait;
+
+
         dialogue_start([
             {
                 speaker: "Fisherman",
@@ -140,6 +157,7 @@ if (
             }
         ]);
 
+
         exit;
     }
 
@@ -149,16 +167,19 @@ if (
     // ==================================================
 
     var _money =
-        _fish_count * fish_price;
+        _fish_count
+        *
+        fish_price;
 
 
     // ==================================================
-    // CREATE SALE DIALOGUE FIRST
+    // CREATE SALE DIALOGUE
     // ==================================================
 
     var _sale_dialogue = [
         {
             speaker: "Fisherman",
+
             text:
                 "Oh, nice! You caught "
                 + string(_fish_count)
@@ -167,6 +188,7 @@ if (
 
         {
             speaker: "Fisherman",
+
             text:
                 "I'll give you "
                 + string(_money)
@@ -184,6 +206,18 @@ if (
         }
     ];
 
+
+    // ==================================================
+    // PORTRAIT
+    // ==================================================
+
+    global.dialogue_portrait =
+        spr_npc_portrait;
+
+
+    // ==================================================
+    // START DIALOGUE
+    // ==================================================
 
     dialogue_start(
         _sale_dialogue
