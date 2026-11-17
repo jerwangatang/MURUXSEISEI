@@ -34,8 +34,8 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"spr_happy",
-    "path":"sprites/spr_happy/spr_happy.yy",
+    "name":"spr_fisherman",
+    "path":"sprites/spr_fisherman/spr_fisherman.yy",
   },
   "spriteMaskId":null,
   "visible":true,
