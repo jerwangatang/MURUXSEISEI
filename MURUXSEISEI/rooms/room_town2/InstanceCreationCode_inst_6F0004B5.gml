@@ -1,3 +1,23 @@
+// ==================================================
+// TEACHER APPEARANCE
+// ==================================================
+
+sprite_index = spr_teacher;
+
+image_index = 0;
+image_speed = 0;
+
+image_xscale = 0.045;
+image_yscale = 0.045;
+
+image_alpha = 1;
+image_blend = c_white;
+
+
+// ==================================================
+// NPC IDENTITY
+// ==================================================
+
 npc_name = "Teacher";
 
 default_dialogue = [

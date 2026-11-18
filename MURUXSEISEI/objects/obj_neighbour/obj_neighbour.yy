@@ -35,8 +35,8 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"spr_happy",
-    "path":"sprites/spr_happy/spr_happy.yy",
+    "name":"spr_neighbour",
+    "path":"sprites/spr_neighbour/spr_neighbour.yy",
   },
   "spriteMaskId":null,
   "visible":true,

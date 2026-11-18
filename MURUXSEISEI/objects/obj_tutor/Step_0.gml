@@ -14,7 +14,7 @@ if (global.game_paused)
 
 
 // ==================================================
-// MAKE SURE INTERACTION BLOCK EXISTS
+// INTERACTION BLOCK
 // ==================================================
 
 if (!variable_global_exists("interact_blocked"))
@@ -22,17 +22,6 @@ if (!variable_global_exists("interact_blocked"))
     global.interact_blocked = false;
 }
 
-
-// ==================================================
-// PREVENT ENTER FROM REOPENING DIALOGUE
-// ==================================================
-//
-// When a dialogue/quiz closes, Enter is still being
-// pressed for that frame.
-//
-// Wait until Enter is RELEASED before allowing another
-// interaction with the Tutor.
-// ==================================================
 
 if (global.interact_blocked)
 {
@@ -46,14 +35,32 @@ if (global.interact_blocked)
 
 
 // ==================================================
+// QUEST MANAGER CHECK
+// ==================================================
+
+if (!instance_exists(obj_quest_manager))
+{
+    exit;
+}
+
+
+var _manager =
+    instance_find(obj_quest_manager, 0);
+
+var _day_index =
+    _manager.current_day_index;
+
+
+// ==================================================
 // QUIZ ACTIVE
+// DAY 1 TUTORING QUIZ
 // ==================================================
 
 if (quiz_active)
 {
-    // ==================================================
+    // --------------------------------------------------
     // QUIZ FINISHED
-    // ==================================================
+    // --------------------------------------------------
 
     if (quiz_finished)
     {
@@ -65,23 +72,27 @@ if (quiz_active)
             global.dialogue_active = false;
 
 
-            // Complete Tutor quest
-            if (!scr_quest_done("tutoring"))
+            // ==================================================
+            // DAY 1 - FINISH TUTORING
+            // ==================================================
+
+            if (_day_index == 0)
             {
-                scr_complete_quest(
-                    "tutoring"
-                );
+                if (!scr_quest_done("tutoring"))
+                {
+                    scr_complete_quest(
+                        "tutoring"
+                    );
 
 
-                scr_request_autosave(
-                    "tutoring complete"
-                );
+                    scr_request_autosave(
+                        "tutoring complete"
+                    );
+                }
             }
 
 
-            // IMPORTANT:
-            // Stop this Enter press from immediately
-            // starting another Tutor interaction.
+            // Stop same Enter press reopening Tutor
             global.interact_blocked = true;
         }
 
@@ -170,16 +181,11 @@ if (quiz_active)
             feedback_text = "";
 
 
-            // --------------------------------------------------
-            // ALL QUESTIONS COMPLETE
-            // --------------------------------------------------
-
+            // All questions finished
             if (
                 question_index
                 >=
-                array_length(
-                    tutor_questions
-                )
+                array_length(tutor_questions)
             )
             {
                 quiz_finished = true;
@@ -224,10 +230,7 @@ if (!instance_exists(obj_player))
 
 
 var _player =
-    instance_find(
-        obj_player,
-        0
-    );
+    instance_find(obj_player, 0);
 
 
 // ==================================================
@@ -237,37 +240,29 @@ var _player =
 var _near =
     _player.bbox_right
         >=
-        bbox_left
-        -
-        interaction_margin
+        bbox_left - interaction_margin
 
     &&
 
     _player.bbox_left
         <=
-        bbox_right
-        +
-        interaction_margin
+        bbox_right + interaction_margin
 
     &&
 
     _player.bbox_bottom
         >=
-        bbox_top
-        -
-        interaction_margin
+        bbox_top - interaction_margin
 
     &&
 
     _player.bbox_top
         <=
-        bbox_bottom
-        +
-        interaction_margin;
+        bbox_bottom + interaction_margin;
 
 
 // ==================================================
-// INTERACT
+// INTERACTION
 // ==================================================
 
 if (
@@ -277,49 +272,186 @@ if (
 )
 {
     // ==================================================
-    // TUTOR QUEST ALREADY FINISHED
+    // DAY 1 - TUTORING
     // ==================================================
 
-    if (scr_quest_done("tutoring"))
+    if (_day_index == 0)
     {
-        dialogue_start(
-            [
-                {
-                    speaker:
-                        "Tutor",
+        // Already completed
+        if (scr_quest_done("tutoring"))
+        {
+            dialogue_start(
+                [
+                    {
+                        speaker: "Tutor",
+                        text: "That's all for today. Keep practising."
+                    },
 
-                    text:
-                        "That's all for today. Keep practising."
-                },
+                    {
+                        speaker: "Muru",
+                        text: "Okay. Thanks."
+                    }
+                ]
+            );
+        }
 
-                {
-                    speaker:
-                        "Muru",
+        // Start quiz
+        else
+        {
+            quiz_active = true;
+            quiz_finished = false;
 
-                    text:
-                        "Okay. Thanks."
-                }
-            ]
-        );
+            question_index = 0;
+            selected_answer = 0;
+
+            feedback_text = "";
+
+            global.dialogue_active = true;
+        }
     }
 
 
     // ==================================================
-    // START TUTOR QUIZ
+    // DAY 2 - FINISH TUTORING HOMEWORK
+    // ==================================================
+
+    else if (_day_index == 1)
+    {
+        if (!scr_quest_done("finish_tutor_homework"))
+        {
+            dialogue_start(
+                [
+                    {
+                        speaker: "Tutor",
+                        text: "Did you finish the homework I gave you?"
+                    },
+
+                    {
+                        speaker: "Muru",
+                        text: "Yeah. I finished it."
+                    },
+
+                    {
+                        speaker: "Tutor",
+                        text: "Good. You're making progress."
+                    },
+
+                    {
+                        speaker: "Muru",
+                        text: "Thanks."
+                    }
+                ]
+            );
+
+
+            scr_complete_quest(
+                "finish_tutor_homework"
+            );
+
+
+            scr_request_autosave(
+                "tutor homework complete"
+            );
+        }
+        else
+        {
+            dialogue_start(
+                [
+                    {
+                        speaker: "Tutor",
+                        text: "Good work on your homework."
+                    },
+
+                    {
+                        speaker: "Muru",
+                        text: "Thanks."
+                    }
+                ]
+            );
+        }
+    }
+
+
+    // ==================================================
+    // DAY 3 - APOLOGISE TO TUTOR
+    // ==================================================
+
+    else if (_day_index == 2)
+    {
+        if (!scr_quest_done("apologise_tutor"))
+        {
+            dialogue_start(
+                [
+                    {
+                        speaker: "Muru",
+                        text: "I'm sorry about what happened."
+                    },
+
+                    {
+                        speaker: "Tutor",
+                        text: "It's alright, Muru."
+                    },
+
+                    {
+                        speaker: "Tutor",
+                        text: "Thank you for coming to talk to me."
+                    },
+
+                    {
+                        speaker: "Muru",
+                        text: "Okay..."
+                    }
+                ]
+            );
+
+
+            scr_complete_quest(
+                "apologise_tutor"
+            );
+
+
+            scr_request_autosave(
+                "apologised to tutor"
+            );
+        }
+        else
+        {
+            dialogue_start(
+                [
+                    {
+                        speaker: "Tutor",
+                        text: "Don't worry about it anymore."
+                    },
+
+                    {
+                        speaker: "Muru",
+                        text: "Okay."
+                    }
+                ]
+            );
+        }
+    }
+
+
+    // ==================================================
+    // DAY 4 / DAY 5
+    // NO TUTOR QUEST
     // ==================================================
 
     else
     {
-        quiz_active = true;
-        quiz_finished = false;
+        dialogue_start(
+            [
+                {
+                    speaker: "Tutor",
+                    text: "Keep doing your best, Muru."
+                },
 
-        question_index = 0;
-        selected_answer = 0;
-
-        feedback_text = "";
-
-
-        // Prevent player movement
-        global.dialogue_active = true;
+                {
+                    speaker: "Muru",
+                    text: "I will."
+                }
+            ]
+        );
     }
 }

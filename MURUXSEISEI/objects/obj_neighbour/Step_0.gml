@@ -50,7 +50,8 @@ if (!instance_exists(obj_player))
     exit;
 }
 
-var _player = instance_find(obj_player, 0);
+var _player =
+    instance_find(obj_player, 0);
 
 
 // --------------------------------------------------
@@ -73,9 +74,36 @@ if (_near)
     // Show interaction star
     can_interact = true;
 
+
     // Enter to interact
     if (keyboard_check_pressed(vk_enter))
     {
-        dialogue_start(dialogue_lines);
+        dialogue_start(
+            dialogue_lines
+        );
+
+
+        // ==================================================
+        // DAY 2 - TALK TO NEIGHBOUR
+        // ==================================================
+
+        if (
+            instance_exists(obj_quest_manager)
+            &&
+            obj_quest_manager.current_day_index == 1
+        )
+        {
+            if (!scr_quest_done("talk_neighbour"))
+            {
+                scr_complete_quest(
+                    "talk_neighbour"
+                );
+
+
+                scr_request_autosave(
+                    "talked to neighbour"
+                );
+            }
+        }
     }
 }
