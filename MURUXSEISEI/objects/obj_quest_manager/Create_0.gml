@@ -26,7 +26,7 @@ days = [];
 
 // ==================================================
 // DAY 1 - MISERDAY - TOWN 1
-// Partner
+
 // ==================================================
 
 array_push(days, {
@@ -68,7 +68,7 @@ array_push(days, {
 
 // ==================================================
 // DAY 2 - TERRIBLEDAY - TOWN 1
-// Partner
+
 // ==================================================
 
 array_push(days, {
@@ -104,7 +104,7 @@ array_push(days, {
 
 // ==================================================
 // DAY 3 - WEEPDAY - TOWN 2
-// Partner
+
 // ==================================================
 
 array_push(days, {
@@ -158,10 +158,7 @@ array_push(days, {
 
 // ==================================================
 // DAY 4 - THROBDAY - TOWN 2
-// YOUR DAY
-//
-// Emotional purpose:
-// anxiety reaches its highest point
+
 // ==================================================
 
 array_push(days, {
@@ -209,11 +206,7 @@ array_push(days, {
 
 // ==================================================
 // DAY 5 - MOTIVEDAY - TOWN 2
-// YOUR FINAL DAY
-//
-// Emotional purpose:
-// Muru is still anxious,
-// but decides to act anyway.
+
 // ==================================================
 
 array_push(days, {

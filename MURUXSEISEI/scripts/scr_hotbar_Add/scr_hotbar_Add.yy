@@ -1,9 +1,9 @@
 {
   "$GMScript":"v1",
-  "%Name":"scr_hotbar_Add",
+  "%Name":"scr_hotbar_add",
   "isCompatibility":false,
   "isDnD":false,
-  "name":"scr_hotbar_Add",
+  "name":"scr_hotbar_add",
   "parent":{
     "name":"Scripts",
     "path":"folders/Scripts.yy",

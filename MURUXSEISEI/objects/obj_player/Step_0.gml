@@ -26,21 +26,18 @@ var _move_y =
 // SPEED
 // --------------------------------------------------
 
-var _speed = 2;
+var _speed = move_spd;
 
 
 // --------------------------------------------------
 // NORMALISE DIAGONAL MOVEMENT
 // --------------------------------------------------
 
-if (_move_x != 0 || _move_y != 0)
+var _moving = (_move_x != 0 || _move_y != 0);
+
+if (_moving)
 {
-    var _len = point_distance(
-        0,
-        0,
-        _move_x,
-        _move_y
-    );
+    var _len = point_distance(0, 0, _move_x, _move_y);
 
     _move_x /= _len;
     _move_y /= _len;
@@ -49,16 +46,19 @@ if (_move_x != 0 || _move_y != 0)
 _move_x *= _speed;
 _move_y *= _speed;
 
+if (_moving) {
+    if (footstep_sound == noone || !audio_is_playing(footstep_sound)) {
+        footstep_sound = audio_play_sound(snd_footstep, 1, false);
+    }
+} else {
+    footstep_sound = noone;
+}
 
 // --------------------------------------------------
 // HORIZONTAL COLLISION
 // --------------------------------------------------
 
-if (!place_meeting(
-    x + _move_x,
-    y,
-    obj_solid
-))
+if (!place_meeting(x + _move_x, y, obj_solid))
 {
     x += _move_x;
 }
@@ -68,44 +68,65 @@ if (!place_meeting(
 // VERTICAL COLLISION
 // --------------------------------------------------
 
-if (!place_meeting(
-    x,
-    y + _move_y,
-    obj_solid
-))
+if (!place_meeting(x, y + _move_y, obj_solid))
 {
     y += _move_y;
 }
 
-// Horizontal movement
-if (keyboard_check(ord("D"))) {
-    if (!place_meeting(x + move_spd, y, obj_solid)) {
-        x += move_spd;
-    }
-    facing = 1;
-    image_xscale = 1;
-}
 
-if (keyboard_check(ord("A"))) {
-    if (!place_meeting(x - move_spd, y, obj_solid)) {
-        x -= move_spd;
-    }
-    facing = -1;
-    image_xscale = -1;
-}
+// --------------------------------------------------
+// FACING DIRECTION (for sprite selection)
+// --------------------------------------------------
 
-// Vertical movement (if you have W/S or up/down)
-if (keyboard_check(ord("W"))) {
-    if (!place_meeting(x, y - move_spd, obj_solid)) {
-        y -= move_spd;
+if (_moving)
+{
+    // Pick whichever axis has the stronger input, so diagonals
+    // still resolve to one of the 4 sprite directions
+    if (abs(_move_x) > abs(_move_y))
+    {
+        facing_dir = (_move_x > 0) ? "east" : "west";
+    }
+    else
+    {
+        facing_dir = (_move_y > 0) ? "south" : "north";
     }
 }
 
-if (keyboard_check(ord("S"))) {
-    if (!place_meeting(x, y + move_spd, obj_solid)) {
-        y += move_spd;
-    }
+
+// --------------------------------------------------
+// SPRITE SELECTION
+// --------------------------------------------------
+
+var _new_sprite = sprite_index;
+
+switch (facing_dir)
+{
+    case "south":
+        _new_sprite = _moving ? spr_muru_walk_south : spr_muru_idle_south;
+        break;
+    case "north":
+        _new_sprite = _moving ? spr_muru_walk_north : spr_muru_idle_north;
+        break;
+    case "east":
+        _new_sprite = _moving ? spr_muru_walk_east : spr_muru_idle_east;
+        break;
+    case "west":
+        _new_sprite = _moving ? spr_muru_walk_west : spr_muru_idle_west;
+        break;
 }
+
+if (_new_sprite != sprite_index)
+{
+    sprite_index = _new_sprite;
+    image_index = 0;
+}
+
+image_speed = 0.2;
+
+
+// --------------------------------------------------
+// USE ITEM
+// --------------------------------------------------
 
 if (keyboard_check_pressed(ord("P"))) {
     var _slot = obj_hotbar.hotbar[obj_hotbar.selected_slot];
@@ -115,12 +136,22 @@ if (keyboard_check_pressed(ord("P"))) {
     }
 }
 
+
+// --------------------------------------------------
+// SPEED BOOST TIMER
+// --------------------------------------------------
+
 if (speed_boost_timer > 0) {
     speed_boost_timer--;
     if (speed_boost_timer <= 0) {
-        move_spd = base_move_spd; // boost ends, back to normal
+        move_spd = base_move_spd;
     }
 }
+
+
+// --------------------------------------------------
+// DEBUG SANITY KEYS
+// --------------------------------------------------
 
 if (keyboard_check_pressed(ord("K"))) {
     sanity_change(-20);
@@ -129,3 +160,4 @@ if (keyboard_check_pressed(ord("K"))) {
 if (keyboard_check_pressed(ord("L"))) {
     sanity_change(20);
 }
+

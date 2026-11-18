@@ -12,6 +12,7 @@ image_index = floor((inflate_amount / 100) * 8);
 if (inflate_amount >= 100) {
     popped = true;
     image_index = 9;
+    audio_play_sound(snd_lose, 1, false);
     alarm[1] = 6;
     alarm[0] = room_speed * 1;
 }
@@ -20,6 +21,7 @@ if (inflate_amount >= target_min && inflate_amount <= target_max) {
     hold_timer++;
     if (hold_timer >= hold_required) {
         cycles_done++;
+        audio_play_sound(snd_ding, 1, false);
         hold_timer = 0;
         inflate_amount = 0;
         
