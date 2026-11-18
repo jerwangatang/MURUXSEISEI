@@ -46,6 +46,13 @@ if (_moving)
 _move_x *= _speed;
 _move_y *= _speed;
 
+if (_moving) {
+    if (footstep_sound == noone || !audio_is_playing(footstep_sound)) {
+        footstep_sound = audio_play_sound(snd_footstep, 1, false);
+    }
+} else {
+    footstep_sound = noone;
+}
 
 // --------------------------------------------------
 // HORIZONTAL COLLISION
@@ -153,3 +160,4 @@ if (keyboard_check_pressed(ord("K"))) {
 if (keyboard_check_pressed(ord("L"))) {
     sanity_change(20);
 }
+

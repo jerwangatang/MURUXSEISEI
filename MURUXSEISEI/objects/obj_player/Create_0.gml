@@ -13,3 +13,4 @@ facing_dir = "south";
 
 sprite_index = spr_muru_idle_south;
 image_speed = 0.15;
+footstep_sound = noone;

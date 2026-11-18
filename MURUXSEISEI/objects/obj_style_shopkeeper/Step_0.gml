@@ -13,25 +13,19 @@ if (shop_open) {
     }
     
     if (keyboard_check_pressed(vk_space)) {
-        var _item = shop_items[selected_index];
-        
-        if (_item.owned) {
-            show_debug_message("Already own this!");
-        } else if (global.coins >= _item.price) {
-            global.coins -= _item.price;
-            _item.owned = true;
-            
-            // Permanent sanity boost
-            global.max_sanity += 10;
-            global.sanity += 10; // also top up current sanity by the same amount
-            
-            show_debug_message("Bought " + _item.name + "! Max sanity increased.");
-        } else {
-            show_debug_message("Not enough coins!");
-        }
-    }
+    var _item = shop_items[selected_index];
     
-    if (keyboard_check_pressed(vk_escape)) {
-        shop_open = false;
-    }
+		if (_item.owned) {
+			audio_play_sound(snd_fail, 1, false);
+			show_debug_message("Already own this!");
+		} else if (global.coins >= _item.price) {
+			global.coins -= _item.price;
+			_item.owned = true;
+			global.max_sanity += 10;
+			global.sanity += 10;
+		} else {
+			audio_play_sound(snd_fail, 1, false);
+			show_debug_message("Not enough coins!");
+		}
+	}	
 }

@@ -19,6 +19,7 @@ if (shop_open) {
             scr_hotbar_add(_item.name, 1);
             show_debug_message("Bought " + _item.name);
         } else {
+            audio_play_sound(snd_fail, 1, false);
             show_debug_message("Not enough coins!");
         }
     }

@@ -2,13 +2,14 @@ if (place_meeting(x, y, obj_player)) {
     if (state == "idle") {
         if (keyboard_check_pressed(vk_enter)) {
             if (scr_hotbar_has_item("Fishing Rod")) {
-                state = "waiting";
-                second_timer = room_speed; // 1 second countdown
-                dot_count = 0;
-            } else {
-                state = "no_rod";
-                no_rod_timer = room_speed * 2; // show error for 2 sec
-            }
+				state = "waiting";
+				second_timer = room_speed;
+				dot_count = 0;
+			} else {
+				audio_play_sound(snd_fail, 1, false);
+				state = "no_rod";
+				no_rod_timer = room_speed * 2;
+			}
         }
     }
 }
@@ -39,26 +40,22 @@ if (state == "waiting") {
 if (state == "biting") {
     bite_window--;
     
-    if (keyboard_check_pressed(vk_space)) {
-        var _catch_roll = irandom_range(1, 100);
-        if (_catch_roll <= 50) {
-            caught_item = "Old Boot";
-        } else if (_catch_roll <= 80) {
-            caught_item = "Fish";
-        } else {
-            caught_item = "Golden Apple";
-        }
-        
-        scr_hotbar_add(caught_item, 1);
-        state = "result";
-        result_timer = room_speed * 2;
-    }
+	if (keyboard_check_pressed(vk_space)) {
+		var _catch_roll = irandom_range(1, 100);
+		if (_catch_roll <= 50) {
+			caught_item = "Old Boot";
+		} else if (_catch_roll <= 80) {
+			caught_item = "Fish";
+		} else {
+			caught_item = "Golden Apple";
+		}
     
-    if (bite_window <= 0) {
-        caught_item = "";
-        state = "result";
-        result_timer = room_speed * 2;
-    }
+		scr_hotbar_add(caught_item, 1);
+		scr_complete_quest("fishing_pond_day3");
+    
+		state = "result";
+		result_timer = room_speed * 2;
+	}
 }
 
 if (state == "result") {
@@ -67,3 +64,4 @@ if (state == "result") {
         state = "idle";
     }
 }
+

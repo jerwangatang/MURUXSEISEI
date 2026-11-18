@@ -1,5 +1,8 @@
-if (!opened) {
-    opened = true;
+
+
+if (!opened_today) {
+    opened_today = true;
+    last_opened_day = obj_quest_manager.current_day_index;
     image_index = 1;
     
     var _roll = irandom_range(1, 100);
@@ -17,4 +20,8 @@ if (!opened) {
     
     scr_hotbar_add(_item, 1);
     show_debug_message("You got: " + _item);
+} else if (fail_cooldown <= 0) {
+    audio_play_sound(snd_fail, 1, false);
+    fail_cooldown = room_speed * 4; // 4 second cooldown
+    show_debug_message("Already got something from the fridge today!");
 }

@@ -29,3 +29,4 @@ if (shop_open) {
     draw_set_color(c_gray);
     draw_text(_x + 10, _y + _h - 25, "Up/Down: select  Space: buy  Esc: close");
 }
+

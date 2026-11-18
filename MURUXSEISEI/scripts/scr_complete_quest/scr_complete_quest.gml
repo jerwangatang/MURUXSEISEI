@@ -38,6 +38,7 @@ function scr_complete_quest(_quest_id)
             {
                 _day.quests[i].done = true;
 
+                audio_play_sound(snd_ding, 1, false);
 
                 show_debug_message(
                     "Quest completed: "
