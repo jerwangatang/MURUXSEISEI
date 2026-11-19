@@ -1,0 +1,1 @@
+collected_day = -1; // tracks which day index this was last collected on

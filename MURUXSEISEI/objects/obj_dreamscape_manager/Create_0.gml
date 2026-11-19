@@ -52,3 +52,11 @@ array_push(dream_days, {
     item_name: "Mirror Shard",
     quests: [ {name: "Find the Mirror Shard", done: false} ]
 });
+
+dream_items = [
+    "Memory Charm",      // Day 0 - Miserday
+    "Sunlight Vial",     // Day 1 - Terribleday
+    "Courage Stone",     // Day 2 - Weepday
+    "Hope Feather",      // Day 3 - Throbday
+    "Mirror Shard"       // Day 4 - Motiveday
+];

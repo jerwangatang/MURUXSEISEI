@@ -6,6 +6,8 @@ if (place_meeting(x, y, obj_player))
 {
     if (keyboard_check_pressed(vk_enter))
     {
+        audio_play_sound(snd_menu_select, 1, false);
+
         // Remember which town we entered from
         global.shop_return_room = room;
 

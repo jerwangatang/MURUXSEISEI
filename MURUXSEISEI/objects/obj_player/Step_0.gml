@@ -161,3 +161,7 @@ if (keyboard_check_pressed(ord("L"))) {
     sanity_change(20);
 }
 
+if (keyboard_check_pressed(ord("E"))) {
+    obj_hotbar.visible_hotbar = !obj_hotbar.visible_hotbar;
+    audio_play_sound(snd_menu_select, 1, false);
+}
