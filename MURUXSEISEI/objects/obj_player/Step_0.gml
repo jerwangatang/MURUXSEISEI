@@ -383,6 +383,27 @@ else
 
 
 // ==================================================
+// INVENTORY / HOTBAR TOGGLE
+// E = OPEN / CLOSE
+// ==================================================
+
+if (keyboard_check_pressed(ord("E")))
+{
+    if (instance_exists(obj_hotbar))
+    {
+        obj_hotbar.visible_hotbar =
+            !obj_hotbar.visible_hotbar;
+
+        audio_play_sound(
+            snd_menu_select,
+            1,
+            false
+        );
+    }
+}
+
+
+// ==================================================
 // USE ITEM
 // ==================================================
 

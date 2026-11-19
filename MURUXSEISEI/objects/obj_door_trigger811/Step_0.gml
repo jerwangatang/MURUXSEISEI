@@ -31,6 +31,13 @@ if (place_meeting(x, y, obj_player))
 {
     if (keyboard_check_pressed(vk_enter))
     {
+        audio_play_sound(
+            snd_menu_select,
+            1,
+            false
+        );
+
+
         // ==================================================
         // REMEMBER WHICH TOWN WE ENTERED FROM
         // ==================================================

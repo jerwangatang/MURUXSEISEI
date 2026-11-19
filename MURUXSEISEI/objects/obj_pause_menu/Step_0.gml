@@ -418,3 +418,8 @@ if (pause_selected != old_selection)
         false
     );
 }
+
+if (keyboard_check_pressed(vk_escape)) {
+    global.game_paused = !global.game_paused;
+    audio_play_sound(snd_menu_select, 1, false);
+}

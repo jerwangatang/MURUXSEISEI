@@ -32,8 +32,8 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"spr_shopkeeper",
-    "path":"sprites/spr_shopkeeper/spr_shopkeeper.yy",
+    "name":"spr_npc",
+    "path":"sprites/spr_npc/spr_npc.yy",
   },
   "spriteMaskId":null,
   "visible":true,

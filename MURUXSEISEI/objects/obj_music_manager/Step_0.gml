@@ -78,6 +78,15 @@ if (
 
 if (keyboard_check_pressed(ord("T")))
 {
+    // Menu/select sound
+    audio_play_sound(
+        snd_menu_select,
+        1,
+        false
+    );
+
+
+    // Stop current music
     if (
         current_music != -1
         &&
@@ -90,12 +99,14 @@ if (keyboard_check_pressed(ord("T")))
     }
 
 
+    // Move to next track
     current_track_index =
         (current_track_index + 1)
         mod
         array_length(tracks);
 
 
+    // Play new track
     current_music =
         audio_play_sound(
             tracks[current_track_index],
@@ -104,6 +115,7 @@ if (keyboard_check_pressed(ord("T")))
         );
 
 
+    // Apply current music volume
     audio_sound_gain(
         current_music,
         global.music_volume / 100,
@@ -111,6 +123,7 @@ if (keyboard_check_pressed(ord("T")))
     );
 
 
+    // Show track name
     show_track_name = true;
 
     track_name_timer =
