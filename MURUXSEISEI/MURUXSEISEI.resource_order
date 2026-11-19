@@ -145,6 +145,7 @@
     {"name":"spr_811int","order":50,"path":"sprites/spr_811int/spr_811int.yy",},
     {"name":"spr_arcade","order":17,"path":"sprites/spr_arcade/spr_arcade.yy",},
     {"name":"spr_arcadebg","order":48,"path":"sprites/spr_arcadebg/spr_arcadebg.yy",},
+    {"name":"spr_balloonbg","order":54,"path":"sprites/spr_balloonbg/spr_balloonbg.yy",},
     {"name":"spr_balloons","order":19,"path":"sprites/spr_balloons/spr_balloons.yy",},
     {"name":"spr_basketball_ball","order":37,"path":"sprites/spr_basketball_ball/spr_basketball_ball.yy",},
     {"name":"spr_basketball_bg2","order":38,"path":"sprites/spr_basketball_bg2/spr_basketball_bg2.yy",},

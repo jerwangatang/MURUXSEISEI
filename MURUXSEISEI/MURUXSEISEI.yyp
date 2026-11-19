@@ -179,6 +179,7 @@
     {"id":{"name":"spr_811int","path":"sprites/spr_811int/spr_811int.yy",},},
     {"id":{"name":"spr_arcade","path":"sprites/spr_arcade/spr_arcade.yy",},},
     {"id":{"name":"spr_arcadebg","path":"sprites/spr_arcadebg/spr_arcadebg.yy",},},
+    {"id":{"name":"spr_balloonbg","path":"sprites/spr_balloonbg/spr_balloonbg.yy",},},
     {"id":{"name":"spr_balloons","path":"sprites/spr_balloons/spr_balloons.yy",},},
     {"id":{"name":"spr_basketball_ball","path":"sprites/spr_basketball_ball/spr_basketball_ball.yy",},},
     {"id":{"name":"spr_basketball_bg2","path":"sprites/spr_basketball_bg2/spr_basketball_bg2.yy",},},
