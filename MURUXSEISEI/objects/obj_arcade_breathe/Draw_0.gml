@@ -1,19 +1,13 @@
-draw_self();
+// ==================================================
+// BREATHING ARCADE MACHINE - DRAW
+// ==================================================
 
+// Do NOT draw_self()
+// This keeps the arcade object invisible.
 
-if (place_meeting(x, y, obj_player))
-{
-    draw_set_color(c_white);
-
-    draw_text(
-        x,
-        y - 32,
-        "Press Enter to play"
-    );
-
-    draw_text(
-        x,
-        y - 16,
-        "Breathe With The Light"
-    );
-}
+// Only draw the interaction star
+draw_interaction_star(
+    0,
+    0.06,
+    12
+);

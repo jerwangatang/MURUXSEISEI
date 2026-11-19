@@ -1,6 +1,13 @@
+// ==================================================
+// ARCADE MACHINE - DRAW
+// ==================================================
 
+// Do NOT draw_self()
+// This keeps the arcade object invisible.
 
-if (place_meeting(x, y, obj_player)) {
-    draw_set_color(c_white);
-    draw_text(x, y, "Press Enter to play");
-}
+// Only draw the interaction star
+draw_interaction_star(
+    0,
+    0.06,
+    12
+);

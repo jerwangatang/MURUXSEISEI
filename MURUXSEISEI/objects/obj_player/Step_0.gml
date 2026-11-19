@@ -50,6 +50,60 @@ if (global.game_paused || global.dialogue_active)
 
 
 // ==================================================
+// SHOP MENU OPEN
+// STOP PLAYER MOVEMENT
+// ==================================================
+
+if (
+    variable_global_exists("shop_menu_open")
+    &&
+    global.shop_menu_open
+)
+{
+    // Stop footsteps
+    if (
+        footstep_sound != noone
+        &&
+        audio_is_playing(footstep_sound)
+    )
+    {
+        audio_stop_sound(
+            footstep_sound
+        );
+    }
+
+    footstep_sound = noone;
+    footstep_timer = 0;
+    footstep_cut_timer = 0;
+
+
+    // Keep Muru on idle animation
+    switch (facing_dir)
+    {
+        case "south":
+            sprite_index = spr_muru_idle_south;
+            break;
+
+        case "north":
+            sprite_index = spr_muru_idle_north;
+            break;
+
+        case "east":
+            sprite_index = spr_muru_idle_east;
+            break;
+
+        case "west":
+            sprite_index = spr_muru_idle_west;
+            break;
+    }
+
+    image_speed = 0.08;
+
+    exit;
+}
+
+
+// ==================================================
 // INPUT
 // ==================================================
 
@@ -268,10 +322,6 @@ var _new_sprite =
 
 switch (facing_dir)
 {
-    // --------------------------------------------------
-    // SOUTH
-    // --------------------------------------------------
-
     case "south":
     {
         if (_moving)
@@ -288,10 +338,6 @@ switch (facing_dir)
         break;
     }
 
-
-    // --------------------------------------------------
-    // NORTH
-    // --------------------------------------------------
 
     case "north":
     {
@@ -310,10 +356,6 @@ switch (facing_dir)
     }
 
 
-    // --------------------------------------------------
-    // EAST
-    // --------------------------------------------------
-
     case "east":
     {
         if (_moving)
@@ -330,10 +372,6 @@ switch (facing_dir)
         break;
     }
 
-
-    // --------------------------------------------------
-    // WEST
-    // --------------------------------------------------
 
     case "west":
     {
@@ -372,12 +410,10 @@ if (_new_sprite != sprite_index)
 
 if (_moving)
 {
-    // Walking animation
     image_speed = 0.2;
 }
 else
 {
-    // Idle animation
     image_speed = 0.08;
 }
 

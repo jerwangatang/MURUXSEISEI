@@ -1,4 +1,50 @@
 // ==================================================
+// PAUSE MENU - SHOP PROTECTION
+// ==================================================
+
+
+// --------------------------------------------------
+// SAFETY INITIALISATION
+// --------------------------------------------------
+
+if (!variable_global_exists("shop_menu_open"))
+{
+    global.shop_menu_open = false;
+}
+
+if (!variable_global_exists("pause_block_timer"))
+{
+    global.pause_block_timer = 0;
+}
+
+
+// --------------------------------------------------
+// SHOP OPEN = PAUSE MENU CANNOT OPEN
+// --------------------------------------------------
+
+if (global.shop_menu_open)
+{
+    exit;
+}
+
+
+// --------------------------------------------------
+// BLOCK ESC THAT JUST CLOSED THE SHOP
+// --------------------------------------------------
+
+if (global.pause_block_timer > 0)
+{
+    global.pause_block_timer--;
+
+    exit;
+}
+
+
+// ==================================================
+// YOUR EXISTING PAUSE MENU CODE BELOW
+// ==================================================
+
+// ==================================================
 // PAUSE MENU - STEP
 // ==================================================
 

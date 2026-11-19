@@ -1,23 +1,26 @@
 // ==================================================
-// HIDE SANITY BAR DURING MINIGAMES
+// HIDE SANITY BAR IN SPECIFIC ROOMS
 // ==================================================
 
 if (
-    room == room_catchthefallingthoughts
+    room == room_titlescreen
     ||
     room == room_arcade1
+    ||
+    room == room_breathinggame
+    ||
+    room == room_catchthefallingthoughts
+    ||
+    room == room_dontpoptheballoon
+    ||
+    room == room_basketball
+    ||
+    room == room_winminigame
+    ||
+    room == room_winminigame2
+    ||
+    room == room_loseminigame
 )
-{
-    exit;
-}
-
-// Don't show HUD on title screen
-if (room == room_titlescreen)
-{
-    exit;
-}
-
-if (room == room_basketball)
 {
     exit;
 }
