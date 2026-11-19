@@ -23,7 +23,7 @@ if (
         y = global.next_y;
 
 
-        // Only use the spawn once
+        // Only use the return position once
         global.next_x = undefined;
         global.next_y = undefined;
     }
@@ -31,7 +31,8 @@ if (
 
 
 // ==================================================
-// DRAW MURU IN FRONT OF TOWN BUILDINGS
+// TOWN DEPTH
+// PLAYER BEHIND BUILDINGS
 // ==================================================
 
 if (
@@ -40,5 +41,5 @@ if (
     room == room_town2
 )
 {
-    depth = -100;
+    depth = 0;
 }

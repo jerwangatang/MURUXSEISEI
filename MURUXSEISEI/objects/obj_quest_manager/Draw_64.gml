@@ -30,6 +30,8 @@ if (
     ||
     room == room_basketball
     ||
+    room == room_breathinggame
+    ||
     room == room_winminigame
     ||
     room == room_winminigame2

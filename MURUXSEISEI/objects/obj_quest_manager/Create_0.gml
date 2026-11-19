@@ -25,17 +25,19 @@ days = [];
 
 
 // ==================================================
-// DAY 1 - MISERDAY - TOWN 1
-
+// DAY 1 - MISERDAY
+// TOWN 1
 // ==================================================
 
-array_push(days, {
+array_push(days,
+{
     day_name: "Miserday",
 
-    quests: [
+    quests:
+    [
         {
             id: "cocos_minigame",
-            name: "Play at Coco's Amusement",
+            name: "Play a game at Coco's Amusement",
             done: false
         },
 
@@ -47,7 +49,7 @@ array_push(days, {
 
         {
             id: "homework_half",
-            name: "Do half of the homework",
+            name: "Do half of your homework",
             done: false
         },
 
@@ -67,29 +69,31 @@ array_push(days, {
 
 
 // ==================================================
-// DAY 2 - TERRIBLEDAY - TOWN 1
-
+// DAY 2 - TERRIBLEDAY
+// TOWN 1
 // ==================================================
 
-array_push(days, {
+array_push(days,
+{
     day_name: "Terribleday",
 
-    quests: [
+    quests:
+    [
         {
             id: "talk_neighbour",
-            name: "Talk to neighbour",
+            name: "Talk to your neighbour",
             done: false
         },
 
         {
             id: "cocos_minigame_day2",
-            name: "Play at Coco's Amusement",
+            name: "Play another game at Coco's",
             done: false
         },
 
         {
             id: "finish_tutor_homework",
-            name: "Finish the tutoring homework",
+            name: "Finish your tutoring homework",
             done: false
         },
 
@@ -103,17 +107,19 @@ array_push(days, {
 
 
 // ==================================================
-// DAY 3 - WEEPDAY - TOWN 2
-
+// DAY 3 - WEEPDAY
+// TOWN 2
 // ==================================================
 
-array_push(days, {
+array_push(days,
+{
     day_name: "Weepday",
 
-    quests: [
+    quests:
+    [
         {
             id: "apologise_tutor",
-            name: "Say sorry about news to tutor",
+            name: "Apologise to your tutor",
             done: false
         },
 
@@ -131,7 +137,7 @@ array_push(days, {
 
         {
             id: "clockzone_games",
-            name: "Play games in Clockzone",
+            name: "Play a game at Clockzone",
             done: false
         },
 
@@ -143,13 +149,13 @@ array_push(days, {
 
         {
             id: "fishing_pond_day3",
-            name: "Go fishing in the pond",
+            name: "Go fishing at the pond",
             done: false
         },
 
         {
             id: "finish_homework_day3",
-            name: "Finish homework",
+            name: "Finish your homework",
             done: false
         }
     ]
@@ -157,14 +163,16 @@ array_push(days, {
 
 
 // ==================================================
-// DAY 4 - THROBDAY - TOWN 2
-
+// DAY 4 - THROBDAY
+// TOWN 2
 // ==================================================
 
-array_push(days, {
+array_push(days,
+{
     day_name: "Throbday",
 
-    quests: [
+    quests:
+    [
         {
             id: "school_day4",
             name: "Go to school",
@@ -191,7 +199,7 @@ array_push(days, {
 
         {
             id: "clockzone_day4",
-            name: "Visit Clockzone",
+            name: "Play a game at Clockzone",
             done: false
         },
 
@@ -205,14 +213,16 @@ array_push(days, {
 
 
 // ==================================================
-// DAY 5 - MOTIVEDAY - TOWN 2
-
+// DAY 5 - MOTIVEDAY
+// TOWN 2
 // ==================================================
 
-array_push(days, {
+array_push(days,
+{
     day_name: "Motiveday",
 
-    quests: [
+    quests:
+    [
         {
             id: "school_day5",
             name: "Go to school",
@@ -253,7 +263,7 @@ array_push(days, {
 
 
 // ==================================================
-// DAY 1 - HOMEWORK PROGRESS
+// DAY 1 / DAY 3 - HOMEWORK PROGRESS
 // ==================================================
 
 homework_progress = 0;
@@ -264,15 +274,17 @@ homework_total = 4;
 // DAY 1 - HOUSE EXPLORATION
 // ==================================================
 
-house_ids = [
+house_ids =
+[
     "muru",
     "neighbour",
     "tutor"
 ];
 
 
-// Muru starts in her own house
-house_visited = [
+// Muru starts inside her own house
+house_visited =
+[
     true,
     false,
     false
@@ -280,7 +292,7 @@ house_visited = [
 
 
 // ==================================================
-// DAY 4 - NPC TALK PROGRESS
+// DAY 4 - TALK TO TWO PEOPLE
 // ==================================================
 
 day4_people_talked = 0;
@@ -288,6 +300,47 @@ day4_people_talked = 0;
 
 // ==================================================
 // GENERAL NPC TRACKING
+//
+// Prevents the same NPC from counting twice
+// for the Day 4 talk quest.
 // ==================================================
 
 talked_npcs = [];
+
+
+// ==================================================
+// SHARED ARCADE RETURN ROOM
+//
+// Town 1 = Coco's
+// Town 2 = Clockzone
+// ==================================================
+
+if (!variable_global_exists("arcade_return_room"))
+{
+    global.arcade_return_room =
+        room_town1;
+}
+
+
+// ==================================================
+// SHARED SHOP RETURN ROOM
+//
+// Town 1 = 8/11
+// Town 2 = RelativeMart
+// ==================================================
+
+if (!variable_global_exists("shop_return_room"))
+{
+    global.shop_return_room =
+        room_town1;
+}
+
+
+// ==================================================
+// INTERACTION BLOCK SAFETY
+// ==================================================
+
+if (!variable_global_exists("interact_blocked"))
+{
+    global.interact_blocked = false;
+}
