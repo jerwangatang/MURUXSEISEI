@@ -84,6 +84,7 @@
     {"name":"obj_tree","order":9,"path":"objects/obj_tree/obj_tree.yy",},
     {"name":"obj_trigger_basketball","order":5,"path":"objects/obj_trigger_basketball/obj_trigger_basketball.yy",},
     {"name":"obj_triggercc","order":4,"path":"objects/obj_triggercc/obj_triggercc.yy",},
+    {"name":"obj_triggerleave811","order":3,"path":"objects/obj_triggerleave811/obj_triggerleave811.yy",},
     {"name":"obj_triggernbh","order":2,"path":"objects/obj_triggernbh/obj_triggernbh.yy",},
     {"name":"obj_triggerstylist","order":3,"path":"objects/obj_triggerstylist/obj_triggerstylist.yy",},
     {"name":"obj_triggertth_1","order":5,"path":"objects/obj_triggertth_1/obj_triggertth_1.yy",},
@@ -168,6 +169,7 @@
     {"name":"spr_happy","order":9,"path":"sprites/spr_happy/spr_happy.yy",},
     {"name":"spr_interact_star","order":14,"path":"sprites/spr_interact_star/spr_interact_star.yy",},
     {"name":"spr_kitchencounter","order":4,"path":"sprites/spr_kitchencounter/spr_kitchencounter.yy",},
+    {"name":"spr_lost","order":55,"path":"sprites/spr_lost/spr_lost.yy",},
     {"name":"spr_muru_idle_east","order":41,"path":"sprites/spr_muru_idle_east/spr_muru_idle_east.yy",},
     {"name":"spr_muru_idle_north","order":40,"path":"sprites/spr_muru_idle_north/spr_muru_idle_north.yy",},
     {"name":"spr_muru_idle_south","order":39,"path":"sprites/spr_muru_idle_south/spr_muru_idle_south.yy",},
@@ -206,6 +208,7 @@
     {"name":"spr_wall","order":21,"path":"sprites/spr_wall/spr_wall.yy",},
     {"name":"spr_woodfloor","order":2,"path":"sprites/spr_woodfloor/spr_woodfloor.yy",},
     {"name":"spr_woodwall","order":7,"path":"sprites/spr_woodwall/spr_woodwall.yy",},
+    {"name":"spr_youlost","order":56,"path":"sprites/spr_youlost/spr_youlost.yy",},
     {"name":"spr_youwin","order":49,"path":"sprites/spr_youwin/spr_youwin.yy",},
   ],
 }

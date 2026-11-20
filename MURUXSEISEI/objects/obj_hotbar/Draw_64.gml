@@ -1,12 +1,11 @@
 if (!visible_hotbar) exit;
-
 if (!instance_exists(obj_player)) exit;
-// Convert player world position to GUI position
+
 var _gui_x = (obj_player.x - camera_get_view_x(view_camera[0])) * (display_get_gui_width() / camera_get_view_width(view_camera[0]));
 var _gui_y = (obj_player.y - camera_get_view_y(view_camera[0])) * (display_get_gui_height() / camera_get_view_height(view_camera[0]));
 
 var start_x = _gui_x - (slot_count * (slot_size + slot_padding)) / 2;
-var start_y = _gui_y - slot_size - 60; // 60px above the player's head
+var start_y = _gui_y - slot_size - 60;
 
 for (var i = 0; i < slot_count; i++) {
     var _x = start_x + i * (slot_size + slot_padding);
@@ -33,8 +32,3 @@ for (var i = 0; i < slot_count; i++) {
         }
     }
 }
-
-if (!instance_exists(obj_player)) exit;
-
-var _gui_x = (obj_player.x - camera_get_view_x(view_camera[0])) * (display_get_gui_width() / camera_get_view_width(view_camera[0]));
-// ... rest of your existing hotbar draw code
