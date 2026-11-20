@@ -116,12 +116,6 @@ array_push(
             },
 
             {
-                id: "finish_tutor_homework",
-                name: "Finish your tutoring homework",
-                done: false
-            },
-
-            {
                 id: "make_dinner_day2",
                 name: "Make dinner for your family",
                 done: false

@@ -11,7 +11,7 @@ if (awaiting_ending && !global.dialogue_active)
 {
     awaiting_ending = false;
 
-    var _required = ["Memory Charm", "Sunlight Vial", "Courage Stone", "Hope Feather", "Mirror Shard"];
+    var _required = ["Memory Charm"];
     var _has_all = true;
 
     if (!variable_global_exists("dreamscape_items"))
@@ -29,12 +29,10 @@ if (awaiting_ending && !global.dialogue_active)
 
     if (_has_all)
     {
-        audio_play_sound(snd_win, 1, false);
         room_fade_to(room_credits);
     }
     else
     {
-        audio_play_sound(snd_lose, 1, false);
         room_fade_to(room_losewholegame);
     }
 

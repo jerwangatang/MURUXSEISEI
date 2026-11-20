@@ -12,7 +12,6 @@ image_index = floor((inflate_amount / 100) * 8);
 if (inflate_amount >= 100) {
     popped = true;
     image_index = 9;
-    audio_play_sound(snd_lose, 1, false);
     alarm[1] = 6;
     alarm[0] = room_speed * 1;
 }

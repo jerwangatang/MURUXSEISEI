@@ -252,6 +252,8 @@
   "resourceType":"GMProject",
   "resourceVersion":"2.0",
   "RoomOrderNodes":[
+    {"roomId":{"name":"room_losewholegame","path":"rooms/room_losewholegame/room_losewholegame.yy",},},
+    {"roomId":{"name":"room_credits","path":"rooms/room_credits/room_credits.yy",},},
     {"roomId":{"name":"room_titlescreen","path":"rooms/room_titlescreen/room_titlescreen.yy",},},
     {"roomId":{"name":"room_town2","path":"rooms/room_town2/room_town2.yy",},},
     {"roomId":{"name":"room_basketball","path":"rooms/room_basketball/room_basketball.yy",},},
@@ -269,8 +271,6 @@
     {"roomId":{"name":"room_deathscreen","path":"rooms/room_deathscreen/room_deathscreen.yy",},},
     {"roomId":{"name":"room_dt2","path":"rooms/room_dt2/room_dt2.yy",},},
     {"roomId":{"name":"room_breathinggame","path":"rooms/room_breathinggame/room_breathinggame.yy",},},
-    {"roomId":{"name":"room_losewholegame","path":"rooms/room_losewholegame/room_losewholegame.yy",},},
-    {"roomId":{"name":"room_credits","path":"rooms/room_credits/room_credits.yy",},},
   ],
   "templateType":"game",
   "TextureGroups":[
