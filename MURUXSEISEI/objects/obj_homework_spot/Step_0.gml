@@ -1,6 +1,25 @@
 // ==================================================
 // HOMEWORK SPOT - STEP
-// DAY 1 + DAY 3
+// ==================================================
+
+
+// ==================================================
+// SAFETY VARIABLES
+// ==================================================
+
+if (!variable_instance_exists(id, "was_dialogue_active"))
+{
+    was_dialogue_active = false;
+}
+
+if (!variable_instance_exists(id, "enter_release_block"))
+{
+    enter_release_block = false;
+}
+
+
+// ==================================================
+// PAUSE CHECK
 // ==================================================
 
 if (global.game_paused)
@@ -8,154 +27,156 @@ if (global.game_paused)
     exit;
 }
 
+
+// ==================================================
+// DETECT DIALOGUE CLOSING
+// ==================================================
+
+if (
+    was_dialogue_active
+    &&
+    !global.dialogue_active
+)
+{
+    // Dialogue just closed.
+    // Don't let the same Enter press
+    // immediately start it again.
+    enter_release_block = true;
+}
+
+
+// Remember dialogue state
+was_dialogue_active =
+    global.dialogue_active;
+
+
+// ==================================================
+// DIALOGUE ACTIVE
+// ==================================================
+
 if (global.dialogue_active)
 {
     exit;
 }
 
-if (!instance_exists(obj_player))
+
+// ==================================================
+// WAIT FOR ENTER RELEASE
+// ==================================================
+
+if (enter_release_block)
 {
+    if (!keyboard_check(vk_enter))
+    {
+        enter_release_block = false;
+    }
+
     exit;
 }
 
-if (!instance_exists(obj_quest_manager))
+
+// ==================================================
+// PLAYER / QUEST MANAGER CHECK
+// ==================================================
+
+if (
+    !instance_exists(obj_player)
+    ||
+    !instance_exists(obj_quest_manager)
+)
 {
     exit;
 }
 
 
 var _manager =
-    instance_find(obj_quest_manager, 0);
+    instance_find(
+        obj_quest_manager,
+        0
+    );
 
 var _day =
     _manager.current_day_index;
 
-var _player =
-    instance_find(obj_player, 0);
 
+// ==================================================
+// PLAYER INTERACTION
+// ==================================================
 
-var _near =
-    point_distance(
+if (
+    place_meeting(
         x,
         y,
-        _player.x,
-        _player.y
+        obj_player
     )
-    <= interaction_distance;
-
-
-if (!_near)
+    &&
+    keyboard_check_pressed(vk_enter)
+)
 {
-    exit;
-}
+    // ==================================================
+    // NOT DAY 2
+    // ==================================================
 
-
-if (!keyboard_check_pressed(vk_enter))
-{
-    exit;
-}
-
-
-// ==================================================
-// DAY 1
-// DO HALF OF HOMEWORK
-// ==================================================
-
-if (_day == 0)
-{
-    var _half =
-        ceil(
-            _manager.homework_total / 2
-        );
-
-
-    if (_manager.homework_progress < _half)
+    if (_day != 1)
     {
-        var _progress =
-            scr_homework_progress(1);
-
-
         dialogue_start([
             {
                 speaker: "Muru",
-                text:
-                    "I finished some homework. "
-                    + string(_progress)
-                    + "/"
-                    + string(_half)
+                text: "Not today."
             }
         ]);
+
+        exit;
     }
-}
 
 
-// ==================================================
-// DAY 3
-// FINISH REMAINING HOMEWORK
-// ==================================================
+    // ==================================================
+    // DAY 2 - FINISH ALL HOMEWORK
+    // ==================================================
 
-else if (_day == 2)
-{
-    if (!scr_quest_done("finish_homework_day3"))
+    if (
+        _manager.homework_progress
+        <
+        _manager.homework_total
+    )
     {
-        // Safety:
-        // Day 1 should already have completed half.
-        var _half =
-            ceil(
-                _manager.homework_total / 2
-            );
-
-
+        // Finish all homework
         _manager.homework_progress =
-            max(
-                _manager.homework_progress,
-                _half
-            );
+            _manager.homework_total;
 
 
-        _manager.homework_progress =
-            min(
-                _manager.homework_progress + 1,
-                _manager.homework_total
-            );
+        // Complete quest
+        scr_complete_quest(
+            "homework_half"
+        );
 
 
-        // Finished everything
-        if (
-            _manager.homework_progress
-            >=
-            _manager.homework_total
-        )
-        {
-            scr_complete_quest(
-                "finish_homework_day3"
-            );
+        // Autosave
+        scr_request_autosave(
+            "finished homework"
+        );
 
 
-            dialogue_start([
-                {
-                    speaker: "Muru",
-                    text:
-                        "Finally... I finished all my homework."
-                }
-            ]);
-        }
-        else
-        {
-            dialogue_start([
-                {
-                    speaker: "Muru",
-                    text:
-                        "Almost done... "
-                        + string(
-                            _manager.homework_progress
-                        )
-                        + "/"
-                        + string(
-                            _manager.homework_total
-                        )
-                }
-            ]);
-        }
+        // Dialogue
+        dialogue_start([
+            {
+                speaker: "Muru",
+                text: "Finally... I finished all my homework."
+            }
+        ]);
+
+        exit;
     }
+
+
+    // ==================================================
+    // DAY 2 - ALREADY FINISHED
+    // ==================================================
+
+    dialogue_start([
+        {
+            speaker: "Muru",
+            text: "I've already finished my homework."
+        }
+    ]);
 }

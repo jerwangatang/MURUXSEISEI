@@ -76,14 +76,10 @@ if (room != room_titlescreen)
 
 
 // ==================================================
-// PLAYER FALLBACK FOR INTERIOR ROOMS
+// PLAYER FALLBACK FOR TUTOR HOME
 // ==================================================
 
-if (
-    room == room_tutorhome
-    ||
-    room == room_neighbourhome
-)
+if (room == room_tutorhome)
 {
     if (!instance_exists(obj_player))
     {
@@ -198,15 +194,11 @@ if (load_pending)
 
 
         // ==================================================
-        // PLAYER FALLBACK FOR INTERIORS
+        // PLAYER FALLBACK FOR TUTOR HOME
         // ==================================================
 
         if (
-            (
-                room == room_tutorhome
-                ||
-                room == room_neighbourhome
-            )
+            room == room_tutorhome
             &&
             !instance_exists(obj_player)
         )
@@ -384,9 +376,9 @@ if (load_pending)
             }
 
 
-            // ------------------------------------------
-            // HOTBAR
-            // ------------------------------------------
+            // ==================================================
+            // OLD HOTBAR SAVE FORMAT
+            // ==================================================
 
             if (
                 variable_struct_exists(
@@ -556,7 +548,7 @@ if (load_pending)
             }
 
 
-            // Restore saved hotbar if this save contains it
+            // Restore saved hotbar if save contains it
             if (
                 variable_struct_exists(
                     pending_data,
@@ -570,7 +562,9 @@ if (load_pending)
 
                 var _hotbar_count =
                     min(
-                        array_length(_saved_hotbar),
+                        array_length(
+                            _saved_hotbar
+                        ),
                         _load_hotbar.slot_count
                     );
 
@@ -702,19 +696,25 @@ if (
 
     show_debug_message(
         "PLAYER EXISTS: "
-        + string(_has_player)
+        + string(
+            _has_player
+        )
     );
 
 
     show_debug_message(
         "QUEST MANAGER EXISTS: "
-        + string(_has_quest)
+        + string(
+            _has_quest
+        )
     );
 
 
     show_debug_message(
         "HOTBAR EXISTS: "
-        + string(_has_hotbar)
+        + string(
+            _has_hotbar
+        )
     );
 
 
@@ -809,7 +809,8 @@ if (
 
     if (
         autosave_elapsed
-        >= autosave_interval
+        >=
+        autosave_interval
     )
     {
         autosave_pending =
@@ -863,14 +864,11 @@ if (autosave_pending)
     )
     {
         // Do not save during fade transition
-        if (
-            !instance_exists(
-                obj_fade_transition
-            )
-        )
+        if (!instance_exists(obj_fade_transition))
         {
-            // All three are required so we never accidentally
-            // overwrite a valid save with an empty inventory.
+            // Player, quest manager and hotbar are all
+            // required so inventory is not accidentally
+            // overwritten with an empty state.
             if (
                 instance_exists(obj_player)
                 &&

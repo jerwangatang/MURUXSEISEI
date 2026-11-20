@@ -1,6 +1,28 @@
+// ==================================================
+// COUCH - DRAW
+// ==================================================
+
+// Draw couch normally
 draw_self();
 
-if (place_meeting(x, y, obj_player)) {
-    draw_set_color(c_white);
-    draw_text(x, y - 20, "Press Enter to sleep");
+
+// ==================================================
+// INTERACTION STAR
+// ==================================================
+
+if (
+    can_interact
+    &&
+    !global.game_paused
+    &&
+    !global.dialogue_active
+    &&
+    !enter_release_block
+)
+{
+    draw_interaction_star(
+        0,
+        0.06,
+        12
+    );
 }

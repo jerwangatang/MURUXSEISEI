@@ -3,42 +3,54 @@
 // ==================================================
 
 
-// ==================================================
-// SPAWN POSITION FROM PREVIOUS ROOM
-// ==================================================
+// --------------------------------------------------
+// INITIALISE RETURN SYSTEM
+// --------------------------------------------------
 
-if (
-    variable_global_exists("next_x")
-    &&
-    variable_global_exists("next_y")
-)
+if (!variable_global_exists("previous_room"))
 {
-    if (
-        global.next_x != undefined
-        &&
-        global.next_y != undefined
-    )
-    {
-        x = global.next_x;
-        y = global.next_y;
+    global.previous_room = -1;
+}
 
+if (!variable_global_exists("previous_x"))
+{
+    global.previous_x = 0;
+}
 
-        // Only use the return position once
-        global.next_x = undefined;
-        global.next_y = undefined;
-    }
+if (!variable_global_exists("previous_y"))
+{
+    global.previous_y = 0;
+}
+
+if (!variable_global_exists("return_spawn_pending"))
+{
+    global.return_spawn_pending = false;
+}
+
+if (!variable_global_exists("return_spawn_x"))
+{
+    global.return_spawn_x = 0;
+}
+
+if (!variable_global_exists("return_spawn_y"))
+{
+    global.return_spawn_y = 0;
 }
 
 
-// ==================================================
-// PLAYER BEHIND BUILDINGS
-// ==================================================
+// --------------------------------------------------
+// RETURN TO PREVIOUS POSITION
+// --------------------------------------------------
 
-if (
-    room == room_town1
-    ||
-    room == room_town2
-)
+if (global.return_spawn_pending)
 {
-    depth = 200;
+    x =
+        global.return_spawn_x;
+
+    y =
+        global.return_spawn_y;
+
+
+    global.return_spawn_pending =
+        false;
 }

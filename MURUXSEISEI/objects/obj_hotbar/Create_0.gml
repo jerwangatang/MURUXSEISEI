@@ -1,32 +1,41 @@
-slot_count = 8;
-hotbar = array_create(slot_count);
+// ==================================================
+// HOTBAR - CREATE
+// ==================================================
 
-for (var i = 0; i < slot_count; i++) {
-    hotbar[i] = { item_name: "", amount: 0 };
-}
 
-day_start_snapshot = [];
-for (var i = 0; i < array_length(hotbar); i++) {
-    array_push(day_start_snapshot, {
-        item_name: hotbar[i].item_name,
-        amount: hotbar[i].amount
-    });
-}
+// ==================================================
+// HOTBAR SETTINGS
+// ==================================================
+
+slot_count = 5;
 
 selected_slot = 0;
-slot_size = 48;
-slot_padding = 4;
 
-visible_hotbar = false; // starts hidden
+visible_hotbar = false;
+
 
 // ==================================================
-// PREVENT DUPLICATE PERSISTENT HOTBARS
+// CREATE EMPTY HOTBAR
 // ==================================================
 
-if (instance_number(obj_hotbar) > 1)
+hotbar = [];
+
+for (var i = 0; i < slot_count; i++)
 {
-    instance_destroy();
-    exit;
+    array_push(
+        hotbar,
+        {
+            item_name: "",
+            amount: 0
+        }
+    );
 }
 
-persistent = true;
+
+// ==================================================
+// GUI SETTINGS
+// ==================================================
+
+slot_width = 90;
+slot_height = 60;
+slot_gap = 8;

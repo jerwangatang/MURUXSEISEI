@@ -32,8 +32,11 @@ function scr_location_name(_room)
     if (_room == room_town1)
         return "SHUU";
 
+    if (_room == room_town2)
+        return "TOWN 2";
+
     if (_room == room_arcade1)
-        return "COCO'S AMUSEMENT";
+        return "ARCADE";
 
     if (_room == room_dreamscapet1)
         return "DREAMSCAPE";
@@ -44,14 +47,8 @@ function scr_location_name(_room)
     if (_room == room_tutorhome)
         return "TUTOR'S HOUSE";
 
-    if (_room == room_neighbourhome)
-        return "NEIGHBOUR'S HOUSE";
-
     if (_room == room_811)
         return "8/11";
-
-    if (_room == room_stylist)
-        return "STYLIST";
 
 
     // Fallback
@@ -253,44 +250,11 @@ function scr_save_game(_slot)
 
 
     // ==================================================
-    // SAVE HOTBAR
-    // ==================================================
-
-    var _hotbar_items = [];
-
-    if (instance_exists(obj_hotbar))
-    {
-        var _hb =
-            instance_find(
-                obj_hotbar,
-                0
-            );
-
-        for (
-            var i = 0;
-            i < array_length(_hb.hotbar);
-            i++
-        )
-        {
-            array_push(
-                _hotbar_items,
-                {
-                    item_name:
-                        _hb.hotbar[i].item_name,
-
-                    amount:
-                        _hb.hotbar[i].amount
-                }
-            );
-        }
-    }
-
-
-    // ==================================================
     // SAVE HOTBAR / INVENTORY
     // ==================================================
 
     var _hotbar_data = [];
+
     var _hotbar_selected = 0;
 
 
@@ -301,6 +265,7 @@ function scr_save_game(_slot)
                 obj_hotbar,
                 0
             );
+
 
         _hotbar_selected =
             _hotbar.selected_slot;
@@ -327,7 +292,7 @@ function scr_save_game(_slot)
 
 
     // ==================================================
-    // MAKE SURE MERGED SYSTEM GLOBALS EXIST
+    // MAKE SURE GLOBALS EXIST
     // ==================================================
 
     if (!variable_global_exists("coins"))
@@ -378,11 +343,16 @@ function scr_save_game(_slot)
 
 
         // --------------------------------------------------
-        // BASIC SAVE INFORMATION
+        // SLOT
         // --------------------------------------------------
 
         slot:
             _slot,
+
+
+        // --------------------------------------------------
+        // ROOM
+        // --------------------------------------------------
 
         room_name:
             room_get_name(room),
@@ -442,7 +412,7 @@ function scr_save_game(_slot)
 
 
         // ==================================================
-        // MERGED SYSTEMS
+        // WORLD STATE
         // ==================================================
 
         coins:
@@ -464,10 +434,7 @@ function scr_save_game(_slot)
             global.fishing_rod_collected,
 
         opened_chests:
-            global.opened_chests,
-
-        hotbar_items:
-            _hotbar_items
+            global.opened_chests
     };
 
 
@@ -476,12 +443,16 @@ function scr_save_game(_slot)
     // ==================================================
 
     var _json =
-        json_stringify(_data);
+        json_stringify(
+            _data
+        );
 
 
     var _file =
         file_text_open_write(
-            scr_save_path(_slot)
+            scr_save_path(
+                _slot
+            )
         );
 
 
@@ -491,7 +462,9 @@ function scr_save_game(_slot)
     );
 
 
-    file_text_close(_file);
+    file_text_close(
+        _file
+    );
 
 
     global.current_save_slot =
@@ -515,14 +488,24 @@ function scr_save_game(_slot)
 function scr_load_game(_slot)
 {
     var _path =
-        scr_save_path(_slot);
+        scr_save_path(
+            _slot
+        );
 
+
+    // ==================================================
+    // FILE CHECK
+    // ==================================================
 
     if (!file_exists(_path))
     {
         return false;
     }
 
+
+    // ==================================================
+    // SAVE MANAGER CHECK
+    // ==================================================
 
     if (!instance_exists(obj_save_manager))
     {
@@ -539,18 +522,26 @@ function scr_load_game(_slot)
     // ==================================================
 
     var _file =
-        file_text_open_read(_path);
+        file_text_open_read(
+            _path
+        );
 
 
     var _json =
-        file_text_read_string(_file);
+        file_text_read_string(
+            _file
+        );
 
 
-    file_text_close(_file);
+    file_text_close(
+        _file
+    );
 
 
     var _data =
-        json_parse(_json);
+        json_parse(
+            _json
+        );
 
 
     // ==================================================
@@ -567,6 +558,10 @@ function scr_load_game(_slot)
     global.current_save_slot =
         _slot;
 
+
+    // ==================================================
+    // PLAYTIME
+    // ==================================================
 
     if (
         variable_struct_exists(
@@ -624,7 +619,7 @@ function scr_load_game(_slot)
 
 
     // ==================================================
-    // LOAD COINS
+    // COINS
     // ==================================================
 
     if (
@@ -645,7 +640,7 @@ function scr_load_game(_slot)
 
 
     // ==================================================
-    // LOAD STYLIST PURCHASES
+    // SHOP PURCHASES
     // ==================================================
 
     if (
@@ -668,7 +663,7 @@ function scr_load_game(_slot)
 
 
     // ==================================================
-    // LOAD FRIDGE STATE
+    // FRIDGE
     // ==================================================
 
     if (
@@ -689,7 +684,7 @@ function scr_load_game(_slot)
 
 
     // ==================================================
-    // LOAD FISHING ROD STATE
+    // FISHING ROD
     // ==================================================
 
     if (
@@ -710,7 +705,7 @@ function scr_load_game(_slot)
 
 
     // ==================================================
-    // LOAD CHEST STATES
+    // CHESTS
     // ==================================================
 
     if (
@@ -740,6 +735,8 @@ function scr_load_game(_slot)
         );
 
 
+    // If saved room no longer exists,
+    // send player to Muru's house.
     if (_target_room == -1)
     {
         _target_room =
@@ -748,7 +745,7 @@ function scr_load_game(_slot)
 
 
     // ==================================================
-    // STORE DATA UNTIL ROOM FINISHES LOADING
+    // STORE DATA FOR SAVE MANAGER
     // ==================================================
 
     _save_manager.pending_data =
@@ -764,7 +761,7 @@ function scr_load_game(_slot)
 
 
     // ==================================================
-    // GO TO ROOM
+    // CHANGE ROOM
     // ==================================================
 
     room_fade_to(
@@ -798,11 +795,7 @@ function scr_start_new_game(_slot)
 
 
     // ==================================================
-    // RESET MERGED SYSTEMS
-    //
-    // IMPORTANT:
-    // This prevents Save Slot 2 from inheriting
-    // items / coins / purchases from Save Slot 1.
+    // RESET WORLD STATE
     // ==================================================
 
     global.coins =
@@ -828,7 +821,30 @@ function scr_start_new_game(_slot)
 
 
     // ==================================================
-    // RESET HOTBAR IF IT ALREADY EXISTS
+    // RESET RETURN POSITION SYSTEM
+    // ==================================================
+
+    global.previous_room =
+        -1;
+
+    global.previous_x =
+        0;
+
+    global.previous_y =
+        0;
+
+    global.return_spawn_pending =
+        false;
+
+    global.return_spawn_x =
+        0;
+
+    global.return_spawn_y =
+        0;
+
+
+    // ==================================================
+    // RESET HOTBAR
     // ==================================================
 
     if (instance_exists(obj_hotbar))
@@ -864,7 +880,7 @@ function scr_start_new_game(_slot)
 
 
     // ==================================================
-    // RESET OLD QUEST STATE
+    // RESET QUEST MANAGER
     // ==================================================
 
     if (instance_exists(obj_quest_manager))
@@ -908,7 +924,7 @@ function scr_start_new_game(_slot)
 
 
     // ==================================================
-    // RESET AUTOSAVE VARIABLES IF THEY EXIST
+    // RESET AUTOSAVE
     // ==================================================
 
     if (
@@ -964,12 +980,16 @@ function scr_start_new_game(_slot)
 function scr_delete_save(_slot)
 {
     var _path =
-        scr_save_path(_slot);
+        scr_save_path(
+            _slot
+        );
 
 
     if (file_exists(_path))
     {
-        file_delete(_path);
+        file_delete(
+            _path
+        );
 
 
         show_debug_message(
@@ -979,9 +999,12 @@ function scr_delete_save(_slot)
     }
 
 
-    // If this happened to be the current slot,
-    // clear the active slot.
+    // Clear active slot if deleting current save
     if (
+        variable_global_exists(
+            "current_save_slot"
+        )
+        &&
         global.current_save_slot
         ==
         _slot
@@ -997,11 +1020,13 @@ function scr_delete_save(_slot)
 // REQUEST AUTOSAVE
 // ==================================================
 
-function scr_request_autosave(_reason = "gameplay")
+function scr_request_autosave(
+    _reason = "gameplay"
+)
 {
-    // --------------------------------------------------
-    // SAVE MANAGER MUST EXIST
-    // --------------------------------------------------
+    // ==================================================
+    // SAVE MANAGER CHECK
+    // ==================================================
 
     if (!instance_exists(obj_save_manager))
     {
@@ -1009,9 +1034,9 @@ function scr_request_autosave(_reason = "gameplay")
     }
 
 
-    // --------------------------------------------------
-    // MUST HAVE ACTIVE SAVE SLOT
-    // --------------------------------------------------
+    // ==================================================
+    // ACTIVE SAVE SLOT CHECK
+    // ==================================================
 
     if (
         !variable_global_exists(
@@ -1032,12 +1057,9 @@ function scr_request_autosave(_reason = "gameplay")
         );
 
 
-    // --------------------------------------------------
+    // ==================================================
     // QUEUE AUTOSAVE
-    //
-    // obj_save_manager Step handles the actual save
-    // once player + quest manager exist.
-    // --------------------------------------------------
+    // ==================================================
 
     _save_manager.autosave_pending =
         true;
