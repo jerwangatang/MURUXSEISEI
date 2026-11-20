@@ -4,6 +4,45 @@
 
 
 // ==================================================
+// ENDING CHECK - fires once the ask-out dialogue closes
+// ==================================================
+
+if (awaiting_ending && !global.dialogue_active)
+{
+    awaiting_ending = false;
+
+    var _required = ["Memory Charm", "Sunlight Vial", "Courage Stone", "Hope Feather", "Mirror Shard"];
+    var _has_all = true;
+
+    if (!variable_global_exists("dreamscape_items"))
+    {
+        global.dreamscape_items = [];
+    }
+
+    for (var i = 0; i < array_length(_required); i++)
+    {
+        if (!array_contains(global.dreamscape_items, _required[i]))
+        {
+            _has_all = false;
+        }
+    }
+
+    if (_has_all)
+    {
+        audio_play_sound(snd_win, 1, false);
+        room_fade_to(room_credits);
+    }
+    else
+    {
+        audio_play_sound(snd_lose, 1, false);
+        room_fade_to(room_losewholegame);
+    }
+
+    exit;
+}
+
+
+// ==================================================
 // PAUSE CHECK
 // ==================================================
 
@@ -260,44 +299,105 @@ if (_day == 4)
     // ASK CRUSH OUT
     // ==================================================
 
-    dialogue_start(
-        [
-            {
-                speaker: "Muru",
-                text: "Hey... can I ask you something?"
-            },
+    var _required = ["Memory Charm", "Sunlight Vial", "Courage Stone", "Hope Feather", "Mirror Shard"];
+    var _has_all = true;
 
-            {
-                speaker: "Crush",
-                text: "Sure."
-            },
+    if (!variable_global_exists("dreamscape_items"))
+    {
+        global.dreamscape_items = [];
+    }
 
-            {
-                speaker: "Muru",
-                text: "Would you want to hang out sometime?"
-            },
+    for (var i = 0; i < array_length(_required); i++)
+    {
+        if (!array_contains(global.dreamscape_items, _required[i]))
+        {
+            _has_all = false;
+        }
+    }
 
-            {
-                speaker: "Crush",
-                text: "Yeah. I'd like that."
-            },
 
-            {
-                speaker: "Muru",
-                text: "Really?"
-            },
+    if (_has_all)
+    {
+        dialogue_start(
+            [
+                {
+                    speaker: "Muru",
+                    text: "Hey... can I ask you something?"
+                },
 
-            {
-                speaker: "Crush",
-                text: "Really."
-            },
+                {
+                    speaker: "Crush",
+                    text: "Sure."
+                },
 
-            {
-                speaker: "Muru",
-                text: "Okay... I'm glad I asked."
-            }
-        ]
-    );
+                {
+                    speaker: "Muru",
+                    text: "Would you want to hang out sometime?"
+                },
+
+                {
+                    speaker: "Crush",
+                    text: "Yeah. I'd like that."
+                },
+
+                {
+                    speaker: "Muru",
+                    text: "Really?"
+                },
+
+                {
+                    speaker: "Crush",
+                    text: "Really."
+                },
+
+                {
+                    speaker: "Muru",
+                    text: "Okay... I'm glad I asked."
+                }
+            ]
+        );
+    }
+    else
+    {
+        dialogue_start(
+            [
+                {
+                    speaker: "Muru",
+                    text: "Hey... can I ask you something?"
+                },
+
+                {
+                    speaker: "Crush",
+                    text: "Sure."
+                },
+
+                {
+                    speaker: "Muru",
+                    text: "Would you want to hang out sometime?"
+                },
+
+                {
+                    speaker: "Crush",
+                    text: "Oh... sorry, Muru."
+                },
+
+                {
+                    speaker: "Crush",
+                    text: "I don't think I feel that way."
+                },
+
+                {
+                    speaker: "Muru",
+                    text: "Oh. Okay."
+                },
+
+                {
+                    speaker: "Muru",
+                    text: "I... I understand."
+                }
+            ]
+        );
+    }
 
 
     scr_complete_quest(
@@ -311,6 +411,7 @@ if (_day == 4)
 
 
     global.interact_blocked = true;
+    awaiting_ending = true;
 
     exit;
 }
