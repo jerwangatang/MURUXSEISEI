@@ -151,6 +151,10 @@ function scr_get_save_info(_slot)
 
 function scr_save_game(_slot)
 {
+    // ==================================================
+    // REQUIRED OBJECT CHECKS
+    // ==================================================
+
     if (!instance_exists(obj_save_manager))
     {
         show_debug_message(
@@ -180,6 +184,10 @@ function scr_save_game(_slot)
         return false;
     }
 
+
+    // ==================================================
+    // GET INSTANCES
+    // ==================================================
 
     var _save_manager =
         instance_find(
@@ -328,6 +336,69 @@ function scr_save_game(_slot)
     }
 
 
+    if (!variable_global_exists("arcade_return_room"))
+    {
+        global.arcade_return_room =
+            room_town1;
+    }
+
+
+    if (!variable_global_exists("shop_return_room"))
+    {
+        global.shop_return_room =
+            room_town1;
+    }
+
+
+    // ==================================================
+    // MAKE SURE RETURN SYSTEM GLOBALS EXIST
+    // ==================================================
+
+    if (!variable_global_exists("previous_room"))
+    {
+        global.previous_room = -1;
+    }
+
+
+    if (!variable_global_exists("previous_x"))
+    {
+        global.previous_x = 0;
+    }
+
+
+    if (!variable_global_exists("previous_y"))
+    {
+        global.previous_y = 0;
+    }
+
+
+    // ==================================================
+    // PREVIOUS ROOM NAME
+    // ==================================================
+
+    var _previous_room_name = "";
+
+
+    if (global.previous_room != -1)
+    {
+        _previous_room_name =
+            room_get_name(
+                global.previous_room
+            );
+    }
+
+
+    // ==================================================
+    // ARCADE / SHOP RETURN ROOM NAMES
+    // ==================================================
+
+    var _arcade_return_room_name =
+        room_get_name(global.arcade_return_room);
+
+    var _shop_return_room_name =
+        room_get_name(global.shop_return_room);
+
+
     // ==================================================
     // BUILD SAVE DATA
     // ==================================================
@@ -339,7 +410,7 @@ function scr_save_game(_slot)
         // --------------------------------------------------
 
         version:
-            2,
+            4,
 
 
         // --------------------------------------------------
@@ -351,7 +422,7 @@ function scr_save_game(_slot)
 
 
         // --------------------------------------------------
-        // ROOM
+        // CURRENT ROOM
         // --------------------------------------------------
 
         room_name:
@@ -362,7 +433,7 @@ function scr_save_game(_slot)
 
 
         // --------------------------------------------------
-        // PLAYER
+        // PLAYER POSITION
         // --------------------------------------------------
 
         player_x:
@@ -370,6 +441,20 @@ function scr_save_game(_slot)
 
         player_y:
             _player.y,
+
+
+        // --------------------------------------------------
+        // PREVIOUS ROOM / RETURN POSITION
+        // --------------------------------------------------
+
+        previous_room_name:
+            _previous_room_name,
+
+        previous_x:
+            global.previous_x,
+
+        previous_y:
+            global.previous_y,
 
 
         // --------------------------------------------------
@@ -401,6 +486,23 @@ function scr_save_game(_slot)
 
         house_visited:
             _manager.house_visited,
+
+        day4_people_talked:
+            _manager.day4_people_talked,
+
+        talked_npcs:
+            _manager.talked_npcs,
+
+
+        // --------------------------------------------------
+        // RETURN-ROOM STATE
+        // --------------------------------------------------
+
+        arcade_return_room_name:
+            _arcade_return_room_name,
+
+        shop_return_room_name:
+            _shop_return_room_name,
 
 
         // --------------------------------------------------
@@ -726,6 +828,159 @@ function scr_load_game(_slot)
 
 
     // ==================================================
+    // RESTORE ARCADE / SHOP RETURN ROOMS
+    // ==================================================
+
+    global.arcade_return_room =
+        room_town1;
+
+    global.shop_return_room =
+        room_town1;
+
+
+    if (
+        variable_struct_exists(
+            _data,
+            "arcade_return_room_name"
+        )
+        &&
+        _data.arcade_return_room_name != ""
+    )
+    {
+        var _arcade_return_room =
+            asset_get_index(
+                _data.arcade_return_room_name
+            );
+
+
+        if (_arcade_return_room != -1)
+        {
+            global.arcade_return_room =
+                _arcade_return_room;
+        }
+    }
+
+
+    if (
+        variable_struct_exists(
+            _data,
+            "shop_return_room_name"
+        )
+        &&
+        _data.shop_return_room_name != ""
+    )
+    {
+        var _shop_return_room =
+            asset_get_index(
+                _data.shop_return_room_name
+            );
+
+
+        if (_shop_return_room != -1)
+        {
+            global.shop_return_room =
+                _shop_return_room;
+        }
+    }
+
+
+    // ==================================================
+    // RESTORE PREVIOUS ROOM SYSTEM
+    // ==================================================
+
+    global.previous_room =
+        -1;
+
+    global.previous_x =
+        0;
+
+    global.previous_y =
+        0;
+
+
+    // --------------------------------------------------
+    // PREVIOUS ROOM
+    // --------------------------------------------------
+
+    if (
+        variable_struct_exists(
+            _data,
+            "previous_room_name"
+        )
+    )
+    {
+        if (
+            _data.previous_room_name
+            !=
+            ""
+        )
+        {
+            var _previous_room =
+                asset_get_index(
+                    _data.previous_room_name
+                );
+
+
+            if (_previous_room != -1)
+            {
+                global.previous_room =
+                    _previous_room;
+            }
+        }
+    }
+
+
+    // --------------------------------------------------
+    // PREVIOUS X
+    // --------------------------------------------------
+
+    if (
+        variable_struct_exists(
+            _data,
+            "previous_x"
+        )
+    )
+    {
+        global.previous_x =
+            _data.previous_x;
+    }
+
+
+    // --------------------------------------------------
+    // PREVIOUS Y
+    // --------------------------------------------------
+
+    if (
+        variable_struct_exists(
+            _data,
+            "previous_y"
+        )
+    )
+    {
+        global.previous_y =
+            _data.previous_y;
+    }
+
+
+    // ==================================================
+    // RESET ACTIVE RETURN SPAWN
+    //
+    // We want previous_room remembered,
+    // but we do NOT want an unfinished room transition
+    // carrying across a load.
+    // ==================================================
+
+    global.return_spawn_pending =
+        false;
+
+    global.return_spawn_x =
+        0;
+
+    global.return_spawn_y =
+        0;
+
+
+    // ==================================================
     // TARGET ROOM
     // ==================================================
 
@@ -821,6 +1076,17 @@ function scr_start_new_game(_slot)
 
 
     // ==================================================
+    // RESET ARCADE / SHOP RETURN ROOMS
+    // ==================================================
+
+    global.arcade_return_room =
+        room_town1;
+
+    global.shop_return_room =
+        room_town1;
+
+
+    // ==================================================
     // RESET RETURN POSITION SYSTEM
     // ==================================================
 
@@ -832,6 +1098,7 @@ function scr_start_new_game(_slot)
 
     global.previous_y =
         0;
+
 
     global.return_spawn_pending =
         false;

@@ -1,4 +1,14 @@
 // ==================================================
+// PREVENT DUPLICATE QUEST MANAGERS
+// ==================================================
+
+if (instance_number(obj_quest_manager) > 1)
+{
+    instance_destroy();
+    exit;
+}
+
+// ==================================================
 // QUEST MANAGER - CREATE
 // ==================================================
 
@@ -279,23 +289,34 @@ array_push(
 // ==================================================
 
 homework_progress = 0;
+
 homework_total = 4;
 
 
 // ==================================================
-// HOUSE EXPLORATION
+// TOWN 1 BUILDING EXPLORATION
+// ==================================================
+//
+// [0] Muru's House - already visited
+// [1] Tutor's House
+// [2] 8/11
+// [3] Coco's Amusement
+//
 // ==================================================
 
 house_ids =
 [
     "muru",
-    "neighbour",
-    "tutor"
+    "tutor",
+    "811",
+    "cocos"
 ];
+
 
 house_visited =
 [
     true,
+    false,
     false,
     false
 ];

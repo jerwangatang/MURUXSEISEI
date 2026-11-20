@@ -37,7 +37,7 @@ if (!instance_exists(obj_player))
 
 
 // --------------------------------------------------
-// CHECK IF PLAYER IS NEAR EXIT
+// CHECK IF MURU IS NEAR EXIT
 // --------------------------------------------------
 
 var _player_near =
@@ -57,7 +57,7 @@ can_interact =
 
 
 // --------------------------------------------------
-// PRESS ENTER TO EXIT
+// PRESS ENTER
 // --------------------------------------------------
 
 if (
@@ -66,49 +66,66 @@ if (
     keyboard_check_pressed(vk_enter)
 )
 {
-    // Make sure previous room exists
+    // ==================================================
+    // NORMAL RETURN
+    // Muru entered this room from somewhere else
+    // ==================================================
+
     if (
-        !variable_global_exists("previous_room")
-        ||
-        global.previous_room == -1
+        variable_global_exists("previous_room")
+        &&
+        global.previous_room != -1
     )
     {
-        show_debug_message(
-            "EXIT ERROR: previous_room has not been saved."
+        global.return_spawn_pending =
+            true;
+
+        global.return_spawn_x =
+            global.previous_x;
+
+        global.return_spawn_y =
+            global.previous_y;
+
+
+        room_fade_to(
+            global.previous_room
         );
 
         exit;
     }
 
 
-    // Make sure previous position exists
-    if (
-        !variable_global_exists("previous_x")
-        ||
-        !variable_global_exists("previous_y")
-    )
+    // ==================================================
+    // FIRST GAME START
+    // Muru begins inside her house, so there is no
+    // previous room yet.
+    // ==================================================
+
+    if (room == room_muruhouse)
     {
-        show_debug_message(
-            "EXIT ERROR: previous position has not been saved."
+        global.return_spawn_pending =
+            true;
+
+        global.return_spawn_x =
+            792;
+
+        global.return_spawn_y =
+            400;
+
+
+        room_fade_to(
+            room_town1
         );
 
         exit;
     }
 
 
-    // Save return position
-    global.return_spawn_pending =
-        true;
+    // ==================================================
+    // DEBUG
+    // ==================================================
 
-    global.return_spawn_x =
-        global.previous_x;
-
-    global.return_spawn_y =
-        global.previous_y;
-
-
-    // Return to previous room
-    room_fade_to(
-        global.previous_room
+    show_debug_message(
+        "EXIT ERROR: No previous room has been saved."
     );
 }

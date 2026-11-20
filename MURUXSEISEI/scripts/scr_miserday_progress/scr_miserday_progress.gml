@@ -9,8 +9,13 @@ function scr_quest_done(_quest_id)
         return false;
     }
 
+
     var _manager =
-        instance_find(obj_quest_manager, 0);
+        instance_find(
+            obj_quest_manager,
+            0
+        );
+
 
     var _day =
         _manager.days[
@@ -24,7 +29,11 @@ function scr_quest_done(_quest_id)
         i++
     )
     {
-        if (_day.quests[i].id == _quest_id)
+        if (
+            _day.quests[i].id
+            ==
+            _quest_id
+        )
         {
             return _day.quests[i].done;
         }
@@ -46,11 +55,14 @@ function scr_homework_progress(_amount)
         return 0;
     }
 
+
     var _manager =
-        instance_find(obj_quest_manager, 0);
+        instance_find(
+            obj_quest_manager,
+            0
+        );
 
 
-    // Only Miserday
     if (_manager.current_day_index != 0)
     {
         return _manager.homework_progress;
@@ -59,7 +71,9 @@ function scr_homework_progress(_amount)
 
     _manager.homework_progress =
         clamp(
-            _manager.homework_progress + _amount,
+            _manager.homework_progress
+            +
+            _amount,
             0,
             _manager.homework_total
         );
@@ -67,14 +81,16 @@ function scr_homework_progress(_amount)
 
     var _half =
         ceil(
-            _manager.homework_total / 2
+            _manager.homework_total
+            /
+            2
         );
 
 
-    // Half finished
     if (
         _manager.homework_progress
-        >= _half
+        >=
+        _half
     )
     {
         scr_complete_quest(
@@ -88,7 +104,7 @@ function scr_homework_progress(_amount)
 
 
 // ==================================================
-// MISERDAY HOUSE EXPLORATION
+// DAY 1 - TOWN BUILDING EXPLORATION
 // ==================================================
 
 function scr_visit_house(_house_id)
@@ -100,19 +116,73 @@ function scr_visit_house(_house_id)
 
 
     var _manager =
-        instance_find(obj_quest_manager, 0);
+        instance_find(
+            obj_quest_manager,
+            0
+        );
 
 
-    // Only Miserday
+    // ==================================================
+    // ONLY DAY 1
+    // ==================================================
+
     if (_manager.current_day_index != 0)
     {
         return false;
     }
 
 
-    // --------------------------------------------------
-    // MARK HOUSE VISITED
-    // --------------------------------------------------
+    // ==================================================
+    // OLD SAVE COMPATIBILITY
+    //
+    // Old saves had:
+    // [muru, neighbour, tutor]
+    //
+    // New version uses:
+    // [muru, tutor, 811, cocos]
+    // ==================================================
+
+    if (
+        array_length(
+            _manager.house_visited
+        )
+        !=
+        array_length(
+            _manager.house_ids
+        )
+    )
+    {
+        _manager.house_visited =
+        [
+            true,
+            false,
+            false,
+            false
+        ];
+    }
+
+
+    // ==================================================
+    // QUEST ALREADY COMPLETE
+    // ==================================================
+
+    if (
+        scr_quest_done(
+            "explore_houses"
+        )
+    )
+    {
+        return true;
+    }
+
+
+    // ==================================================
+    // FIND BUILDING
+    // ==================================================
+
+    var _found =
+        false;
+
 
     for (
         var i = 0;
@@ -122,20 +192,59 @@ function scr_visit_house(_house_id)
     {
         if (
             _manager.house_ids[i]
-            == _house_id
+            ==
+            _house_id
         )
         {
-            _manager.house_visited[i] = true;
+            _found =
+                true;
+
+
+            // Only mark first visit
+            if (
+                !_manager.house_visited[i]
+            )
+            {
+                _manager.house_visited[i] =
+                    true;
+
+
+                show_debug_message(
+                    "BUILDING VISITED: "
+                    +
+                    _house_id
+                );
+            }
+
+
             break;
         }
     }
 
 
-    // --------------------------------------------------
-    // CHECK ALL HOUSES
-    // --------------------------------------------------
+    // ==================================================
+    // INVALID BUILDING
+    // ==================================================
 
-    var _all_visited = true;
+    if (!_found)
+    {
+        show_debug_message(
+            "UNKNOWN BUILDING ID: "
+            +
+            _house_id
+        );
+
+
+        return false;
+    }
+
+
+    // ==================================================
+    // CHECK ALL BUILDINGS
+    // ==================================================
+
+    var _all_visited =
+        true;
 
 
     for (
@@ -144,22 +253,36 @@ function scr_visit_house(_house_id)
         j++
     )
     {
-        if (!_manager.house_visited[j])
+        if (
+            !_manager.house_visited[j]
+        )
         {
-            _all_visited = false;
+            _all_visited =
+                false;
+
             break;
         }
     }
 
 
-    // --------------------------------------------------
+    // ==================================================
     // COMPLETE QUEST
-    // --------------------------------------------------
+    // ==================================================
 
     if (_all_visited)
     {
         scr_complete_quest(
             "explore_houses"
+        );
+
+
+        scr_request_autosave(
+            "explored all Town 1 buildings"
+        );
+
+
+        show_debug_message(
+            "QUEST COMPLETE: Explore the town buildings"
         );
     }
 

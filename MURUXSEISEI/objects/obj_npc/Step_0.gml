@@ -95,10 +95,12 @@ if (
 
     var _day_index = 0;
 
+    var _manager = noone;
+
 
     if (instance_exists(obj_quest_manager))
     {
-        var _manager =
+        _manager =
             instance_find(
                 obj_quest_manager,
                 0
@@ -129,8 +131,7 @@ if (
         ];
 
 
-    // If this NPC has no special dialogue for
-    // the current day, use default dialogue.
+    // No special dialogue = use default
     if (
         array_length(_dialogue)
         <= 0
@@ -159,20 +160,51 @@ if (
 
 
     // ==================================================
-    // OPTIONAL QUEST COMPLETION
+    // DAY 3 - TALK TO SOMEONE
+    //
+    // ANY generic NPC counts.
     // ==================================================
 
-    var _quest_id =
-        quest_ids[
-            _day_index
-        ];
-
-
-    if (_quest_id != "")
+    if (_day_index == 2)
     {
-        scr_complete_quest(
-            _quest_id
-        );
+        if (
+            !scr_quest_done(
+                "talk_someone_day3"
+            )
+        )
+        {
+            scr_complete_quest(
+                "talk_someone_day3"
+            );
+
+
+            scr_request_autosave(
+                "talked to someone on Day 3"
+            );
+        }
+    }
+
+
+    // ==================================================
+    // OPTIONAL NPC-SPECIFIC QUEST COMPLETION
+    //
+    // Day 3 is handled above for every NPC.
+    // ==================================================
+
+    if (_day_index != 2)
+    {
+        var _quest_id =
+            quest_ids[
+                _day_index
+            ];
+
+
+        if (_quest_id != "")
+        {
+            scr_complete_quest(
+                _quest_id
+            );
+        }
     }
 
 
@@ -183,21 +215,14 @@ if (
     if (
         _day_index == 3
         &&
-        instance_exists(obj_quest_manager)
+        _manager != noone
     )
     {
-        var _manager =
-            instance_find(
-                obj_quest_manager,
-                0
-            );
-
-
         var _already_talked =
             false;
 
 
-        // Check whether this NPC was already counted
+        // Check whether this NPC already counted
         for (
             var i = 0;
             i < array_length(

@@ -1,32 +1,43 @@
 // ==================================================
-// BLOCK INTERACTION WHILE PAUSED
-// ==================================================
-
-if (global.game_paused)
-{
-    exit;
-}
-
-if (global.dialogue_active)
-{
-    exit;
-}
-
-// ==================================================
 // BASKETBALL TRIGGER - STEP
 // ==================================================
 
+can_interact = false;
+
+
 if (global.game_paused)
 {
     exit;
 }
+
 
 if (global.dialogue_active)
 {
     exit;
 }
 
+
 if (!instance_exists(obj_player))
+{
+    exit;
+}
+
+
+if (!instance_exists(obj_quest_manager))
+{
+    exit;
+}
+
+
+var _manager =
+    instance_find(
+        obj_quest_manager,
+        0
+    );
+
+
+// Basketball quest is Day 4 only
+if (_manager.current_day_index != 3)
 {
     exit;
 }
@@ -39,22 +50,21 @@ var _player =
     );
 
 
-var _near =
-    _player.bbox_right
-        >= bbox_left - interaction_margin
-    &&
-    _player.bbox_left
-        <= bbox_right + interaction_margin
-    &&
-    _player.bbox_bottom
-        >= bbox_top - interaction_margin
-    &&
-    _player.bbox_top
-        <= bbox_bottom + interaction_margin;
+var _distance =
+    point_distance(
+        x,
+        y,
+        _player.x,
+        _player.y
+    );
+
+
+can_interact =
+    (_distance <= interaction_distance);
 
 
 if (
-    _near
+    can_interact
     &&
     keyboard_check_pressed(vk_enter)
 )
@@ -62,4 +72,6 @@ if (
     room_fade_to(
         room_basketball
     );
+
+    exit;
 }

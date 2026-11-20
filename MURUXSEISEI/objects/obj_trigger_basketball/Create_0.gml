@@ -1,1 +1,7 @@
-interaction_margin = 24;
+// ==================================================
+// BASKETBALL TRIGGER - CREATE
+// ==================================================
+
+interaction_distance = 70;
+
+can_interact = false;

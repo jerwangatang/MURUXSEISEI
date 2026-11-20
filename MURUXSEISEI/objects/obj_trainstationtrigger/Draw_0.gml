@@ -2,11 +2,20 @@
 // TRAIN STATION TRIGGER - DRAW
 // ==================================================
 
-// Do NOT draw the trigger sprite.
-// Only draw the interaction star.
+// Do not draw_self()
+// so the trigger itself stays invisible.
 
-draw_interaction_star(
-    0,
-    0.06,
-    12
-);
+if (
+    can_interact
+    &&
+    !global.game_paused
+    &&
+    !global.dialogue_active
+)
+{
+    draw_interaction_star(
+        0,
+        0.06,
+        12
+    );
+}

@@ -377,6 +377,56 @@ if (load_pending)
 
 
             // ==================================================
+            // DAY 4 NPC TALKING PROGRESS
+            // ==================================================
+
+            if (
+                variable_struct_exists(
+                    pending_data,
+                    "talked_npcs"
+                )
+            )
+            {
+                _load_manager.talked_npcs =
+                    pending_data.talked_npcs;
+
+                // Keep the counter consistent with the
+                // number of unique NPCs actually saved.
+                _load_manager.day4_people_talked =
+                    array_length(
+                        _load_manager.talked_npcs
+                    );
+            }
+            else if (
+                variable_struct_exists(
+                    pending_data,
+                    "day4_people_talked"
+                )
+            )
+            {
+                // Compatibility with a save that has the
+                // counter but not the NPC-name array.
+                _load_manager.day4_people_talked =
+                    max(
+                        0,
+                        pending_data.day4_people_talked
+                    );
+
+                _load_manager.talked_npcs =
+                    [];
+            }
+            else
+            {
+                // Old save compatibility.
+                _load_manager.day4_people_talked =
+                    0;
+
+                _load_manager.talked_npcs =
+                    [];
+            }
+
+
+            // ==================================================
             // OLD HOTBAR SAVE FORMAT
             // ==================================================
 

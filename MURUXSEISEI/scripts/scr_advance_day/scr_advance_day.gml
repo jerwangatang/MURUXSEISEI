@@ -38,7 +38,7 @@ function scr_advance_day()
     )
     {
         // Save current hotbar state before changing day
-        scr_hotbar_snapshot_Save();
+        scr_hotbar_snapshot_save();
 
 
         // Advance day
@@ -78,7 +78,7 @@ function scr_advance_day()
     // ==================================================
 
     // Save hotbar one final time
-    scr_hotbar_snapshot_Save();
+    scr_hotbar_snapshot_save();
 
 
     show_debug_message(

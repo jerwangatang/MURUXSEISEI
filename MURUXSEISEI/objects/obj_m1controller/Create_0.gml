@@ -1,10 +1,17 @@
-score = 0;
+// ==================================================
+// MINIGAME 1 CONTROLLER - CREATE
+// ==================================================
+
+global.m1_score = 0;
+
 win_score = 10;
+
 spawn_timer = 0;
 spawn_interval = 60;
 
+
 // ==================================================
-// SANITY SYSTEM
+// SANITY
 // ==================================================
 
 if (!variable_global_exists("max_sanity"))

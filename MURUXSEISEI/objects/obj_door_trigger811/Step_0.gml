@@ -7,16 +7,22 @@ if (global.game_paused)
     exit;
 }
 
+
 if (global.dialogue_active)
 {
     exit;
 }
+
 
 if (!instance_exists(obj_player))
 {
     exit;
 }
 
+
+// ==================================================
+// INTERACT
+// ==================================================
 
 if (
     place_meeting(
@@ -35,23 +41,47 @@ if (
     );
 
 
-    // Keep this for compatibility with your shop system
+    // ==================================================
+    // REMEMBER SHOP RETURN ROOM
+    // ==================================================
+
     global.shop_return_room =
         room;
 
 
     // ==================================================
-    // DAY 5 RELATIVEMART QUEST
+    // DAY 1 - EXPLORE TOWN BUILDINGS
+    // ==================================================
+
+    if (room == room_town1)
+    {
+        scr_visit_house(
+            "811"
+        );
+    }
+
+
+    // ==================================================
+    // DAY 5 - RELATIVEMART
     // ==================================================
 
     if (
         room == room_town2
         &&
-        instance_exists(obj_quest_manager)
+        instance_exists(
+            obj_quest_manager
+        )
     )
     {
+        var _manager =
+            instance_find(
+                obj_quest_manager,
+                0
+            );
+
+
         if (
-            obj_quest_manager.current_day_index
+            _manager.current_day_index
             ==
             4
         )
@@ -66,6 +96,7 @@ if (
                     "relativemart_day5"
                 );
 
+
                 scr_request_autosave(
                     "visited RelativeMart"
                 );
@@ -74,7 +105,10 @@ if (
     }
 
 
-    // Remember exact position and enter
+    // ==================================================
+    // ENTER 8/11
+    // ==================================================
+
     scr_enter_room(
         room_811
     );

@@ -2,9 +2,6 @@
 // EXIT PREVIOUS - DRAW
 // ==================================================
 
-// Do not draw_self()
-// so the trigger remains invisible.
-
 if (
     can_interact
     &&
