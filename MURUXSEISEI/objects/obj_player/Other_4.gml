@@ -3,9 +3,9 @@
 // ==================================================
 
 
-// --------------------------------------------------
+// ==================================================
 // INITIALISE RETURN SYSTEM
-// --------------------------------------------------
+// ==================================================
 
 if (!variable_global_exists("previous_room"))
 {
@@ -38,9 +38,58 @@ if (!variable_global_exists("return_spawn_y"))
 }
 
 
-// --------------------------------------------------
-// RETURN TO PREVIOUS POSITION
-// --------------------------------------------------
+// ==================================================
+// ARCADE RETURN SPAWN
+// ==================================================
+
+if (!variable_global_exists("arcade_spawn_pending"))
+{
+    global.arcade_spawn_pending = false;
+}
+
+
+// ==================================================
+// MAKE SURE MURU IS VISIBLE
+// ==================================================
+
+visible = true;
+
+image_alpha = 1;
+
+
+// ==================================================
+// RETURNING FROM AN ARCADE MINIGAME
+// ==================================================
+
+if (
+    room == room_arcade1
+    &&
+    global.arcade_spawn_pending
+)
+{
+    // Known-good arcade player position
+    x = 256;
+    y = 128;
+
+
+    // Prevent old room-return coordinates
+    // from moving Muru somewhere else.
+    global.return_spawn_pending = false;
+
+    global.arcade_spawn_pending = false;
+
+
+    show_debug_message(
+        "ARCADE RETURN: Muru spawned at 256, 128"
+    );
+
+    exit;
+}
+
+
+// ==================================================
+// NORMAL RETURN TO PREVIOUS POSITION
+// ==================================================
 
 if (global.return_spawn_pending)
 {

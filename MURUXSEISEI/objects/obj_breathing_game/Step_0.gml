@@ -14,7 +14,26 @@ if (finished)
 
     if (finish_timer <= 0)
     {
-        room_fade_to(room_arcade1);
+        // ==================================================
+        // RETURN TO ARCADE
+        // ==================================================
+
+        global.arcade_spawn_pending =
+            true;
+
+
+        // Do not allow an old previous-room spawn
+        // to affect the arcade player.
+        global.return_spawn_pending =
+            false;
+
+
+        room_fade_to(
+            room_arcade1
+        );
+
+
+        exit;
     }
 
 
@@ -28,7 +47,18 @@ if (finished)
 
 if (keyboard_check_pressed(vk_escape))
 {
-    room_fade_to(room_arcade1);
+    global.arcade_spawn_pending =
+        true;
+
+
+    global.return_spawn_pending =
+        false;
+
+
+    room_fade_to(
+        room_arcade1
+    );
+
 
     exit;
 }
@@ -123,6 +153,7 @@ else if (phase == 1)
         {
             finished = true;
 
+
             finish_timer =
                 room_speed * 3;
 
@@ -131,7 +162,9 @@ else if (phase == 1)
             // SANITY REWARD
             // ==================================================
 
-            sanity_change(5);
+            sanity_change(
+                5
+            );
 
 
             // ==================================================
@@ -165,10 +198,9 @@ else if (phase == 1)
                     room_town1
                 )
                 {
-                    // ==============================================
+                    // ==================================================
                     // DAY 1
-                    // Play a game at Coco's
-                    // ==============================================
+                    // ==================================================
 
                     if (_day == 0)
                     {
@@ -190,10 +222,9 @@ else if (phase == 1)
                     }
 
 
-                    // ==============================================
+                    // ==================================================
                     // DAY 2
-                    // Play another game at Coco's
-                    // ==============================================
+                    // ==================================================
 
                     else if (_day == 1)
                     {
@@ -226,10 +257,9 @@ else if (phase == 1)
                     room_town2
                 )
                 {
-                    // ==============================================
+                    // ==================================================
                     // DAY 3
-                    // Play games at Clockzone
-                    // ==============================================
+                    // ==================================================
 
                     if (_day == 2)
                     {
@@ -251,10 +281,9 @@ else if (phase == 1)
                     }
 
 
-                    // ==============================================
+                    // ==================================================
                     // DAY 4
-                    // Play a game at Clockzone
-                    // ==============================================
+                    // ==================================================
 
                     else if (_day == 3)
                     {
@@ -276,10 +305,9 @@ else if (phase == 1)
                     }
 
 
-                    // ==============================================
-                    // DAY 5
-                    // BUILD UP COURAGE
-                    // ==============================================
+                    // ==================================================
+                    // DAY 5 - BUILD UP COURAGE
+                    // ==================================================
 
                     else if (_day == 4)
                     {
@@ -310,9 +338,13 @@ else if (phase == 1)
 
         else
         {
-            phase = 0;
+            phase =
+                0;
 
-            breath_progress = 0;
+
+            breath_progress =
+                0;
+
 
             circle_radius =
                 circle_min;
