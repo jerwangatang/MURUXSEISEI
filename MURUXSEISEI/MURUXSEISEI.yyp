@@ -252,10 +252,10 @@
   "resourceType":"GMProject",
   "resourceVersion":"2.0",
   "RoomOrderNodes":[
-    {"roomId":{"name":"room_losewholegame","path":"rooms/room_losewholegame/room_losewholegame.yy",},},
-    {"roomId":{"name":"room_credits","path":"rooms/room_credits/room_credits.yy",},},
     {"roomId":{"name":"room_titlescreen","path":"rooms/room_titlescreen/room_titlescreen.yy",},},
     {"roomId":{"name":"room_town2","path":"rooms/room_town2/room_town2.yy",},},
+    {"roomId":{"name":"room_credits","path":"rooms/room_credits/room_credits.yy",},},
+    {"roomId":{"name":"room_losewholegame","path":"rooms/room_losewholegame/room_losewholegame.yy",},},
     {"roomId":{"name":"room_basketball","path":"rooms/room_basketball/room_basketball.yy",},},
     {"roomId":{"name":"room_catchthefallingthoughts","path":"rooms/room_catchthefallingthoughts/room_catchthefallingthoughts.yy",},},
     {"roomId":{"name":"room_muruhouse","path":"rooms/room_muruhouse/room_muruhouse.yy",},},
